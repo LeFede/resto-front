@@ -1,0 +1,9 @@
+.clase {
+  background: red;
+}
+
+@media (width >= 768px) {
+  .clase {
+    background: blue;
+  }
+}

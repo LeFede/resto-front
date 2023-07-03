@@ -2,7 +2,7 @@
   background: var(--black-1);
   color: var(--white-1);
   font-size: clamp(10px, .666vw, 20px);
-  font-family: 'Ubuntu', sans-serif;
+  font-family: var(--font-1), sans-serif;
 }
 
 html, body {

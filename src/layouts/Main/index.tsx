@@ -1,9 +1,14 @@
 import { Outlet } from "react-router-dom"
+import { Nav, Footer } from "@/components"
 
 export const Main = () => {
   return (
     <>
-      <Outlet/>
+      <Nav />
+      <main>
+        <Outlet/>
+      </main>
+      <Footer />
     </>
   )
 }
