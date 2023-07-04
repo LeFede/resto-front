@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+
+
 const initialState = {
+  menus:[],
 }
 
 // export const fetchVideogames = createAsyncThunk("videogames/fetch", async (thunkAPI) => {
@@ -14,7 +17,10 @@ export const restoSlice = createSlice({
   name: "resto",
   initialState,
   reducers: {
-
+    getActivities: (state,{payload})=>{
+      const data = payload;
+      state.menus = data;
+  }
   }, 
   extraReducers: (builder) => {
     // builder.addCase(fetchVideogames.fulfilled, (state, action) => {
@@ -24,5 +30,6 @@ export const restoSlice = createSlice({
 })
 
 export const { 
+  getActivities
 } = restoSlice.actions
 export default restoSlice.reducer

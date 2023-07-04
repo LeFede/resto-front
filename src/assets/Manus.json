@@ -1,0 +1,44 @@
+[
+    {
+        "name":"mila",
+        "img":"img",
+        "price":"1000",
+        "tipo":"carne",
+        "description":"lorem lorem lorem lorem lorem loremlorem"
+    },
+    {
+        "name":"tomate y huevo",
+        "img":"img",
+        "price":"1000",
+        "tipo":"ensalada",
+        "description":"lorem lorem lorem lorem lorem loremlorem"
+    },
+    {
+        "name":"pasto",
+        "img":"img",
+        "price":"1000",
+        "tipo":"vegano",
+        "description":"lorem lorem lorem lorem lorem loremlorem"
+    },
+    {
+        "name":"pollo",
+        "img":"img",
+        "price":"1000",
+        "tipo":"carne",
+        "description":"lorem lorem lorem lorem lorem loremlorem"
+    },
+    {
+        "name":"coca",
+        "img":"img",
+        "price":"1000",
+        "tipo":"bebidas",
+        "description":"lorem lorem lorem lorem lorem loremlorem"
+    },
+    {
+        "name":"helado",
+        "img":"img",
+        "price":"1000",
+        "tipo":"postre",
+        "description":"lorem lorem lorem lorem lorem loremlorem"
+    }
+]
