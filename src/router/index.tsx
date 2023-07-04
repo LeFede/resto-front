@@ -1,10 +1,17 @@
 import { Main } from "@/layouts";
-import { About, Home, NotFound } from "@/pages";
+import { About, Home, LoginPage, NotFound } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
+
+
   {
     path: "/",
+    element:<LoginPage/>
+  },
+
+  {
+    path: "/home",
     element: <Main/>,
     errorElement: <NotFound />,
     children: [
@@ -16,8 +23,10 @@ export const router = createBrowserRouter([
         path: "about",
         element: <About />
       },
+      
     ]
   }
+
   // {
   //   index: true,
   //   element: <Welcome />,
