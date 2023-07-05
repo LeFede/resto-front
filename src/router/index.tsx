@@ -3,21 +3,18 @@ import { About, Home, LoginPage, NotFound } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
-
-
   {
     path: "/",
-    element:<LoginPage/>
+    element: <LoginPage />
   },
-
   {
     path: "/home",
-    element: <Main/>,
+    element: <Main />,
     errorElement: <NotFound />,
     children: [
       {
         index: true,
-        element: <Home/>
+        element: <Home />
       },
       {
         path: "about",
