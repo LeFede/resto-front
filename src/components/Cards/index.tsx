@@ -1,4 +1,6 @@
 import { useSelector } from 'react-redux';
+import styles from "./index.module.css"
+
 
 type Menu = {
   name: string;
@@ -8,15 +10,15 @@ type Menu = {
   description: string;
 };
 
-export const Card = () => {
+export const Cards = () => {
   const menus: Menu[] = useSelector((state: { menus: Menu[] }) => state.menus);
-  console.log(Card);
+  
   
   return (
     <>
-      <div>
+      <div className={styles['Container-Menus']}>
       {menus.map((menu, index) => (
-        <div key={index}>
+        <div key={index}  className={styles['Menus']}>
           <h2>{menu.name}</h2>
           <img src={menu.img} alt={menu.name} />
           <p>{menu.price}$</p>

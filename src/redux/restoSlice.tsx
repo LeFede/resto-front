@@ -17,7 +17,7 @@ export const restoSlice = createSlice({
   name: "resto",
   initialState,
   reducers: {
-    getActivities: (state,{payload})=>{
+    getMenus: (state,{payload})=>{
       const data = payload;
       state.menus = data;
   }
@@ -30,6 +30,6 @@ export const restoSlice = createSlice({
 })
 
 export const { 
-  getActivities
+  getMenus
 } = restoSlice.actions
 export default restoSlice.reducer

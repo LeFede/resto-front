@@ -1,1 +1,1 @@
-import card from "./Cards"
+export * from "./Cards"

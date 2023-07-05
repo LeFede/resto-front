@@ -1,8 +1,31 @@
 import { react } from "@/assets"
+import data from "@/assets/Manus.json"
+import { getMenus } from "../../redux/restoSlice"
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { Cards } from "@/components"
 
 export const Home = () => {
+
+  const dispatch = useDispatch()
+  const datas = data
+  useEffect(() => {
+    const fetchMenus = () => {
+      try {
+        const menus: Array<string | object> = datas.map(data => data);
+        dispatch(getMenus(menus));
+      } catch (error) {
+        console.log("Error en los Menus");
+        throw error;
+      }
+    };
+
+    fetchMenus();
+  }, []);
+
   return (
     <>
+    <Cards/>
       <h1>Home h1</h1>
       <h2>Home hsdgasdfhdfghdfgk2</h2>
       <h3>Home sdfghsdwfghdfgjh3</h3>
