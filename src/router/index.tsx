@@ -1,3 +1,4 @@
+import { FormMenu } from "@/components/FormMenu";
 import { Main } from "@/layouts";
 import { About, Home, LoginPage, NotFound } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
@@ -8,6 +9,10 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element:<LoginPage/>
+  },
+  {
+    path: "/form",
+    element:<FormMenu/>
   },
 
   {
