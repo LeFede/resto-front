@@ -1,24 +1,15 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux"
 import styles from "./index.module.css"
-
-
-type Menu = {
-  name: string;
-  img: string;
-  price: string;
-  tipo: string;
-  description: string;
-};
+import { Menu } from "@/types"
 
 export const Cards = () => {
-  const menus: Menu[] = useSelector((state: { menus: Menu[] }) => state.menus);
-
+  const menus: Menu[] = useSelector((state: { menus: Menu[] }) => state.menus)
 
   return (
     <>
-      <div className={styles['Container-Menus']}>
+      <div className={styles["Container-Menus"]}>
       {menus.map((menu, index) => (
-        <div key={index}  className={styles['Menus']}>
+        <div key={index}  className={styles["Menus"]}>
           <h2>{menu.name}</h2>
           <img src={menu.img} className={styles.img} alt={menu.name} />
           <p>{menu.price}$</p>
