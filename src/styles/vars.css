@@ -13,5 +13,10 @@
 
   --tablet: 768px;
   --desktop: 1024px;
+
+  --background-1: #C5B490;
+  --color-1: #72503D;
+  --color-2: #523A2C; 
+  --color-3: #231611;
 }
 
