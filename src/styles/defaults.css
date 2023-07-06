@@ -1,6 +1,6 @@
 :root {
-  background: var(--black-1);
-  color: var(--white-1);
+  background: var(--background-1);
+  color: var(--color-3);
   font-size: clamp(10px, .666vw, 20px);
   font-family: var(--font-1), sans-serif;
 }
