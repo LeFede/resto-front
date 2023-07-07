@@ -15,3 +15,13 @@ export type Menu = {
 export type State = {
   menus: Menu[]
 }
+
+export interface FormMenuData { 
+  name: string
+  precio: string
+  descripcion: string
+  tipo: string
+}
+
+export type InputSelect = React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>
+

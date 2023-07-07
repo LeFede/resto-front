@@ -1,4 +1,5 @@
 import styles from './TableForm.module.css'
+import { InputSelect } from '@/types'
 import { useState } from 'react'
 
 
@@ -8,19 +9,16 @@ export const TableForm = () => {
   const [userData, setUserData]  = useState({
     size:'',
     mesa:''
+  })
 
-})
-
-    const handlerChange = (event)=>{
+    const handlerChange = (event: InputSelect)=>{
         event.preventDefault()
         console.log(event);
         setUserData({
           ...userData,
           [event.target.name]: event.target.value
         })
-        
-    
-      }
+    }
 
   return (
     <div className={styles.formTable}>
