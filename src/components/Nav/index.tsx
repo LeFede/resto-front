@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import styles from "./nav.module.css"
+import styles from "./Nav.module.css"
 import { useState } from "react"
 
 export const Nav = () => {
