@@ -1,4 +1,5 @@
 import { FormMenu } from "@/components/FormMenu";
+import { TableForm } from "@/components/TableForm";
 import { Main } from "@/layouts";
 import { About, Home, LoginPage, NotFound, Orders } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
@@ -11,6 +12,10 @@ export const router = createBrowserRouter([
   {
     path: "/form",
     element:<FormMenu/>
+  },
+  {
+    path: "/mesa",
+    element:<TableForm/>
   },
 
   {
