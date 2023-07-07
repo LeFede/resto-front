@@ -1,29 +1,40 @@
+import { FormMenu } from "@/components/FormMenu";
+import { TableForm } from "@/components/TableForm";
 import { Main } from "@/layouts";
-import { About, Home, LoginPage, NotFound } from "@/pages";
+import { About, Home, LoginPage, NotFound, Orders } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
-
-
   {
     path: "/",
-    element:<LoginPage/>
+    element: <LoginPage />
+  },
+  {
+    path: "/form",
+    element:<FormMenu/>
+  },
+  {
+    path: "/mesa",
+    element:<TableForm/>
   },
 
   {
     path: "/home",
-    element: <Main/>,
+    element: <Main />,
     errorElement: <NotFound />,
     children: [
       {
         index: true,
-        element: <Home/>
+        element: <Home />
       },
       {
         path: "about",
         element: <About />
       },
-      
+      {
+        path: "orders",
+        element: <Orders />
+      },
     ]
   }
 

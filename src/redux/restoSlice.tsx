@@ -1,28 +1,33 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { State } from "@/types"
+import menus from "@/assets/Manus.json"
 
-const initialState = {
+const initialState: State = {
+  menus: [],
 }
 
-// export const fetchVideogames = createAsyncThunk("videogames/fetch", async (thunkAPI) => {
-//   const res = await fetch(`${endpoint}/videogames`)
-//   const data = await res.json()
-//   return data
-// })
-
+export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
+  // TODO: do the fetch
+  return menus
+})
 
 export const restoSlice = createSlice({
   name: "resto",
   initialState,
   reducers: {
-
+    getMenus: (state, { payload })=>{
+      const data = payload;
+      state.menus = data;
+    }
   }, 
   extraReducers: (builder) => {
-    // builder.addCase(fetchVideogames.fulfilled, (state, action) => {
-    //   state.videogames = action.payload
-    // })
+    builder.addCase(fetchMenus.fulfilled, (state, action) => {
+      state.menus = action.payload
+    })
   },
 })
 
 export const { 
+  getMenus
 } = restoSlice.actions
 export default restoSlice.reducer
