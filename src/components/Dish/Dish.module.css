@@ -1,0 +1,21 @@
+.dish {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dish div {
+  flex: 1;
+}
+
+.dish p {
+  font-style: italic;
+  text-transform: capitalize;
+  max-width: 80%;
+}
+
+@media (width >= 768px) {
+
+  .dish {
+    flex: 1;
+  }
+}

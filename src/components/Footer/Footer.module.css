@@ -1,9 +1,0 @@
-.footer {
-  background: blue;
-}
-
-@media (width >= 768px) {
-  .footer {
-    background: red;
-  }
-}

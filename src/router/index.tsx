@@ -1,25 +1,10 @@
-import { FormMenu } from "@/components/FormMenu";
-import { TableForm } from "@/components/TableForm";
 import { Main } from "@/layouts";
-import { About, Home, LoginPage, NotFound, Orders } from "@/pages";
+import { Home, Login, Menu, NotFound } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />
-  },
-  {
-    path: "/form",
-    element:<FormMenu/>
-  },
-  {
-    path: "/mesa",
-    element:<TableForm/>
-  },
-
-  {
-    path: "/home",
     element: <Main />,
     errorElement: <NotFound />,
     children: [
@@ -28,37 +13,17 @@ export const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: "about",
-        element: <About />
+        path: "menu",
+        element: <Menu />
       },
       {
-        path: "orders",
-        element: <Orders />
-      },
+        path: "table/:tableId",
+        element: <Menu />
+      }
     ]
+  },
+  {
+    path: "/login",
+    element: <Login />,
   }
-
-  // {
-  //   index: true,
-  //   element: <Welcome />,
-  //   errorElement: <NotFound />,
-  // },
-  // {
-  //   path: "/videogames",
-  //   element: <HomeLayout />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Home />,
-  //     },
-  //     {
-  //       path: ":id",
-  //       element: <Single />
-  //     },
-  //     {
-  //       path: "name",
-  //       element: <Search />
-  //     }
-  //   ]
-  // },
 ])

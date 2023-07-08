@@ -10,6 +10,8 @@
   --black-4: #303030; 
 
   --font-1: "Ubuntu";
+  --font-2: "Quicksand";
+  --font-3: "Ewert";
 
   --tablet: 768px;
   --desktop: 1024px;
@@ -18,5 +20,14 @@
   --color-1: #72503D;
   --color-2: #523A2C; 
   --color-3: #231611;
+
+  /* The Mill */
+  --mill-orange: #fba43a;
+  --mill-brown: #423830;
+  --mill-white: #f3f3f3;
+
+  --background-image: url("https://www.themillrestaurants.com/wp-content/themes/themills/img/home-bg.jpg");
+  --background-filters: brightness(.6);
+
 }
 

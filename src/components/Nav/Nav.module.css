@@ -1,81 +1,94 @@
-.navBar {
-  
-  width: 85%;
-  max-width: 50rem;
-  height: 5.5rem;
-  background: var(--color-1);
+.nav {
+  width: 100%;
+  height: 5rem;
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.7rem;
-  border-radius: 0px 0px 10px 10px;
+  background: var(--mill-brown);
+  bottom: 0;
+  backface-visibility: hidden;
 }
 
-.navBar ul {
-
+.bar {
   display: flex;
   height: 100%;
-  justify-content: space-around;
+  z-index: 100;
+  outline: 1px solid black;
+  box-shadow: 0 -2px 10px black;
 }
 
-.navBar ul li {
-
-  height: 100%;
+.bar li {
+  flex: 1;
   display: flex;
+  justify-content: center;
   align-items: center;
+  /* background: red; */
+  /* border: 1px solid blue; */
 }
 
-.navBar ul li a,button {
-
-  height: 100%;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  border: 0px;
-  cursor: pointer;
-}
-
-.filterBar {
-
-  display: flex;
-  justify-content: space-around;
-  width: 85%;
-  max-width: 50rem;
-  height: 6.5rem;
-  background: var(--color-1);
+.filters {
+  transition: transform .4s ease;
+  filter: drop-shadow(1px 1px 10px black);
+  border-radius: 1rem;
+  padding: 2rem;
+  inset: 10%;
   position: fixed;
-  left: 50%;
-  padding: 0.7rem;
-  border-radius: 0px 0px 10px 10px;
-  transform: translateY(-100rem);
-  align-items: center;
-}
-
-.filterBar__opciones {
-
-  width: 25%;
-  height: 35px;
-  background-color: var(--background-1);
-  border-radius: 5px;
-}
-
-.filterBarMostrar {
-
+  background: var(--mill-brown);
+  z-index: 100;
   display: flex;
-  justify-content: space-around;
-  width: 85%;
-  max-width: 50rem;
-  height: 6.5rem;
-  background: var(--color-1);
-  position: fixed;
-  left: 50%;
-  padding: 0.7rem;
-  border-radius: 0px 0px 10px 10px;
-  transform: translate3d(-50%, 4.8rem, 10px);
-  align-items: center;
-
+  flex-direction: column;
+  transform: translateX(-150%);
 }
 
-/*
-transform: translate3d(-50%, 4.8rem, 10px);
-*/
+.filters button {
+  /* margin: 3rem; */
+  margin-top: auto;
+}
+
+.filters fieldset {
+  margin: 1rem 0;
+}
+
+.filters label {
+  font-size: 1.5rem;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  z-index: -100;
+  pointer-events: none;
+  animation: fade-out;
+  animation-duration: .4s;
+  animation-fill-mode: forwards;
+}
+
+.fadein {
+  animation: fade-in;
+  animation-duration: .4s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: .5;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+  from {
+    opacity: .5;
+  }
+}
+
+.showFilters {
+  transform: translateX(0);
+}
