@@ -15,8 +15,9 @@
 @media (width >= 768px) {
   .dishes {
     /* max-width: 1280px; */
-    display: flex;
+    display: grid;
     gap: 10rem;
     padding: 10rem clamp(10rem, 10vw, 20rem);
+    grid-template-columns: repeat(auto-fill, minmax(Min(100%, 40rem), 1fr));
   }
 }
