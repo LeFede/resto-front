@@ -1,0 +1,22 @@
+.dishes {
+  color: var(--mill-brown);
+  background: var(--mill-white);
+  padding: 1rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.dishes ul {
+  padding: 2rem 0;
+  flex: 1;
+}
+
+
+@media (width >= 768px) {
+  .dishes {
+    /* max-width: 1280px; */
+    display: flex;
+    gap: 10rem;
+    padding: 10rem clamp(10rem, 10vw, 20rem);
+  }
+}

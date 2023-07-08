@@ -1,58 +1,82 @@
-import { Link } from "react-router-dom"
-import styles from "./Nav.module.css"
 import { useState } from "react"
+import styles from "./Nav.module.css"
+import { Button } from "@/components"
+import { useNavigate } from "react-router-dom"
 
 export const Nav = () => {
+
+  const navigate = useNavigate()
   
-  const [mostrar, setMostrar] = useState(false)
-
-  const handleClick = () => {
-
-    setMostrar(!mostrar)
+  const [showBg, setShowBg] = useState(false)
+  const [showFilters, setShowFilters] = useState(false)
+  
+  const handleShowFilters = () => {
+    setShowFilters(prev => {
+      setShowBg(!prev)
+      return !prev
+    })
   }
 
+  const handleCloseFilters = () => {
+    setShowFilters(false)
+    setShowBg(false)
+  }
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+  }
+
+  const goHome = () => navigate('/')
+
   return (
+    <nav className={styles.nav}>
 
-    <div>
+      <ul className={styles.bar}>
+        <li onClick={goHome}>HOME</li>
+        <li onClick={handleShowFilters}>FILTROS</li>
+        <li>CARRITO</li>
+      </ul>
 
-      <section className={`${styles.filterBar} ${mostrar ? styles.filterBarMostrar : ""}`}>
-       
-        <select className={styles.filterBar__opciones} name="precio">
+      <form 
+        className={`${styles.filters} ${showFilters ? styles.showFilters : ""}`} 
+        onSubmit={handleSubmit}
+      >
+        <h3>Busqueda y filtros</h3>
 
-          <option value="#">PRECIO</option>
-          <option value="mayor">MAYOR</option>
-          <option value="menor">MENOR</option>
+        <fieldset>
+          <h6>Precio</h6>
+          
+          <label htmlFor="price-gt">Mayor que</label>
+          <input id="price-gt" checked type="radio" name="priceFilter"/>
+          <label htmlFor="price-lt">Menor que</label>
+          <input id="price-lt" type="radio" name="priceFilter"/>
+          <input type="number" value={0}/>
 
-        </select>
+        </fieldset>
 
-        <select className={styles.filterBar__opciones} name="tipo">
+        <fieldset>
+          <h6>Reviews</h6>
+          
+          <label htmlFor="review-gt">Mayor que</label>
+          <input id="review-gt" checked type="radio" name="reviewFilter"/>
+          <label htmlFor="review-lt">Menor que</label>
+          <input id="review-lt" type="radio" name="reviewFilter"/>
+          <input type="number" value={0}/>
 
-          <option value="">TIPOS</option>
-          <option value="desayuno">DESAYUNO</option>
-          <option value="almuerzo">ALMUERZO</option>
-          <option value="cena">CENA</option>
+        </fieldset>
 
-        </select>
+        <fieldset>
+          <h6>Buscar</h6>
+          <input type="text"/>
+        </fieldset>
 
-        <button className={styles.filterBar__opciones} name="ofertas">OFERTAS</button>
 
-      </section>
+        <Button action={handleCloseFilters}>Cerrar</Button>
+      </form>
 
-      <nav className={styles.navBar}>
+      <div className={`${styles.background} ${showBg ? styles.fadein : ""}`}>
+      </div>
 
-        <ul>
-
-          <li><Link to="#"><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-home" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#C5B490" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg></Link></li>
-          <li><button onClick={handleClick}><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-arrow-big-down-lines" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#C5B490" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 12h3.586a1 1 0 0 1 .707 1.707l-6.586 6.586a1 1 0 0 1 -1.414 0l-6.586 -6.586a1 1 0 0 1 .707 -1.707h3.586v-3h6v3z" /><path d="M15 3h-6" /><path d="M15 6h-6" /></svg></button></li>
-          <li><Link to="#"><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-shopping-cart" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#C5B490" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17h-11v-14h-2" /><path d="M6 5l14 1l-1 7h-13" /></svg></Link></li>
-
-        </ul>
-
-      </nav>
-    
-    </div>
-
+    </nav>
   )
 }
-
-
