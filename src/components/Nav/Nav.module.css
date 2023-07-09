@@ -92,3 +92,13 @@
 .showFilters {
   transform: translateX(0);
 }
+
+.logosNav{
+  max-height: 30px;
+  max-width:   30px;
+  filter: brightness(75%);
+}
+
+.logosNav:hover{
+  filter: drop-shadow(2px 2px 40px white) brightness(150%) ;
+}

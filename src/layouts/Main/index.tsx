@@ -1,4 +1,4 @@
-import { Outlet, useParams } from "react-router-dom"
+import { Outlet, useParams, useLocation } from "react-router-dom"
 import { Nav } from "@/components"
 import { setTable, fetchMenus } from "@/redux"
 import { useDispatch } from "react-redux"
@@ -7,6 +7,7 @@ import { useEffect } from "react"
 export const Main = () => {
   const dispatch = useDispatch()
   const { tableId } = useParams()
+  const location = useLocation()
 
   useEffect(() => {
     dispatch<any>(fetchMenus())
@@ -15,12 +16,14 @@ export const Main = () => {
     dispatch(setTable(tableId))
   }, [])
 
+  const shouldShowNav = location.pathname !== "/"
+
   return (
     <>
       <main>
         <Outlet/>
       </main>
-      <Nav />
+      {shouldShowNav && <Nav />}
     </>
   )
 }
