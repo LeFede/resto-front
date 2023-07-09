@@ -12,6 +12,16 @@
   text-transform: capitalize;
   max-width: 80%;
 }
+.logo{
+height: 30px;
+width: 30px;
+}
+
+.containerBoton{
+  height: 40px;
+  width: 100px;
+  border: 0px black;
+}
 
 @media (width >= 768px) {
 
@@ -19,3 +29,5 @@
     flex: 1;
   }
 }
+
+
