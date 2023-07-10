@@ -107,10 +107,6 @@
     flex-wrap: wrap;
   }
 
-  .middle div {
-    flex: 1;
-  }
-
   .description { 
     flex: 1;
     flex-basis: 40%;
