@@ -14,10 +14,10 @@ export const Dish = ({ dish }: IProcessedMenu) => {
         <h6>{dish.title}</h6>
         <small>{stars}</small>
         <p>{dish.ingredients.join(', ')}</p>
-        
       </div>
-      <button className={styles.containerBoton} ><img className={styles.logo} src={AgregarSvg} alt="agregar" /></button>
       <h6>${dish.price}</h6>
+      <button className={styles.containerBoton} ><img className={styles.logo} src={AgregarSvg} alt="agregar" /></button>
+      
       
     </li>
   )

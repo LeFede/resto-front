@@ -2,13 +2,16 @@ import { useState } from "react"
 import styles from "./Nav.module.css"
 import { Button } from "@/components"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 import HomeSvg from "@/assets/home.svg"
 import FilterSvg from "@/assets/filters.svg"
 import CartSvg from "@/assets/cart.svg"
+import { State } from "@/types"
 
 export const Nav = () => {
 
   const navigate = useNavigate()
+  const { currentTable } = useSelector((state: State) => state)
 
   const [showBg, setShowBg] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
@@ -37,7 +40,7 @@ export const Nav = () => {
       <ul className={styles.bar}>
         <li onClick={goHome}><img className={styles.logosNav} src={HomeSvg} alt="Home" /></li>
         <li onClick={handleShowFilters}><img className={styles.logosNav} src={FilterSvg} alt="Filter" /></li>
-        <li ><img className={styles.logosNav} src={CartSvg} alt="Carrito" /></li>
+        {currentTable && <li ><img className={styles.logosNav} src={CartSvg} alt="Carrito" /></li>}
       </ul>
 
       <form
