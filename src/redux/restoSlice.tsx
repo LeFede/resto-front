@@ -4,13 +4,14 @@ import { State, IMenu } from "@/types"
   // TODO: BORRAR && api
 const menu: IMenu[]= [
   {
-    title: "Milangosa",
+    title: "Milanesa Napolitana",
     ingredients: [
-      "no se",
-      "adwqijiowqjw qdwqdqw"
+      "carne de res",
+      "jamon y queso",
+      "salsa de tomate"
     ],
-    price: "30000000",
-    categories: "super comidas",
+    price: "2500",
+    categories: "Almuerzos",
     description: "",
     image: "",
     reviews: [
@@ -18,13 +19,15 @@ const menu: IMenu[]= [
     ],
   },
   {
-    title: "Mila",
+    title: "Ensalada Cesar",
     ingredients: [
-      "no se",
-      "adwqijiowqjw qdwqdqw"
+      "Lechuga",
+      "Pollo",
+      "queso crema",
+      "semillas de sesamo"
     ],
-    price: "300",
-    categories: "super comidas",
+    price: "2000",
+    categories: "Almuerzos",
     description: "",
     image: "",
     reviews: [
@@ -32,13 +35,13 @@ const menu: IMenu[]= [
     ],
   },
   {
-    title: "tomate",
+    title: "Cafe con Leche",
     ingredients: [
-      "no se",
-      "adwqijiowqjw qdwqdqw"
+      // "no se",
+      // "adwqijiowqjw qdwqdqw"
     ],
-    price: "3000",
-    categories: "super comidas",
+    price: "500",
+    categories: "Desayunos",
     description: "",
     image: "",
     reviews: [
@@ -46,13 +49,13 @@ const menu: IMenu[]= [
     ],
   },
   {
-    title: "coca cola",
+    title: "Medialuna",
     ingredients: [
-      "no se",
-      "adwqijiowqjw qdwqdqw"
+      // "no se",
+      // "adwqijiowqjw qdwqdqw"
     ],
-    price: "30000",
-    categories: "super comidas",
+    price: "150",
+    categories: "Desayunos",
     description: "",
     image: "",
     reviews: [
@@ -60,14 +63,14 @@ const menu: IMenu[]= [
     ],
   },
   {
-    title: "sopa fuble",
+    title: "Fuble",
     ingredients: [
-      "agua",
-      "caldito",
-      "fideos"
+      "Helado de vainilla",
+      "Mouse de chocolate",
+      "almendras"
     ],
-    price: "100",
-    categories: "Sopas",
+    price: "1500",
+    categories: "postres",
     description: "",
     image: "",
     reviews: [
@@ -75,13 +78,13 @@ const menu: IMenu[]= [
     ]
   },
   {
-    title: "helado sopra",
+    title: "Flan aleman",
     ingredients: [
-      "agua",
-      "limon",
-      "azucar"
+      "Flan casero",
+      "pizca de limon",
+      "crema chantilli",
     ],
-    price: "300",
+    price: "1650",
     categories: "Postres",
     description: "",
     image: "",
@@ -222,34 +225,34 @@ export const restoSlice = createSlice({
   name: "resto",
   initialState,
   reducers: {
-    setTable: (state, action) => {
+    setTable: (state: any, action: any) => {
       const { payload: table } = action
       state.currentTable = table
     },
-    setSearchFilter: (state, action) => {
+    setSearchFilter: (state: any, action: any) => {
       state.searchFilter = action.payload
     },
-    setLessThanPriceFilter: (state, action) => {
+    setLessThanPriceFilter: (state: any, action: any) => {
       if (action.payload < 0) return
       state.lessThanPriceFilter = action.payload
     },
-    setMoreThanPriceFilter: (state, action) => {
+    setMoreThanPriceFilter: (state: any, action: any) => {
       if (action.payload < 0) return
       state.moreThanPriceFilter = action.payload
     },
-    setLessThanReviewFilter: (state, action) => {
+    setLessThanReviewFilter: (state: any, action: any) => {
       if (action.payload < 0) return
       if (action.payload > 5) return
       state.lessThanReviewFilter = action.payload
     },
-    setMoreThanReviewFilter: (state, action) => {
+    setMoreThanReviewFilter: (state: any, action: any) => {
       if (action.payload < 0) return
       if (action.payload > 5) return
       state.moreThanReviewFilter = action.payload
     },
   }, 
-  extraReducers: (builder) => {
-    builder.addCase(fetchMenus.fulfilled, (state: any, action) => {
+  extraReducers: (builder: any) => {
+    builder.addCase(fetchMenus.fulfilled, (state: any, action: any) => {
       state.menus = action.payload
     })
   },
