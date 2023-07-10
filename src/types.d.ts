@@ -11,9 +11,14 @@ export interface A {
 //   tipo        : string
 //   description : string
 // }
+export interface Order  {
+  id:number
+  items: Menu[]
+}
 
 export type State = {
   menus: Menu[]
+  orders: Order[]
   currentTable: number | null
   priceFilter: number
   reviewFilter: number
@@ -29,7 +34,7 @@ export interface FormMenuData {
   precio: string
   descripcion: string
   tipo: string
-}
+} 
 
 export type InputSelect = React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>
 
