@@ -1,0 +1,68 @@
+
+
+
+
+.dashboard {
+    color: var(--mill-brown);
+    background: var(--mill-white);
+    padding: 1rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  
+  .dashboard ul {
+    padding: 2rem 0;
+    flex: 1;
+  }
+  
+  
+  @media (width >= 768px) {
+    .dashboard {
+      /* max-width: 1280px; */
+      display: grid;
+      gap: 10rem;
+      padding: 10rem clamp(10rem, 10vw, 20rem);
+      grid-template-columns: repeat(auto-fill, minmax(Min(100%, 40rem), 1fr));
+    }
+  }
+  
+
+  .order {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  
+  .order p {
+    font-style: italic;
+    text-transform: capitalize;
+    max-width: 80%;
+  }
+  
+  
+ 
+  
+  @media (width >= 768px) {
+  
+    .order {
+      flex: 1;
+    }
+  }
+  
+  
+  .table{
+    border-bottom: 1px solid #fba43a;
+  }
+
+  .logoDelete{
+    height: 30px;
+    width: 30px;
+    
+  }
+
+  .blogoDelete{
+    background-color: rgba(245, 245, 220, 0);
+    border: 0px solid black;
+    margin-left: 90%;
+  }

@@ -23,3 +23,8 @@
 .home h1 {
   font-family: var(--font-3);
 }
+
+.text{
+  font-size: small;
+  text-align: center;
+}

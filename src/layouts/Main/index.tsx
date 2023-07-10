@@ -22,6 +22,7 @@ export const Main = () => {
     <>
       <main>
         <Outlet/>
+        
       </main>
       {shouldShowNav && <Nav />}
     </>

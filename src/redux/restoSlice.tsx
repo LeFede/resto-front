@@ -18,54 +18,56 @@ const menu: IMenu[]= [
     ],
   },
   {
-    title: "Milangosa",
+    title: "Mila",
     ingredients: [
       "no se",
       "adwqijiowqjw qdwqdqw"
-    ],
-    price: "30000000",
-    categories: "super comidas",
-    description: "",
-    image: "",
-    reviews: [
-      5,1
-    ],
-  },
-  {
-    title: "Milangosa",
-    ingredients: [
-      "no se",
-      "adwqijiowqjw qdwqdqw"
-    ],
-    price: "30000000",
-    categories: "super comidas",
-    description: "",
-    image: "",
-    reviews: [
-      5,1
-    ],
-  },
-  {
-    title: "Milangosa",
-    ingredients: [
-      "no se",
-      "adwqijiowqjw qdwqdqw"
-    ],
-    price: "30000000",
-    categories: "super comidas",
-    description: "",
-    image: "",
-    reviews: [
-      5,1
-    ],
-  },
-  {
-    title: "Juanjo",
-    ingredients: [
-      "venezuela"
     ],
     price: "300",
-    categories: "AAAA",
+    categories: "super comidas",
+    description: "",
+    image: "",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    title: "tomate",
+    ingredients: [
+      "no se",
+      "adwqijiowqjw qdwqdqw"
+    ],
+    price: "3000",
+    categories: "super comidas",
+    description: "",
+    image: "",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    title: "coca cola",
+    ingredients: [
+      "no se",
+      "adwqijiowqjw qdwqdqw"
+    ],
+    price: "30000",
+    categories: "super comidas",
+    description: "",
+    image: "",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    title: "sopa fuble",
+    ingredients: [
+      "agua",
+      "caldito",
+      "fideos"
+    ],
+    price: "100",
+    categories: "Sopas",
     description: "",
     image: "",
     reviews: [
@@ -73,12 +75,14 @@ const menu: IMenu[]= [
     ]
   },
   {
-    title: "bbb ccc",
+    title: "helado sopra",
     ingredients: [
-      "venezuela"
+      "agua",
+      "limon",
+      "azucar"
     ],
     price: "300",
-    categories: "AAAA",
+    categories: "Postres",
     description: "",
     image: "",
     reviews: [
@@ -89,6 +93,116 @@ const menu: IMenu[]= [
 
 const initialState: State = {
   menus: [],
+  orders: [
+    
+      {
+        id:1,
+        items:[
+        {
+          title: "sopa fuble",
+          ingredients: [
+            "agua",
+            "caldito",
+            "fideos"
+          ],
+          price: "100",
+          categories: "sopa",
+          description: "",
+          image: "",
+          reviews: [
+            5
+          ]
+        },
+        {
+          title: "helado sopra",
+          ingredients: [
+            "agua",
+            "limon",
+            "azucar"
+          ],
+          price: "300",
+          categories: "AAAA",
+          description: "",
+          image: "",
+          reviews: [
+            1,
+          ]
+        }],
+      },
+    
+    
+      {
+        id:2,
+        items:[
+        {
+          title: "sopa fuble",
+          ingredients: [
+            "agua",
+            "caldito",
+            "fideos"
+          ],
+          price: "100",
+          categories: "sopa",
+          description: "",
+          image: "",
+          reviews: [
+            5
+          ]
+        },
+        {
+          title: "helado sopra",
+          ingredients: [
+            "agua",
+            "limon",
+            "azucar"
+          ],
+          price: "300",
+          categories: "AAAA",
+          description: "",
+          image: "",
+          reviews: [
+            1,
+          ]
+        }],
+      },
+    
+    
+      {
+        id:3,
+        items:[
+        {
+          title: "sopa fuble",
+          ingredients: [
+            "agua",
+            "caldito",
+            "fideos"
+          ],
+          price: "100",
+          categories: "sopa",
+          description: "",
+          image: "",
+          reviews: [
+            5
+          ]
+        },
+        {
+          title: "helado sopra",
+          ingredients: [
+            "agua",
+            "limon",
+            "azucar"
+          ],
+          price: "300",
+          categories: "AAAA",
+          description: "",
+          image: "",
+          reviews: [
+            1,
+          ]
+        }],
+      },
+    
+  ],
   currentTable: null,
   priceFilter: 300,
   reviewFilter: 1,
