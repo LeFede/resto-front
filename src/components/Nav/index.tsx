@@ -47,18 +47,18 @@ export const Nav = () => {
 
   const setPriceFilter = () => {
     if (isGreaterThanPriceFilter) {
-      dispatch(setMoreThanPriceFilter(filters.moreThanPriceFilter))
-      dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter))
+      dispatch(setMoreThanPriceFilter(filters.moreThanPriceFilter as any))
+      dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter as any))
     } else {
-      dispatch(setLessThanPriceFilter(filters.lessThanPriceFilter))
-      dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter))
+      dispatch(setLessThanPriceFilter(filters.lessThanPriceFilter as any))
+      dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter as any))
     }
   }
 
   const resetFilter = () => {
     setFilters(initFilterState)
-    dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter))
-    dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter))
+    dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter as any))
+    dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter as any))
   }
 
   const handleSubmit = (e: any) => {
