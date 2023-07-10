@@ -2,11 +2,21 @@ import { useState } from "react"
 import styles from "./Nav.module.css"
 import { Button } from "@/components"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import HomeSvg from "@/assets/home.svg"
 import FilterSvg from "@/assets/filters.svg"
 import CartSvg from "@/assets/cart.svg"
 import { State } from "@/types"
+import { setLessThanPriceFilter, setMoreThanPriceFilter } from "../../redux"
+
+const initFilterState = {
+    reviewFilter: 1,
+    searchFilter: "",
+    lessThanPriceFilter: Infinity,
+    moreThanPriceFilter: 0,
+    lessThanReviewFilter: 5,
+    moreThanReviewFilter: 0,
+  }
 
 export const Nav = () => {
 
@@ -15,6 +25,11 @@ export const Nav = () => {
 
   const [showBg, setShowBg] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
+
+  const [isGreaterThanPriceFilter, setIsGraterThanPriceFilter] = useState(true)
+  const [filters, setFilters] = useState(initFilterState)
+  
+  const dispatch = useDispatch();
 
   const handleShowFilters = () => {
     setShowFilters(prev => {
@@ -26,10 +41,38 @@ export const Nav = () => {
   const handleCloseFilters = () => {
     setShowFilters(false)
     setShowBg(false)
+
+    setPriceFilter()
+  }
+
+  const setPriceFilter = () => {
+    if (isGreaterThanPriceFilter) {
+      dispatch(setMoreThanPriceFilter(filters.moreThanPriceFilter))
+      dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter))
+    } else {
+      dispatch(setLessThanPriceFilter(filters.lessThanPriceFilter))
+      dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter))
+    }
+  }
+
+  const resetFilter = () => {
+    setFilters(initFilterState)
+    dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter))
+    dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter))
   }
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+  }
+  
+  const handleFilterChange = (e: any) => {
+    
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value
+    })
+
+    isGreaterThanPriceFilter ? setFilters({...filters, moreThanPriceFilter: e.target.value}) : setFilters({...filters, lessThanPriceFilter: e.target.value})
   }
 
   const goHome = () => navigate('/')
@@ -53,10 +96,10 @@ export const Nav = () => {
           <h6>Precio</h6>
 
           <label htmlFor="price-gt">Mayor que</label>
-          <input id="price-gt" checked type="radio" name="priceFilter" />
+          <input id="price-gt" checked={isGreaterThanPriceFilter} type="radio" name="priceFilter" onChange={() => setIsGraterThanPriceFilter(!isGreaterThanPriceFilter)}/>
           <label htmlFor="price-lt">Menor que</label>
-          <input id="price-lt" type="radio" name="priceFilter" />
-          <input type="number" value={0} />
+          <input id="price-lt" type="radio" checked={!isGreaterThanPriceFilter} name="priceFilter" onChange={() => setIsGraterThanPriceFilter(!isGreaterThanPriceFilter)}/>
+          <input type="number" name='priceFilter' value={isGreaterThanPriceFilter ? filters.moreThanPriceFilter : filters.lessThanPriceFilter} onChange={handleFilterChange}/>
 
         </fieldset>
 
@@ -67,7 +110,7 @@ export const Nav = () => {
           <input id="review-gt" checked type="radio" name="reviewFilter" />
           <label htmlFor="review-lt">Menor que</label>
           <input id="review-lt" type="radio" name="reviewFilter" />
-          <input type="number" value={0} />
+          <input type="number" value={0}/>
 
         </fieldset>
 
@@ -77,6 +120,7 @@ export const Nav = () => {
         </fieldset>
 
 
+        <Button action={resetFilter}>Limpiar filtros</Button>
         <Button action={handleCloseFilters}>Cerrar</Button>
       </form>
 
