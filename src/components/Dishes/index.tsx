@@ -1,5 +1,6 @@
 import styles from "./Dishes.module.css"
 import { Dish } from "@/components"
+
 // TODO change type && separate code
 export const Dishes = ({ menu }: any) => {
 
@@ -8,6 +9,7 @@ export const Dishes = ({ menu }: any) => {
       <h1>No hay nada xd</h1>
     </div>
   )
+
 
   return (      
     <div className={styles.dishes}>

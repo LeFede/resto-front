@@ -20,8 +20,8 @@ export type State = {
   menus: Menu[]
   orders: Order[]
   currentTable: number | null
-  priceFilter: number
-  reviewFilter: number
+  // priceFilter: number
+  // reviewFilter: number
   searchFilter: string
   lessThanPriceFilter: number
   moreThanPriceFilter: number
@@ -47,6 +47,7 @@ export interface ButtonProps extends Props {
 }
 
 export interface IMenu {
+  id: number | string 
   title: string
   ingredients: string[]
   price: string
