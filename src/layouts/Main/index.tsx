@@ -13,6 +13,7 @@ export const Main = () => {
     dispatch<any>(fetchMenus())
     if (!tableId) return
     console.log(`TABLE: ${tableId}`)
+    // @ts-ignore
     dispatch(setTable(tableId))
   }, [])
 
