@@ -16,8 +16,11 @@ export interface Order  {
   items: Menu[]
 }
 
+
+
 export type State = {
-  menus: Menu[]
+  cart: Menu[]
+  menus: IMenu[]
   orders: Order[]
   currentTable: number | null
   priceFilter: number

@@ -17,7 +17,7 @@ export const Dashboard = () => {
 
             <h3 className={styles.table}>Mesa {orders.id} 
             <button className={styles.blogoDelete}>
-            <img className={styles.logoDelete} src={DeleteSvg} alt="Filter" />
+            <img className={styles.logoDelete} src={DeleteSvg} alt="DELETE" />
             </button>
             </h3>
             {orders.items.map((ord) => {

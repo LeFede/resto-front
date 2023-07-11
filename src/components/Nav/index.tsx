@@ -76,6 +76,7 @@ export const Nav = () => {
   }
 
   const goHome = () => navigate('/')
+  const goCart = () => navigate('table/cart/:tableId')
 
   return (
     <nav className={styles.nav}>
@@ -83,7 +84,7 @@ export const Nav = () => {
       <ul className={styles.bar}>
         <li onClick={goHome}><img className={styles.logosNav} src={HomeSvg} alt="Home" /></li>
         <li onClick={handleShowFilters}><img className={styles.logosNav} src={FilterSvg} alt="Filter" /></li>
-        {currentTable && <li ><img className={styles.logosNav} src={CartSvg} alt="Carrito" /></li>}
+        {currentTable && <li onClick={goCart} ><img className={styles.logosNav} src={CartSvg} alt="Carrito" /></li>}
       </ul>
 
       <form

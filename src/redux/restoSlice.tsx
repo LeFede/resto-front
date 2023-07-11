@@ -95,9 +95,9 @@ const menu: IMenu[]= [
 ]
 
 const initialState: State = {
+  cart: [],
   menus: [],
   orders: [
-    
       {
         id:1,
         items:[
@@ -202,10 +202,8 @@ const initialState: State = {
           reviews: [
             1,
           ]
-        }],
-      },
-    
-  ],
+        }],},
+      ],
   currentTable: null,
   priceFilter: 300,
   reviewFilter: 1,
@@ -250,6 +248,10 @@ export const restoSlice = createSlice({
       if (action.payload > 5) return
       state.moreThanReviewFilter = action.payload
     },
+    agregarPlato: (state, action) => {
+      state.cart.push(action.payload);
+      
+    },
   }, 
   extraReducers: (builder: any) => {
     builder.addCase(fetchMenus.fulfilled, (state: any, action: any) => {
@@ -259,6 +261,7 @@ export const restoSlice = createSlice({
 })
 
 export const { 
+  agregarPlato,
   setTable,
   setSearchFilter,
   setMoreThanPriceFilter,

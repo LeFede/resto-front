@@ -1,5 +1,5 @@
 import { Main } from "@/layouts";
-import { Home, Login, Menu, NotFound, Dashboard } from "@/pages";
+import { Home, Login, Menu, NotFound, Dashboard, Cart } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -23,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "table/cart/:tableId",
+        element: <Cart/>,
       }
     ]
   },
