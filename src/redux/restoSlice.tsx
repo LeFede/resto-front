@@ -226,6 +226,7 @@ const initialState: State = {
   moreThanPriceFilter: 0,
   lessThanReviewFilter: 5,
   moreThanReviewFilter: 0,
+  userRol: "admin"
 }
 
 export const fetchMenus = createAsyncThunk("menus/fetch", async () => {

@@ -1,10 +1,10 @@
-import styles from "./Login.module.css"
+import { LoginForm } from "@/components"
+
 
 export const Login = () => {
   return (
-    <form className={styles.login}>
-      <h1>Login</h1>
+    
+    <LoginForm></LoginForm>
 
-    </form>
   )
 }
