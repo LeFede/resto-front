@@ -45,4 +45,7 @@ main {min-height: 100vh;}
 
 button {cursor: pointer;}
 
+img { 
+  width: 100%;
+}
 
