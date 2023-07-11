@@ -2,11 +2,19 @@ import { Order, State } from "@/types";
 import styles from "./Dashboard.module.css"
 import { useSelector } from "react-redux";
 import DeleteSvg from "@/assets/delete.svg"
+import { WithoutPermissions } from "@/pages/WithoutPermissions";
 
 export const Dashboard = () => {
-  const { orders } = useSelector((state: State) => state);
+  const { orders, userRol } = useSelector((state: State) => state);
+  
+  if(userRol !== "admin") {
 
+    return(
 
+      <WithoutPermissions/>
+      
+    )
+  }
 
   return (
     <section className={styles.dashboard}>

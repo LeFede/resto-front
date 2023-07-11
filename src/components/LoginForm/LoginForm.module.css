@@ -58,7 +58,7 @@
 
 .contenedorLoginForm button:hover {
 
-    background-color: orange;
+    background-color: var(--mill-orange);
 }
 
 .mensajeError {
