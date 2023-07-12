@@ -63,3 +63,16 @@ export interface IProcessedMenu {
   [key: string]: Omit<IMenu, "categories">
 }
 
+export interface Dishdata{
+  title: string,
+  price: number,
+  description: string,
+  categories: string,
+  imagen: string,
+  ingredientes: [],
+}
+interface TableData {
+  name: string;
+  waiter: string;
+  subject: string;
+}
