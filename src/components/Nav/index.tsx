@@ -157,7 +157,7 @@ export const Nav = () => {
       <ul className={styles.bar}>
         <li onClick={goHome}><img className={styles.logosNav} src={homeSvg} alt="Home" /></li>
         <li onClick={handleShowFilters}><img className={styles.logosNav} src={filtersSvg} alt="Filter" /></li>
-        {currentTable && <li ><img className={styles.logosNav} src={cartSvg} alt="Carrito" /></li>}
+        {currentTable && <li onClick={goCart}><img className={styles.logosNav} src={cartSvg} alt="Carrito" /></li>}
       </ul>
 
       <form
