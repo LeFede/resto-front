@@ -121,7 +121,7 @@ const initialState: State = {
   currentTable: null,
   // priceFilter: 300,
   // reviewFilter: 1,
-  searchFilter: "coca",
+  searchFilter: "",
   lessThanPriceFilter: Infinity,
   moreThanPriceFilter: 0,
   lessThanReviewFilter: 5,
