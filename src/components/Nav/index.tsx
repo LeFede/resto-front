@@ -149,6 +149,7 @@ export const Nav = () => {
   }
 
   const goHome = () => navigate('/')
+  const goCart = () => navigate('table/cart/:tableId')
 
   return (
     <nav className={styles.nav}>
