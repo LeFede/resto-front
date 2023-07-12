@@ -30,7 +30,7 @@ export const Table = () => {
       <input
         name="name"
         placeholder="Numero de mesa"
-        className={styles.name}
+        className={styles.messageInput}
         value={dataForm.name}
         onChange={handleOnChange}
         required
@@ -38,7 +38,7 @@ export const Table = () => {
       <input
         name="waiter"
         placeholder="Camarero Asociado"
-        className={styles.waiter}
+        className={styles.messageInput}
         type="text"
         value={dataForm.waiter}
         onChange={handleOnChange}
