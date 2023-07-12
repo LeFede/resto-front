@@ -86,13 +86,14 @@ export const Nav = () => {
     })
   }
 
-  const onBlur = (event) => {
+  const onBlur = (event: any) => {
     const { name, value } = event.target
 
     console.log(name, value)
     setForm(prev => {
       const newForm = {
         ...prev,
+        // @ts-ignore
         [name]: validValue[name](value)
       }
       return newForm
@@ -100,7 +101,7 @@ export const Nav = () => {
   }
 
   const validValue = {
-    lessThanPriceFilter: (value) => {
+    lessThanPriceFilter: (value: number) => {
       if (value < 0) return ''
       if (value < form.moreThanPriceFilter) {
         // alert("El tope maximo no puede ser menor que el minimo")
@@ -108,7 +109,7 @@ export const Nav = () => {
       }
       return value
     },
-    moreThanPriceFilter: (value) => {
+    moreThanPriceFilter: (value: number) => {
       if (value < 0) return ''
       if (value > form.lessThanPriceFilter) {
         // alert("El tope minimo no puede ser menor que el maximo")
@@ -116,20 +117,20 @@ export const Nav = () => {
       }
       return value
     },
-    lessThanReviewFilter: (value) => {
+    lessThanReviewFilter: (value: number) => {
       if (value < 0) return 0
       if (value > 5) return 5
       if (value < form.moreThanReviewFilter) return form.moreThanReviewFilter
       return value
     },
-    moreThanReviewFilter: (value) => {
+    moreThanReviewFilter: (value: number) => {
       if (value < 0) return 0
       if (value > 5) return 5
       if (value > form.lessThanReviewFilter) return form.lessThanReviewFilter
       return value
     },
 
-    searchFilter: (value) => value,
+    searchFilter: (value: string) => value,
   }
   
 
