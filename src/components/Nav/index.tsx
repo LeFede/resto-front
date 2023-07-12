@@ -189,8 +189,9 @@ export const Nav = () => {
         </fieldset>
 
         <fieldset>
-          <h6>Buscar</h6>
+          <h6>Buscar por nombre</h6>
           <input type="text" id="searchFilter" name="searchFilter" onBlur={onBlur} onChange={setFilters} value={form.searchFilter}/>
+          <h6>Buscar por categoria</h6>
           <input type="text" id="categoryFilter" name="categoryFilter" onBlur={onBlur} onChange={setFilters} value={form.categoryFilter}/>
         </fieldset>
 
