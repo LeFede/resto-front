@@ -52,7 +52,7 @@ export interface ButtonProps extends Props {
 }
 
 export interface IMenu {
-  id: number | string 
+  _id: number | string 
   title: string
   ingredients: string[]
   price: string

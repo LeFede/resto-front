@@ -15,7 +15,7 @@ export const MenuDetail = () => {
   const { menuId } = params
   
   // @ts-ignore
-  const detail = menus.find((menu: IMenu) => menu.id === +menuId) as IMenu
+  const detail = menus.find((menu: IMenu) => menu._id === menuId) as IMenu
 
   if (!detail?.title) return <div>Loading...</div>
 

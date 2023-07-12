@@ -17,7 +17,7 @@ export const Dish = ({ dish }: IProcessedMenu) => {
   const { currentTable } = useSelector((state: State) => state)
 
   const handleClick = () => {
-    navigate(`/menu/${dish.id}`)
+    navigate(`/menu/${dish._id}`)
   }
 
   return ( 
@@ -25,7 +25,7 @@ export const Dish = ({ dish }: IProcessedMenu) => {
       <div>
         <h6>{dish.title}</h6>
         <small>{stars}</small>
-        <p>{dish.ingredients.join(', ')}</p>
+        <p>{dish.description}</p>
       </div>
       <h6>${dish.price}</h6>
       {

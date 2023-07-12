@@ -14,6 +14,8 @@ export const useMenus = () => {
     categoryFilter,
   } = useSelector((state: State) => state)
 
+  
+
   const regexString = searchFilter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, ".*")
   const regex = new RegExp(regexString, "i")
 
@@ -44,5 +46,6 @@ export const useMenus = () => {
     categoryFilter
   ])
 
+  console.log(menu)
   return menu
 }

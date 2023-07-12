@@ -16,7 +16,7 @@ import {
 } from "@/redux"
 
 const initial = {
-  lessThanPriceFilter : 10000,
+  lessThanPriceFilter : Infinity,
   moreThanPriceFilter : 0,
   lessThanReviewFilter : 5,
   moreThanReviewFilter : 0,
