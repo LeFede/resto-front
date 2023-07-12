@@ -11,6 +11,7 @@ export const useMenus = () => {
     lessThanPriceFilter,
     moreThanReviewFilter, 
     lessThanReviewFilter,
+    categoryFilter,
   } = useSelector((state: State) => state)
 
   const regexString = searchFilter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, ".*")
@@ -22,6 +23,7 @@ export const useMenus = () => {
     return reviewMedium >= moreThanReviewFilter && reviewMedium <= lessThanReviewFilter
   }
   const byTitle = (e: IMenu) => regex.test(e.title) ? true : false
+  const byCategory = (e: IMenu) => categoryFilter === "" ? true : e.categories === categoryFilter
   
   const process = () => 
     processMenu(
@@ -29,10 +31,17 @@ export const useMenus = () => {
         .filter(byPrice)
         .filter(byReviews)
         .filter(byTitle)
+        .filter(byCategory)
     )
 
   const menu = useMemo(process, [
-    menus, searchFilter, lessThanPriceFilter, moreThanReviewFilter, lessThanReviewFilter, moreThanPriceFilter
+    menus, 
+    searchFilter, 
+    lessThanPriceFilter, 
+    moreThanReviewFilter, 
+    lessThanReviewFilter, 
+    moreThanPriceFilter, 
+    categoryFilter
   ])
 
   return menu

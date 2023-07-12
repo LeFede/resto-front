@@ -27,6 +27,7 @@ export type State = {
   moreThanPriceFilter: number
   lessThanReviewFilter: number
   moreThanReviewFilter: number
+  categoryFilter: string
   userRol: string
 }
 

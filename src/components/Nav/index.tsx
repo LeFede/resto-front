@@ -12,6 +12,7 @@ import {
   setLessThanReviewFilter, 
   setMoreThanReviewFilter,
   setSearchFilter,
+  setCategoryFilter,
 } from "@/redux"
 
 const initial = {
@@ -20,6 +21,7 @@ const initial = {
   lessThanReviewFilter : 5,
   moreThanReviewFilter : 0,
   searchFilter : "",
+  categoryFilter: "",
 }
 
 
@@ -33,12 +35,13 @@ export const Nav = () => {
     lessThanReviewFilter, 
     moreThanReviewFilter,
     searchFilter,
+    categoryFilter,
   } = useSelector((state: State) => state)
 
   const [form, setForm] = useState({
     lessThanPriceFilter, moreThanPriceFilter,
     lessThanReviewFilter, moreThanReviewFilter,
-    searchFilter
+    searchFilter, categoryFilter
   })
 
   const [showBg, setShowBg] = useState(false)
@@ -71,6 +74,8 @@ export const Nav = () => {
     dispatch(setMoreThanReviewFilter(+form.moreThanReviewFilter))
     // @ts-ignore
     dispatch(setSearchFilter(form.searchFilter))
+    // @ts-ignore
+    dispatch(setCategoryFilter(form.categoryFilter))
   }
 
   const setFilters = (event: any) => {
@@ -89,7 +94,6 @@ export const Nav = () => {
   const onBlur = (event: any) => {
     const { name, value } = event.target
 
-    console.log(name, value)
     setForm(prev => {
       const newForm = {
         ...prev,
@@ -131,6 +135,7 @@ export const Nav = () => {
     },
 
     searchFilter: (value: string) => value,
+    categoryFilter: (value: string) => value,
   }
   
 
@@ -185,6 +190,7 @@ export const Nav = () => {
         <fieldset>
           <h6>Buscar</h6>
           <input type="text" id="searchFilter" name="searchFilter" onBlur={onBlur} onChange={setFilters} value={form.searchFilter}/>
+          <input type="text" id="categoryFilter" name="categoryFilter" onBlur={onBlur} onChange={setFilters} value={form.categoryFilter}/>
         </fieldset>
 
 

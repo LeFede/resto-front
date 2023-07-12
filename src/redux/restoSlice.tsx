@@ -304,6 +304,7 @@ const initialState: State = {
   moreThanPriceFilter: 0,
   lessThanReviewFilter: 5,
   moreThanReviewFilter: 0,
+  categoryFilter: "",
   userRol: "admin"
 }
 
@@ -341,6 +342,9 @@ export const restoSlice = createSlice({
       if (action.payload > 5) return
       state.moreThanReviewFilter = action.payload
     },
+    setCategoryFilter: (state: any, action: any) => {
+      state.categoryFilter = action.payload
+    }
   }, 
   extraReducers: (builder: any) => {
     builder.addCase(fetchMenus.fulfilled, (state: any, action: any) => {
@@ -356,5 +360,6 @@ export const {
   setLessThanPriceFilter,
   setMoreThanReviewFilter,
   setLessThanReviewFilter,
+  setCategoryFilter
 } = restoSlice.actions
 export default restoSlice.reducer
