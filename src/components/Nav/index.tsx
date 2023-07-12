@@ -170,10 +170,10 @@ export const Nav = () => {
           <h6>Precio</h6>
 
           <label htmlFor="price-gt">Entre </label>
-          <input id="price-gt" type="number" name='moreThanPriceFilter' onBlur={onBlur} onChange={setFilters} value={form.moreThanPriceFilter}/>
+          <input className={styles.priceTag} id="price-gt" type="number" name='moreThanPriceFilter' onBlur={onBlur} onChange={setFilters} value={form.moreThanPriceFilter}/>
           
           <label htmlFor="price-lt"> y </label>
-          <input id="price-lt" type="number" name='lessThanPriceFilter' onBlur={onBlur} onChange={setFilters} value={form.lessThanPriceFilter}/>
+          <input className={styles.priceTag} id="price-lt" type="number" name='lessThanPriceFilter' onBlur={onBlur} onChange={setFilters} value={form.lessThanPriceFilter}/>
 
         </fieldset>
 
@@ -181,17 +181,17 @@ export const Nav = () => {
           <h6>Reviews</h6>
 
           <label htmlFor="review-gt">Entre </label>
-          <input type="number" id="review-gt" name="moreThanReviewFilter" onBlur={onBlur} onChange={setFilters} value={form.moreThanReviewFilter}/>
+          <input className={styles.priceTag} type="number" id="review-gt" name="moreThanReviewFilter" onBlur={onBlur} onChange={setFilters} value={form.moreThanReviewFilter}/>
 
           <label htmlFor="review-lt"> y </label>
-          <input type="number" id="review-lt" name="lessThanReviewFilter" onBlur={onBlur} onChange={setFilters} value={form.lessThanReviewFilter}/>
+          <input className={styles.priceTag} type="number" id="review-lt" name="lessThanReviewFilter" onBlur={onBlur} onChange={setFilters} value={form.lessThanReviewFilter}/>
           
         </fieldset>
 
         <fieldset>
           <h6>Buscar</h6>
-          <input type="text" id="searchFilter" name="searchFilter" onBlur={onBlur} onChange={setFilters} value={form.searchFilter}/>
-          <input type="text" id="categoryFilter" name="categoryFilter" onBlur={onBlur} onChange={setFilters} value={form.categoryFilter}/>
+          <input className={styles.priceTag} type="text" id="searchFilter" name="searchFilter" onBlur={onBlur} onChange={setFilters} value={form.searchFilter}/>
+          <input className={styles.priceTag} type="text" id="categoryFilter" name="categoryFilter" onBlur={onBlur} onChange={setFilters} value={form.categoryFilter}/>
         </fieldset>
 
 
