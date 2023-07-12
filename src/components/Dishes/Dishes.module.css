@@ -11,6 +11,23 @@
   flex: 1;
 }
 
+.pagination {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.pagination button {
+  font-size: inherit;
+  padding: 0 1rem;
+}
+
+.pagination {
+  width: 100%;
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+}
+
 
 @media (width >= 768px) {
   .dishes {

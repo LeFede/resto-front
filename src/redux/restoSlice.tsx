@@ -12,7 +12,7 @@ const menu: IMenu[]= [
       "salsa de tomate"
     ],
     price: "2500",
-    categories: "Almuerzos. ",
+    categories: "Almuerzos",
     description: "Una milanesa muy rica. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     image: "https://www.paulinacocina.net/wp-content/uploads/2015/03/P1150541-e1439164269502.jpg",
     reviews: [
@@ -97,6 +97,84 @@ const menu: IMenu[]= [
     reviews: [
       1,
     ]
+  },
+  {
+    id: 5,
+    title: "Medialuna",
+    ingredients: [
+    ],
+    price: "150",
+    categories: "otro1",
+    description: "otro1",
+    image: "https://sinreservas.com.ar/download/multimedia.normal.8e7535fe7665009a.4c6120706170612073757320392072656365746173206261cc817369636173205f6e6f726d616c2e77656270.webp",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    id: 6,
+    title: "Medialuna",
+    ingredients: [
+    ],
+    price: "150",
+    categories: "otro2",
+    description: "otro2",
+    image: "https://sinreservas.com.ar/download/multimedia.normal.8e7535fe7665009a.4c6120706170612073757320392072656365746173206261cc817369636173205f6e6f726d616c2e77656270.webp",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    id: 7,
+    title: "Medialuna",
+    ingredients: [
+    ],
+    price: "150",
+    categories: "otro3",
+    description: "otro3",
+    image: "https://sinreservas.com.ar/download/multimedia.normal.8e7535fe7665009a.4c6120706170612073757320392072656365746173206261cc817369636173205f6e6f726d616c2e77656270.webp",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    id: 8,
+    title: "Medialuna",
+    ingredients: [
+    ],
+    price: "150",
+    categories: "otro4",
+    description: "otro4",
+    image: "https://sinreservas.com.ar/download/multimedia.normal.8e7535fe7665009a.4c6120706170612073757320392072656365746173206261cc817369636173205f6e6f726d616c2e77656270.webp",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    id: 9,
+    title: "Medialuna",
+    ingredients: [
+    ],
+    price: "150",
+    categories: "otro5",
+    description: "otro5",
+    image: "https://sinreservas.com.ar/download/multimedia.normal.8e7535fe7665009a.4c6120706170612073757320392072656365746173206261cc817369636173205f6e6f726d616c2e77656270.webp",
+    reviews: [
+      5,1
+    ],
+  },
+  {
+    id: 10,
+    title: "Medialuna",
+    ingredients: [
+    ],
+    price: "150",
+    categories: "otro6",
+    description: "otro6",
+    image: "https://sinreservas.com.ar/download/multimedia.normal.8e7535fe7665009a.4c6120706170612073757320392072656365746173206261cc817369636173205f6e6f726d616c2e77656270.webp",
+    reviews: [
+      5,1
+    ],
   },
 ]
 
@@ -222,7 +300,7 @@ const initialState: State = {
   // priceFilter: 300,
   // reviewFilter: 1,
   searchFilter: "",
-  lessThanPriceFilter: Infinity,
+  lessThanPriceFilter: 10000,
   moreThanPriceFilter: 0,
   lessThanReviewFilter: 5,
   moreThanReviewFilter: 0,

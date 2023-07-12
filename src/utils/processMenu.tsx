@@ -2,7 +2,6 @@ import { IMenu } from "@/types"
 
 export const processMenu = (e: IMenu[]) => e.reduce((prev, curr) => {
     let { categories, ...rest } = curr
-    console.log(curr)
     
     categories = categories.toUpperCase()
 
