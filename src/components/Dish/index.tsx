@@ -1,7 +1,7 @@
 import styles from "./Dish.module.css"
 import { IProcessedMenu, State } from "@/types"
 import { calculateMedium } from "@/utils"
-import AgregarSvg from "@/assets/agregar.svg"
+
 
 import { useDispatch, useSelector } from "react-redux"
 import { agregarPlato } from "@/redux"

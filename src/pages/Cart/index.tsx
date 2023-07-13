@@ -1,7 +1,7 @@
 import { IMenu } from "@/types";
 import { useSelector } from "react-redux";
 import styles from "./cart.module.css"
-import DeleteSvg from "@/assets/delete.svg"
+
 export const Cart = () => {
     const { cart } = useSelector((state: IMenu | any) => state);
 
