@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
         ]
       },
       {
-        path: "table/:tableId",
+        path: "/table/:tableId",
         element: <Menu />
       },
       {
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "table/cart/:tableId",
+        path: "/cart",
         element: <Cart/>,
       },
       {

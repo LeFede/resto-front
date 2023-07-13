@@ -145,11 +145,10 @@ export const Nav = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    // handleCloseFilters()
   }
 
   const goHome = () => navigate('/')
-  const goCart = () => navigate('table/cart/:tableId')
+  const goCart = () => navigate('cart')
 
   return (
     <nav className={styles.nav}>
@@ -157,7 +156,7 @@ export const Nav = () => {
       <ul className={styles.bar}>
         <li onClick={goHome}><img className={styles.logosNav} src={homeSvg} alt="Home" /></li>
         <li onClick={handleShowFilters}><img className={styles.logosNav} src={filtersSvg} alt="Filter" /></li>
-        {currentTable && <li onClick={goCart}><img className={styles.logosNav} src={cartSvg} alt="Carrito" /></li>}
+        {currentTable && <li ><img onClick={goCart} className={styles.logosNav} src={cartSvg} alt="Carrito" /></li>}
       </ul>
 
       <form

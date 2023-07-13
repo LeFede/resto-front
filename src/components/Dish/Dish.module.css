@@ -5,20 +5,10 @@
   position: relative;
 }
 
-.dish::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  background: var(--mill-brown);
-  transition: all .25s ease;
-}
 
-.dish:hover::after {
-  opacity: .1;
+
+.dish:hover {
+  opacity: .4;
   border-radius: 1rem;
 }
 

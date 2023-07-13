@@ -21,24 +21,18 @@ export const Dish = ({ dish }: IProcessedMenu) => {
   }
 
   return ( 
-    <li className={styles.dish} onClick={handleClick}>
+    <li className={styles.dish}>
       <div>
-        <h6>{dish.title}</h6>
+        <h6  onClick={handleClick}>{dish.title}</h6>
         <small>{stars}</small>
         <p>{dish.description}</p>
       </div>
       <h6>${dish.price}</h6>
       {
         currentTable && <button className={styles.containerBoton} onClick={() => dispatch(agregarPlato(dish))}>
-        <img className={styles.logo} src={AgregarSvg} alt="agregar" />
+        ➕
       </button>
       }
-
-      
-
-
-      
-      
     </li>
   )
 }
