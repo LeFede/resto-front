@@ -106,16 +106,18 @@ export const Nav = () => {
 
   const validValue = {
     lessThanPriceFilter: (value: number) => {
+      console.log(value, form.moreThanPriceFilter)
       if (value < 0) return ''
-      if (value < form.moreThanPriceFilter) {
+      if (value < +form.moreThanPriceFilter) {
         // alert("El tope maximo no puede ser menor que el minimo")
         return form.moreThanPriceFilter
       }
       return value
     },
     moreThanPriceFilter: (value: number) => {
+      console.log(value, form.lessThanPriceFilter)
       if (value < 0) return ''
-      if (value > form.lessThanPriceFilter) {
+      if (value > +form.lessThanPriceFilter) {
         // alert("El tope minimo no puede ser menor que el maximo")
         return form.lessThanPriceFilter
       }
