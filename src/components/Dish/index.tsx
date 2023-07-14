@@ -23,7 +23,7 @@ export const Dish = ({ dish }: IProcessedMenu) => {
   return ( 
     <li className={styles.dish}>
       <div>
-        <h6  onClick={handleClick}>{dish.title}</h6>
+        <h6  onClick={handleClick}> {dish.title}</h6>
         <small>{stars}</small>
         <p>{dish.description}</p>
       </div>
@@ -37,3 +37,4 @@ export const Dish = ({ dish }: IProcessedMenu) => {
   )
 }
 
+//hola
