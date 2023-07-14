@@ -168,6 +168,8 @@ export const restoSlice = createSlice({
     },
 
     agregarPlato: (state, action) => {
+      console.log(action.payload);
+      
       state.cart.push(action.payload);
       
     },

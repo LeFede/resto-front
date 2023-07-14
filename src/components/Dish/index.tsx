@@ -46,9 +46,10 @@ export const Dish = ({ dish }: IProcessedMenu) => {
           ) 
         }
       </div>
-      
     </li>
   )
 }
 
-          // <img className={styles.logo} src={AgregarSvg} alt="agregar" />
+
+// <img className={styles.logo} src={AgregarSvg} alt="agregar" />
+

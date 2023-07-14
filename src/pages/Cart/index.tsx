@@ -1,10 +1,15 @@
 import { IMenu } from "@/types";
 import { useSelector } from "react-redux";
 import styles from "./cart.module.css"
-import DeleteSvg from "@/assets/delete.svg"
+
 export const Cart = () => {
     const { cart } = useSelector((state: IMenu | any) => state);
 
+    if(!cart){
+        return(
+            <div> cargando </div>
+        )
+    }
 
     return (
         <>
@@ -18,9 +23,9 @@ export const Cart = () => {
                         <div>
                             <h5>{ord.title}</h5>
                             <br />
-                            <p>{ord.ingredients.join(', ')}</p>
+                            <p>{ord.ingredients}</p>
                             <button className={styles.containerBoton}>
-                                <img className={styles.logoDelete} src={DeleteSvg} alt="Filter" />
+                             ➖
                             </button>
                             <p>{ord.price}$</p>
                         </div>
