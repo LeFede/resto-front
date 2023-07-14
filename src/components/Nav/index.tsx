@@ -105,17 +105,19 @@ export const Nav = () => {
 
   const validValue = {
     lessThanPriceFilter: (value: number) => {
-      if (value < 0) return "";
-      if (value < form.moreThanPriceFilter) {
+      console.log(value, form.moreThanPriceFilter)
+      if (value < 0) return ''
+      if (value < +form.moreThanPriceFilter) {
         // alert("El tope maximo no puede ser menor que el minimo")
         return form.moreThanPriceFilter;
       }
       return value;
     },
     moreThanPriceFilter: (value: number) => {
-      if (value < 0) return "";
-      if (value > form.lessThanPriceFilter) {
-        // alert("El tope minimo no puede ser menor que el maximo")
+
+      if (value < 0) return ''
+      if (value > +form.lessThanPriceFilter) {
+        // alert("El tope minimo no puede ser menor que e  maximo")
         return form.lessThanPriceFilter;
       }
       return value;
