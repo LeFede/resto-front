@@ -22,8 +22,16 @@
   border-radius: 1rem;
 }
 
-.dish div {
-  flex: 1;
+.left {
+  flex: .8;
+}
+
+.right {
+  text-align: end;
+  flex: .2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .dish p {
@@ -31,16 +39,41 @@
   text-transform: capitalize;
   max-width: 80%;
 }
+
 .logo{
-height: 30px;
-width: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 .containerBoton{
-  height: 40px;
-  width: 100px;
-  border: 0px black;
+  /* height: 40px; */
+  /* width: 100px; */
+  /* border: 0px black; */
+  position: relative;
+  z-index: 30;
+  border: none;
+  font-family: var(--font-2);
+  font-weight: 900;
+  color: var(--mill-white);
+  
+  font-size: 2rem;
 }
+
+.buttons {
+  display: flex;
+}
+
+.buttonLeft {
+  background: green;
+  flex: 1;
+}
+
+.buttonRight {
+  background: red;
+  flex: 1;
+}
+
+
 
 @media (width >= 768px) {
 
