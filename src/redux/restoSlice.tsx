@@ -5,119 +5,7 @@ import { State } from "@/types"
 const initialState: State = {
   cart: [],
   menus: [],
-  orders: [
-      {
-        id:1,
-        items:[
-        {
-          id: 10,
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          id: 11,
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],
-      },
-    
-    
-      {
-        id:2,
-        items:[
-        {
-          id: 12,
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          id: 13,
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],
-      },
-    
-    
-      {
-        id:3,
-        items:[
-        {
-          id: 14,
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          id: 15,
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],},
-      ],
+  orders: [],
   currentTable: null,
   // priceFilter: 300,
   // reviewFilter: 1,
@@ -136,6 +24,12 @@ export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
   const data = await res.json()
   return data
 })
+
+export const fetchOrders = createAsyncThunk("orders/fetch", async () => {
+  const res = await fetch("http://resto-back-production-2867.up.railway.app/order")
+  const data = await res.json()
+  return data
+});
 
 export const restoSlice = createSlice({
   name: "resto",
@@ -182,6 +76,10 @@ export const restoSlice = createSlice({
   extraReducers: (builder: any) => {
     builder.addCase(fetchMenus.fulfilled, (state: any, action: any) => {
       state.menus = action.payload
+    })
+
+    builder.addCase(fetchOrders.fulfilled, (state: any, action: any) => {
+      state.orders = action.payload
     })
   },
 })
