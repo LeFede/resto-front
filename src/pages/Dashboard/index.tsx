@@ -1,49 +1,93 @@
-import { Order, State } from "@/types";
-import styles from "./Dashboard.module.css"
-import { useSelector } from "react-redux";
-import DeleteSvg from "@/assets/delete.svg"
+import styles from "./Dashboard.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { WithoutPermissions } from "@/pages/WithoutPermissions";
+import { fetchOrders } from "../../redux/index";
 
 export const Dashboard = () => {
-  const { orders, userRol } = useSelector((state: State) => state);
-  
-  if(userRol !== "admin") {
+  const { orders, userRol } = useSelector((state: any) => state);
+  const dispatch = useDispatch();
 
-    return(
+  useEffect(() => {
+    dispatch<any>(fetchOrders());
+  }, [dispatch]);
 
-      <WithoutPermissions/>
-      
-    )
+  const deleteOrder = async (id: string) => {
+    try {
+      await fetch(`http://localhost:3000/order/delete/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateOrderState = async (id: string, newState: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/order/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({ state: newState }),
+      });
+
+      if (response.ok) {
+        console.log("Estado de la orden actualizado correctamente");
+      } else {
+        console.error("Error al actualizar el estado de la orden");
+      }
+    } catch (error) {
+      console.error("Error en la solicitud PUT:", error);
+    }
+  };
+
+  if (userRol !== "admin") {
+    return <WithoutPermissions />;
   }
 
+  const activeOrders = orders.filter((order: any) => order.active);
+
   return (
-    <section className={styles.dashboard}>
-      {orders.map((orders: Order) => {
-        return (
+    <div className={styles.dashboard}>
+      {activeOrders.map((order: any) => (
+        <div className={`${styles.order} ${styles.card}`} key={order._id}>
+          <h1>{order._id}</h1>
+          <h2>Table: {order.table}</h2>
+          <h2>Status: {order.state}</h2>
 
-          <div>
+          {order.state !== "delivered" && (
+            <>
+              <button
+                onClick={() => updateOrderState(order._id, "in progress")}
+              >
+                In Progress
+              </button>
+              <button onClick={() => updateOrderState(order._id, "ready")}>
+                Ready
+              </button>
+              <button onClick={() => updateOrderState(order._id, "delivered")}>
+                Delivered
+              </button>
+            </>
+          )}
 
-            <h3 className={styles.table}>Mesa {orders.id} 
-            <button className={styles.blogoDelete}>
-            <img className={styles.logoDelete} src={DeleteSvg} alt="DELETE" />
-            </button>
-            </h3>
-            {orders.items.map((ord) => {
-              return (
+          {order.state === "delivered" && (
+            <button onClick={() => deleteOrder(order._id)}>BORRAR</button>
+          )}
 
-                <div className={styles.order}>
-                  <div>
-                    <h5>{ord.title}</h5>
-                    <br />
-                    <p>{ord.ingredients.join(', ')}</p>
-                  </div>
-                  <br />
-                </div>
-              )
-            })}
-          </div>
-        )
-      })}
-    </section>
-  )
-}
+          <ul>
+            {order.item.map((item: any) => (
+              <li className={styles.table} key={item.dish._id}>
+                <h3>{item.dish.title}</h3>
+                <p>Quantity: {item.quantity}</p>
+                {item.observation && <p>Observation: {item.observation}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+};
