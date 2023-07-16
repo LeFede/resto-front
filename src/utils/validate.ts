@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 import { DishDataError, Dishdata } from "../types";
 
-export const validate = ({ title, price, description, categories, image, ...data }: Dishdata): DishDataError => {
+export const validate = ({ title, price, description, categories, image }: Dishdata): DishDataError => {
   const errors: SetStateAction<Partial<DishDataError> | Record<string, never>> = {};
   
   if (!title) {
