@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { WithoutPermissions } from "@/pages/WithoutPermissions";
 import { fetchOrders } from "../../redux/index";
+import {  cargando, checkB, entregado } from "@/assets";
 
 export const Dashboard = () => {
   const { orders, userRol } = useSelector((state: any) => state);
@@ -50,25 +51,31 @@ export const Dashboard = () => {
   const activeOrders = orders.filter((order: any) => order.active);
 
   return (
-    <div className={styles.dashboard}>
+    <section className={styles.fakeback}>
+      <h2 className={styles.title}>Ordenes</h2>
+      <div className={styles.dashboard}>
+      
       {activeOrders.map((order: any) => (
-        <div className={`${styles.order} ${styles.card}`} key={order._id}>
-          <h1>{order._id}</h1>
+        <div className={styles.orden} key={order._id}>
+          {/* <h1>{order._id}</h1> */}
           <h2>Table: {order.table}</h2>
           <h2>Status: {order.state}</h2>
 
+          <div className={styles.containerbotones}>
           {order.state !== "delivered" && (
             <>
-              <button
+              <button className={styles.boton}
                 onClick={() => updateOrderState(order._id, "in progress")}
               >
-                In Progress
+                <img className={styles.img} src={cargando} alt="" />
               </button>
-              <button onClick={() => updateOrderState(order._id, "ready")}>
-                Ready
+              <button  className={styles.boton}
+               onClick={() => updateOrderState(order._id, "ready")}>
+                <img className={styles.img} src={checkB} alt="Listo" />
               </button>
-              <button onClick={() => updateOrderState(order._id, "delivered")}>
-                Delivered
+              <button className={styles.boton}
+              onClick={() => updateOrderState(order._id, "delivered")}>
+                <img className={styles.img} src={entregado} alt="entregado" />
               </button>
             </>
           )}
@@ -77,6 +84,8 @@ export const Dashboard = () => {
             <button onClick={() => deleteOrder(order._id)}>BORRAR</button>
           )}
 
+          </div>
+          
           <ul>
             {order.item.map((item: any) => (
               <li className={styles.table} key={item.dish._id}>
@@ -89,5 +98,6 @@ export const Dashboard = () => {
         </div>
       ))}
     </div>
+    </section>
   );
 };
