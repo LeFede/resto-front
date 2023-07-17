@@ -15,7 +15,7 @@ import {
 } from "@/redux";
 
 const initial = {
-  lessThanPriceFilter: Infinity,
+  lessThanPriceFilter: 100000,
   moreThanPriceFilter: 0,
   lessThanReviewFilter: 5,
   moreThanReviewFilter: 0,
@@ -188,15 +188,20 @@ export const Nav = () => {
             value={form.searchFilter}
           />
           <h6>Buscar por categoria</h6>
-          <input
+         
+          <select 
           className={styles.inputs}
-            type="text"
-            id="categoryFilter"
-            name="categoryFilter"
-            onBlur={onBlur}
-            onChange={setFilters}
-            value={form.categoryFilter}
-          />
+          typeof=""
+          id="categoryFilter"
+          name="categoryFilter"
+          onBlur={onBlur}
+          onChange={setFilters}
+          value={form.categoryFilter}>
+        <option>Elije una opción</option>
+        <option value="main">Plato principal</option>
+        <option value="drink">bebidas</option>
+      </select>
+          
         </fieldset>
 
         <fieldset>
@@ -209,7 +214,7 @@ export const Nav = () => {
             id="lessThanPriceFilter"
             name="lessThanPriceFilter"
             min="0"
-            max="10000"
+            max="30000"
             step="1"
             value={form.lessThanPriceFilter}
             onChange={setFilters}
@@ -233,7 +238,6 @@ export const Nav = () => {
 
        <fieldset className={styles.filtercontainer} >
           <h6>Reviews</h6>
-
           <label htmlFor="review-gt">Min </label>
           <input
             type="number"
@@ -243,7 +247,6 @@ export const Nav = () => {
             onChange={setFilters}
             value={form.moreThanReviewFilter}
           />
-          <br />
           <label htmlFor="review-lt"> Max</label>
           <input
             type="number"
