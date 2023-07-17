@@ -144,7 +144,7 @@
   .filtercontainer{
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 5px;
   }
 
