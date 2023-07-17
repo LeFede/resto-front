@@ -46,6 +46,6 @@ export const useMenus = () => {
     categoryFilter
   ])
 
-  console.log(menu)
+  // console.log(menu)
   return menu
 }

@@ -35,7 +35,7 @@ export const MenuDetail = () => {
             <h6>NO SE</h6>
           </div>
         </div>
-        <Button action={() => navigate("/menu/")}>Cerrar</Button>
+        <Button action={() => navigate(-1)}>Cerrar</Button>
       </div>
     </section>
   )

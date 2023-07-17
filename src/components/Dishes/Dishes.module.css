@@ -4,8 +4,21 @@
   padding: 1rem;
   padding-top: 5rem;
   padding-bottom: 5rem;
+  width: 90vw;
 }
-
+.title{
+  font-family: var(--font-3);
+}
+.fakeback{
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.500);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  place-items: center;
+}
 .dishes ul {
   padding: 2rem 0;
   flex: 1;
