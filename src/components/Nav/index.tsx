@@ -26,6 +26,7 @@ const initial = {
 export const Nav = () => {
   const navigate = useNavigate();
   const {
+    cart,
     currentTable,
     lessThanPriceFilter,
     moreThanPriceFilter,
@@ -159,7 +160,7 @@ export const Nav = () => {
           <img className={styles.logosNav} src={filtersSvg} alt="Filter" />
         </li>
         {currentTable && (
-          <li>
+          <li className={`${cart.length ? styles.showNumber : ""}`} data-a={cart.reduce((acc, curr) => acc + curr.quantity, 0)}>
             <img
               onClick={goCart}
               className={styles.logosNav}
