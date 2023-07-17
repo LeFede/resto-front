@@ -21,9 +21,11 @@ export const LoginForm = () => {
         .then((result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
+             // @ts-ignore
             const token = credential?.accessToken;
             // The signed-in user info.
             const user = result.user;
+             // @ts-ignore
             const userId = user.uid
             console.log(user);
             fetchUser(user)
@@ -42,11 +44,15 @@ export const LoginForm = () => {
 
           .catch((error) => {
             // Handle Errors here.
+             // @ts-ignore
             const errorCode = error.code;
+             // @ts-ignore
             const errorMessage = error.message;
             // The email of the user's account used.
+             // @ts-ignore
             const email = error.customData.email;
             // The AuthCredential type that was used.
+             // @ts-ignore
             const credential = GoogleAuthProvider.credentialFromError(error);
           });
     }
