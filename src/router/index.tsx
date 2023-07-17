@@ -28,16 +28,26 @@ export const router = createBrowserRouter([
       },
       {
         path: "table/:tableId",
-        element: <Menu />
+        element: <Menu />,
+        children: [
+          {
+            path: "cart",
+            element: <Cart />
+          },
+          {
+            path: ":menuId",
+            element: <MenuDetail />
+          }
+        ]
       },
       {
         path: "/dashboard",
         element: <Dashboard />,
       },
-      {
-        path: "table/cart/:tableId",
-        element: <Cart/>,
-      },
+      // {
+      //   path: "table/cart/:tableId",
+      //   element: <Cart/>,
+      // },
       {
         path: "/table",
         element: <Table/>,

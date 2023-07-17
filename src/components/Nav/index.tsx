@@ -44,6 +44,7 @@ export const Nav = () => {
     searchFilter, categoryFilter
   })
 
+
   const [showBg, setShowBg] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
 
@@ -106,7 +107,7 @@ export const Nav = () => {
 
   const validValue = {
     lessThanPriceFilter: (value: number) => {
-      console.log(value, form.moreThanPriceFilter)
+      // console.log(value, form.moreThanPriceFilter)
       if (value < 0) return ''
       if (value < +form.moreThanPriceFilter) {
         // alert("El tope maximo no puede ser menor que el minimo")
@@ -115,7 +116,7 @@ export const Nav = () => {
       return value
     },
     moreThanPriceFilter: (value: number) => {
-      console.log(value, form.lessThanPriceFilter)
+      // console.log(value, form.lessThanPriceFilter)
       if (value < 0) return ''
       if (value > +form.lessThanPriceFilter) {
         // alert("El tope minimo no puede ser menor que el maximo")
@@ -151,7 +152,7 @@ export const Nav = () => {
   }
 
   const goHome = () => navigate('/')
-  const goCart = () => navigate('table/cart/:tableId')
+  const goCart = () => navigate(`/table/${currentTable}/cart`)
 
   return (
     <nav className={styles.nav}>

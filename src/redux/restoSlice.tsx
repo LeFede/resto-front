@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
 import { State } from "@/types"
 
 
 const initialState: State = {
-  cart: [],
+  cart: [
+  ],
   menus: [],
   orders: [
       {
@@ -168,9 +169,39 @@ export const restoSlice = createSlice({
     },
 
     agregarPlato: (state, action) => {
+      const cart = current(state.cart)
+      const id = action.payload.dish
+      const indexOfEl = cart.findIndex(e => e.dish === id)
+      if (indexOfEl > -1) {
+        state.cart[indexOfEl] = {
+          ...cart[indexOfEl],
+          quantity: cart[indexOfEl].quantity + 1
+        }
+        console.log(cart)
+        return
+      } 
       state.cart.push(action.payload);
-      
     },
+
+    removeDish: (state, action) => {
+      const cart = current(state.cart)
+      const id = action.payload.dish
+      const indexOfEl = cart.findIndex(e => e.dish === id)
+      if (indexOfEl > -1) {
+        if (cart[indexOfEl].quantity > 1)
+          state.cart[indexOfEl] = {
+            ...cart[indexOfEl],
+            quantity: cart[indexOfEl].quantity - 1
+          }
+        else 
+          state.cart = cart.filter(dish => dish.dish !== action.payload.dish)
+
+        console.log(cart)
+        return
+      } 
+
+    },
+
 
     setCategoryFilter: (state: any, action: any) => {
       state.categoryFilter = action.payload
@@ -186,6 +217,7 @@ export const restoSlice = createSlice({
 
 export const { 
   agregarPlato,
+  removeDish,
   setTable,
   setSearchFilter,
   setMoreThanPriceFilter,

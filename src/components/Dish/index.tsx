@@ -3,7 +3,7 @@ import { IProcessedMenu, State } from "@/types"
 import { calculateMedium } from "@/utils"
 
 import { useDispatch, useSelector } from "react-redux"
-import { agregarPlato } from "@/redux"
+import { agregarPlato, removeDish } from "@/redux"
 import { useNavigate } from "react-router-dom"
 
 export const Dish = ({ dish }: IProcessedMenu) => {
@@ -17,7 +17,28 @@ export const Dish = ({ dish }: IProcessedMenu) => {
 
   const handleClick = (e: any) => {
     if (e.target.tagName === "BUTTON") return
-    navigate(`/menu/${dish._id}`)
+    navigate(`${dish._id}`)
+  }
+
+  const handleAddDish = () => {
+    console.log(dish)
+    const newDish = {
+      dish: dish._id,
+      quantity: 1,
+      totalPrice: dish.price,
+      observation: "Lo quiero con hielo",
+    }
+    dispatch(agregarPlato(newDish))
+  }
+
+  const handleRemoveDish = () => {
+    const newDish = {
+      dish: dish._id,
+      quantity: 1,
+      totalPrice: dish.price,
+      observation: "Lo quiero con hielo",
+    }
+    dispatch(removeDish(newDish))
   }
 
   return ( 
@@ -34,12 +55,12 @@ export const Dish = ({ dish }: IProcessedMenu) => {
             <div className={styles.buttons}>
               <button 
                 className={`${styles.containerBoton} ${styles.buttonLeft}`} 
-                onClick={() => dispatch(agregarPlato(dish))}
+                onClick={handleAddDish}
               >+
               </button>
               <button 
                 className={`${styles.containerBoton} ${styles.buttonRight}`} 
-                onClick={() => dispatch(agregarPlato(dish))}
+                onClick={handleRemoveDish}
               >-
               </button>
             </div>

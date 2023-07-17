@@ -27,7 +27,7 @@ export const DishForm = () => {
   
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log(dataForm);
+      // console.log(dataForm);
     };
   
 
