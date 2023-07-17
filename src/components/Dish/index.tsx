@@ -23,6 +23,7 @@ export const Dish = ({ dish }: IProcessedMenu) => {
   const handleAddDish = () => {
     console.log(dish)
     const newDish = {
+      title: dish.title,
       dish: dish._id,
       quantity: 1,
       totalPrice: dish.price,
@@ -33,6 +34,7 @@ export const Dish = ({ dish }: IProcessedMenu) => {
 
   const handleRemoveDish = () => {
     const newDish = {
+      title: dish.title,
       dish: dish._id,
       quantity: 1,
       totalPrice: dish.price,

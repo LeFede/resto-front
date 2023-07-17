@@ -46,7 +46,7 @@ export const Cart = () => {
       <div className={styles.container}>
         {
           /* @ts-ignore */
-          cart.map(item => <div key={item.dish}>{item.dish}</div>)
+          cart.map(item => <div key={item.dish}>{item.title} x {item.quantity}</div>)
         }
         <button onClick={handleBuy}>Pagar</button>
 
