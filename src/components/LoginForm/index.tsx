@@ -26,18 +26,13 @@ export const LoginForm = () => {
             const user = result.user;
             const userId = user.uid
             console.log(user);
-            const fetchUser = async(userId: any) => {
-
-                const { data } = await axios.get(`http://resto-back-production-2867.up.railway.app/users/${userId}`)
-                return data
-                console.log(data)
-            }
-            fetchUser(userId)
+            fetchUser(user)
 
             if(user){
                 user.getIdToken().then((tkn)=>{
                   // set access token in session storage
                   sessionStorage.setItem("accessToken", tkn);
+                // @ts-ignore
                   setAuthorizedUser(true);
                 })
               }
@@ -61,6 +56,7 @@ export const LoginForm = () => {
         signOut(auth).then(() => {
 
             sessionStorage.clear()
+             // @ts-ignore
             setAuthorizedUser(false);
 
             alert('Has cerrado sesión correctamente')
@@ -69,7 +65,12 @@ export const LoginForm = () => {
 
     }
 
-    
+    const fetchUser = async(userId: any) => {
+
+        const { data } = await axios.get(`http://resto-back-production-2867.up.railway.app/users/${userId}`)
+        return data
+        console.log(data)
+    }
     
     const fetchData = async({token}: any)=>{
         const response = await axios.get('http://resto-back-production-2867.up.railway.app/',{
@@ -193,10 +194,3 @@ export const LoginForm = () => {
     )
 
 }
-
-
-
-// return (
-
-
-// )
