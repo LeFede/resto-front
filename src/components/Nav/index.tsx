@@ -1,132 +1,276 @@
-import { useState } from "react"
-import styles from "./Nav.module.css"
-import { Button } from "@/components"
-import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import HomeSvg from "@/assets/home.svg"
-import FilterSvg from "@/assets/filters.svg"
-import CartSvg from "@/assets/cart.svg"
-import { State } from "@/types"
-import { setLessThanPriceFilter, setMoreThanPriceFilter } from "../../redux"
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
-const initFilterState = {
-    reviewFilter: 1,
-    searchFilter: "",
-    lessThanPriceFilter: Infinity,
-    moreThanPriceFilter: 0,
-    lessThanReviewFilter: 5,
-    moreThanReviewFilter: 0,
-  }
+import styles from "./Nav.module.css";
+import { homeSvg, filtersSvg, cartSvg, reload, check } from "@/assets";
+import { State } from "@/types";
+import {
+  setLessThanPriceFilter,
+  setMoreThanPriceFilter,
+  setLessThanReviewFilter,
+  setMoreThanReviewFilter,
+  setSearchFilter,
+  setCategoryFilter,
+} from "@/redux";
+
+const initial = {
+  lessThanPriceFilter: 100000,
+  moreThanPriceFilter: 0,
+  lessThanReviewFilter: 5,
+  moreThanReviewFilter: 0,
+  searchFilter: "",
+  categoryFilter: "",
+};
 
 export const Nav = () => {
+  const navigate = useNavigate();
+  const {
+    currentTable,
+    lessThanPriceFilter,
+    moreThanPriceFilter,
+    lessThanReviewFilter,
+    moreThanReviewFilter,
+    searchFilter,
+    categoryFilter,
+  } = useSelector((state: State) => state);
 
-  const navigate = useNavigate()
-  const { currentTable } = useSelector((state: State) => state)
+  const [form, setForm] = useState({
+    lessThanPriceFilter,
+    moreThanPriceFilter,
+    lessThanReviewFilter,
+    moreThanReviewFilter,
+    searchFilter,
+    categoryFilter,
+  });
 
-  const [showBg, setShowBg] = useState(false)
-  const [showFilters, setShowFilters] = useState(false)
+  const [showBg, setShowBg] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
-  const [isGreaterThanPriceFilter, setIsGraterThanPriceFilter] = useState(true)
-  const [filters, setFilters] = useState(initFilterState)
-  
   const dispatch = useDispatch();
 
   const handleShowFilters = () => {
-    setShowFilters(prev => {
-      setShowBg(!prev)
-      return !prev
-    })
-  }
+    setShowFilters((prev) => {
+      setShowBg(!prev);
+      return !prev;
+    });
+  };
 
   const handleCloseFilters = () => {
-    setShowFilters(false)
-    setShowBg(false)
+    setShowFilters(false);
+    setShowBg(false);
 
-    setPriceFilter()
-  }
+    applyFilters();
+  };
 
-  const setPriceFilter = () => {
-    if (isGreaterThanPriceFilter) {
-      dispatch(setMoreThanPriceFilter(filters.moreThanPriceFilter as any))
-      dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter as any))
-    } else {
-      dispatch(setLessThanPriceFilter(filters.lessThanPriceFilter as any))
-      dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter as any))
-    }
-  }
+  const applyFilters = () => {
+    // @ts-ignore
+    dispatch(setLessThanPriceFilter(+form.lessThanPriceFilter));
+    // @ts-ignore
+    dispatch(setMoreThanPriceFilter(+form.moreThanPriceFilter));
+    // @ts-ignore
+    dispatch(setLessThanReviewFilter(+form.lessThanReviewFilter));
+    // @ts-ignore
+    dispatch(setMoreThanReviewFilter(+form.moreThanReviewFilter));
+    // @ts-ignore
+    dispatch(setSearchFilter(form.searchFilter));
+    // @ts-ignore
+    dispatch(setCategoryFilter(form.categoryFilter));
+  };
+
+  const setFilters = (event: any) => {
+    const { name, value } = event.target;
+
+    setForm((prev) => {
+      const newForm = {
+        ...prev,
+        [name]: value,
+      };
+      return newForm;
+    });
+  };
+
+  const onBlur = (event: any) => {
+    const { name, value } = event.target;
+
+    setForm((prev) => {
+      const newForm = {
+        ...prev,
+        // @ts-ignore
+        [name]: validValue[name](value),
+      };
+      return newForm;
+    });
+  };
+
+  const validValue = {
+    lessThanPriceFilter: (value: number) => {
+      // console.log(value, form.moreThanPriceFilter)
+      if (value < 0) return ''
+      if (value < +form.moreThanPriceFilter) {
+        // alert("El tope maximo no puede ser menor que el minimo")
+        return form.moreThanPriceFilter;
+      }
+      return value;
+    },
+    moreThanPriceFilter: (value: number) => {
+      if (value < 0) return ''
+      if (value > +form.lessThanPriceFilter) {
+        // alert("El tope minimo no puede ser menor que e  maximo")
+        return form.lessThanPriceFilter;
+      }
+      return value;
+    },
+    lessThanReviewFilter: (value: number) => {
+      if (value < 0) return 0;
+      if (value > 5) return 5;
+      if (value < form.moreThanReviewFilter) return form.moreThanReviewFilter;
+      return value;
+    },
+    moreThanReviewFilter: (value: number) => {
+      if (value < 0) return 0;
+      if (value > 5) return 5;
+      if (value > form.lessThanReviewFilter) return form.lessThanReviewFilter;
+      return value;
+    },
+
+    searchFilter: (value: string) => value,
+    categoryFilter: (value: string) => value,
+  };
 
   const resetFilter = () => {
-    setFilters(initFilterState)
-    dispatch(setLessThanPriceFilter(initFilterState.lessThanPriceFilter as any))
-    dispatch(setMoreThanPriceFilter(initFilterState.moreThanPriceFilter as any))
-  }
+    setForm(initial);
+  };
 
   const handleSubmit = (e: any) => {
-    e.preventDefault()
-  }
-  
-  const handleFilterChange = (e: any) => {
-    
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value
-    })
-
-    isGreaterThanPriceFilter ? setFilters({...filters, moreThanPriceFilter: e.target.value}) : setFilters({...filters, lessThanPriceFilter: e.target.value})
-  }
+    e.preventDefault();
+  };
 
   const goHome = () => navigate('/')
+  const goCart = () => navigate(`/table/${currentTable}/cart`)
 
   return (
     <nav className={styles.nav}>
-
       <ul className={styles.bar}>
-        <li onClick={goHome}><img className={styles.logosNav} src={HomeSvg} alt="Home" /></li>
-        <li onClick={handleShowFilters}><img className={styles.logosNav} src={FilterSvg} alt="Filter" /></li>
-        {currentTable && <li ><img className={styles.logosNav} src={CartSvg} alt="Carrito" /></li>}
+        <li onClick={goHome}>
+          <img className={styles.logosNav} src={homeSvg} alt="Home" />
+        </li>
+        <li onClick={handleShowFilters}>
+          <img className={styles.logosNav} src={filtersSvg} alt="Filter" />
+        </li>
+        {currentTable && (
+          <li>
+            <img
+              onClick={goCart}
+              className={styles.logosNav}
+              src={cartSvg}
+              alt="Carrito"
+            />
+          </li>
+        )}
       </ul>
 
       <form
         className={`${styles.filters} ${showFilters ? styles.showFilters : ""}`}
         onSubmit={handleSubmit}
       >
-        <h3>Busqueda y filtros</h3>
-
+        <h3 className={styles.titlefilter}>Busqueda y filtros</h3>
         <fieldset>
-          <h6>Precio</h6>
-
-          <label htmlFor="price-gt">Mayor que</label>
-          <input id="price-gt" checked={isGreaterThanPriceFilter} type="radio" name="priceFilter" onChange={() => setIsGraterThanPriceFilter(!isGreaterThanPriceFilter)}/>
-          <label htmlFor="price-lt">Menor que</label>
-          <input id="price-lt" type="radio" checked={!isGreaterThanPriceFilter} name="priceFilter" onChange={() => setIsGraterThanPriceFilter(!isGreaterThanPriceFilter)}/>
-          <input type="number" name='priceFilter' value={isGreaterThanPriceFilter ? filters.moreThanPriceFilter : filters.lessThanPriceFilter} onChange={handleFilterChange}/>
-
+          <h6>Buscar por nombre</h6>
+          <input
+          className={styles.inputs}
+            type="text"
+            id="searchFilter"
+            name="searchFilter"
+            onBlur={onBlur}
+            onChange={setFilters}
+            value={form.searchFilter}
+          />
+          <h6>Buscar por categoria</h6>
+         
+          <select 
+          className={styles.inputs}
+          typeof=""
+          id="categoryFilter"
+          name="categoryFilter"
+          onBlur={onBlur}
+          onChange={setFilters}
+          value={form.categoryFilter}>
+        <option>Elije una opción</option>
+        <option value="main">Plato principal</option>
+        <option value="drink">bebidas</option>
+      </select>
+          
         </fieldset>
 
         <fieldset>
+          <h6>Filtrar por precio</h6>
+
+          <label htmlFor="lessThanPriceFilter">Precio máximo:</label>
+          <input
+          
+            type="range"
+            id="lessThanPriceFilter"
+            name="lessThanPriceFilter"
+            min="0"
+            max="30000"
+            step="1"
+            value={form.lessThanPriceFilter}
+            onChange={setFilters}
+          />
+          <span className={styles.num}>{form.lessThanPriceFilter}</span>
+          <br />
+          <label htmlFor="moreThanPriceFilter">Precio mínimo:</label>
+          <input
+            type="range"
+            id="moreThanPriceFilter"
+            name="moreThanPriceFilter"
+            min="0"
+            max="10000"
+            step="1"
+            value={form.moreThanPriceFilter}
+            onChange={setFilters}
+          />
+          <span className={styles.num}>{form.moreThanPriceFilter}</span>
+        </fieldset>
+
+
+       <fieldset className={styles.filtercontainer} >
           <h6>Reviews</h6>
-
-          <label htmlFor="review-gt">Mayor que</label>
-          <input id="review-gt" checked type="radio" name="reviewFilter" />
-          <label htmlFor="review-lt">Menor que</label>
-          <input id="review-lt" type="radio" name="reviewFilter" />
-          <input type="number" value={0}/>
-
+          <label htmlFor="review-gt">Min </label>
+          <input
+            type="number"
+            id="review-gt"
+            name="moreThanReviewFilter"
+            onBlur={onBlur}
+            onChange={setFilters}
+            value={form.moreThanReviewFilter}
+          />
+          <label htmlFor="review-lt"> Max</label>
+          <input
+            type="number"
+            id="review-lt"
+            name="lessThanReviewFilter"
+            onBlur={onBlur}
+            onChange={setFilters}
+            value={form.lessThanReviewFilter}
+          />
         </fieldset>
 
-        <fieldset>
-          <h6>Buscar</h6>
-          <input type="text" />
-        </fieldset>
 
-
-        <Button action={resetFilter}>Limpiar filtros</Button>
-        <Button action={handleCloseFilters}>Cerrar</Button>
+        <div className={styles.containerbutton}>
+          <button className={styles.button} onClick={resetFilter}>
+            <img src={reload} alt="" />
+          </button>
+          <button className={styles.button} onClick={handleCloseFilters}>
+            <img src={check} alt="" />
+          </button>
+        </div>
       </form>
 
-      <div className={`${styles.background} ${showBg ? styles.fadein : ""}`}>
-      </div>
-
+      <div
+        className={`${styles.background} ${showBg ? styles.fadein : ""}`}
+      ></div>
     </nav>
-  )
-}
+  );
+};

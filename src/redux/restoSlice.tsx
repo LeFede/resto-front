@@ -1,225 +1,68 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { State, IMenu } from "@/types"
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
+import { State, Dishdata } from "@/types"
 
-  // TODO: BORRAR && api
-const menu: IMenu[]= [
-  {
-    title: "Milanesa Napolitana",
-    ingredients: [
-      "carne de res",
-      "jamon y queso",
-      "salsa de tomate"
-    ],
-    price: "2500",
-    categories: "Almuerzos",
-    description: "",
-    image: "",
-    reviews: [
-      5,1
-    ],
-  },
-  {
-    title: "Ensalada Cesar",
-    ingredients: [
-      "Lechuga",
-      "Pollo",
-      "queso crema",
-      "semillas de sesamo"
-    ],
-    price: "2000",
-    categories: "Almuerzos",
-    description: "",
-    image: "",
-    reviews: [
-      5,1
-    ],
-  },
-  {
-    title: "Cafe con Leche",
-    ingredients: [
-      // "no se",
-      // "adwqijiowqjw qdwqdqw"
-    ],
-    price: "500",
-    categories: "Desayunos",
-    description: "",
-    image: "",
-    reviews: [
-      5,1
-    ],
-  },
-  {
-    title: "Medialuna",
-    ingredients: [
-      // "no se",
-      // "adwqijiowqjw qdwqdqw"
-    ],
-    price: "150",
-    categories: "Desayunos",
-    description: "",
-    image: "",
-    reviews: [
-      5,1
-    ],
-  },
-  {
-    title: "Fuble",
-    ingredients: [
-      "Helado de vainilla",
-      "Mouse de chocolate",
-      "almendras"
-    ],
-    price: "1500",
-    categories: "postres",
-    description: "",
-    image: "",
-    reviews: [
-      5
-    ]
-  },
-  {
-    title: "Flan aleman",
-    ingredients: [
-      "Flan casero",
-      "pizca de limon",
-      "crema chantilli",
-    ],
-    price: "1650",
-    categories: "Postres",
-    description: "",
-    image: "",
-    reviews: [
-      1,
-    ]
-  },
-]
 
 const initialState: State = {
-  menus: [],
-  orders: [
-    
-      {
-        id:1,
-        items:[
-        {
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],
-      },
-    
-    
-      {
-        id:2,
-        items:[
-        {
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],
-      },
-    
-    
-      {
-        id:3,
-        items:[
-        {
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],
-      },
-    
+  cart: [
   ],
+  menus: [],
+  orders: [],
   currentTable: null,
-  priceFilter: 300,
-  reviewFilter: 1,
+  // priceFilter: 300,
+  // reviewFilter: 1,
   searchFilter: "",
   lessThanPriceFilter: Infinity,
   moreThanPriceFilter: 0,
   lessThanReviewFilter: 5,
   moreThanReviewFilter: 0,
+  categoryFilter: "",
+  userRol: "admin"
 }
 
 export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
   // TODO: do the fetch
-  return menu
+  const res = await fetch("https://resto-back-production-2867.up.railway.app/dish")
+  const data = await res.json()
+  return data
 })
+
+export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dishdata) => {
+  const method = 'POST'
+  const headers = {
+    "Content-Type": 'application/json; charset=UTF-8'
+  }
+  const body = JSON.stringify(payload)
+
+
+  try {
+    const response = await fetch("https://resto-back-production-2867.up.railway.app/dish", {
+      method,
+      headers,
+      body
+    })
+    const data = await response.json()
+    if (!response.ok) {      
+      const error = {
+        message: data.message,
+        status: response.status
+      }
+      throw error
+    }
+    alert(`${data.title} creado con exito!`)
+    return data
+  } catch (error: any) {
+    console.log(error);
+    
+    if (error.status === 401) alert(`${error.status}: ${error.message}`)
+  }
+})
+
+
+export const fetchOrders = createAsyncThunk("orders/fetch", async () => {
+  const res = await fetch("http://resto-back-production-2867.up.railway.app/order")
+  const data = await res.json()
+  return data
+});
 
 export const restoSlice = createSlice({
   name: "resto",
@@ -250,20 +93,68 @@ export const restoSlice = createSlice({
       if (action.payload > 5) return
       state.moreThanReviewFilter = action.payload
     },
+
+    agregarPlato: (state, action) => {
+      const cart = current(state.cart)
+      const id = action.payload.dish
+      const indexOfEl = cart.findIndex(e => e.dish === id)
+      if (indexOfEl > -1) {
+        state.cart[indexOfEl] = {
+          ...cart[indexOfEl],
+          quantity: cart[indexOfEl].quantity + 1
+        }
+        console.log(cart)
+        return
+      } 
+      state.cart.push(action.payload);
+    },
+
+    removeDish: (state, action) => {
+      const cart = current(state.cart)
+      const id = action.payload.dish
+      const indexOfEl = cart.findIndex(e => e.dish === id)
+      if (indexOfEl > -1) {
+        if (cart[indexOfEl].quantity > 1)
+          state.cart[indexOfEl] = {
+            ...cart[indexOfEl],
+            quantity: cart[indexOfEl].quantity - 1
+          }
+        else 
+          state.cart = cart.filter(dish => dish.dish !== action.payload.dish)
+
+        console.log(cart)
+        return
+      } 
+
+    },
+
+
+    setCategoryFilter: (state: any, action: any) => {
+      state.categoryFilter = action.payload
+    },
   }, 
   extraReducers: (builder: any) => {
     builder.addCase(fetchMenus.fulfilled, (state: any, action: any) => {
       state.menus = action.payload
+    }),
+    builder.addCase(fetchOrders.fulfilled, (state: any, action: any) => {
+      state.orders = action.payload
+    }),
+    builder.addCase(postMenu.fulfilled, (state: any, action: any) => {
+      state.menus.push(action.payload);
     })
   },
 })
 
 export const { 
+  agregarPlato,
+  removeDish,
   setTable,
   setSearchFilter,
   setMoreThanPriceFilter,
   setLessThanPriceFilter,
   setMoreThanReviewFilter,
   setLessThanReviewFilter,
+  setCategoryFilter,
 } = restoSlice.actions
 export default restoSlice.reducer

@@ -16,17 +16,22 @@ export interface Order  {
   items: Menu[]
 }
 
+
+
 export type State = {
-  menus: Menu[]
+  cart: Menu[]
+  menus: IMenu[]
   orders: Order[]
   currentTable: number | null
-  priceFilter: number
-  reviewFilter: number
+  // priceFilter: number
+  // reviewFilter: number
   searchFilter: string
   lessThanPriceFilter: number
   moreThanPriceFilter: number
   lessThanReviewFilter: number
   moreThanReviewFilter: number
+  categoryFilter: string
+  userRol: string
 }
 
 export interface FormMenuData { 
@@ -47,6 +52,7 @@ export interface ButtonProps extends Props {
 }
 
 export interface IMenu {
+  _id: number | string 
   title: string
   ingredients: string[]
   price: string
@@ -60,3 +66,25 @@ export interface IProcessedMenu {
   [key: string]: Omit<IMenu, "categories">
 }
 
+export interface Dishdata {
+  title: string,
+  price: number,
+  description: string,
+  categories: string,
+  image: string,
+  reviews: number[],
+  active: boolean
+}
+
+export interface DishDataError {
+  title: string,
+  price: string,
+  description: string,
+  categories: string,
+  image: string,
+}
+interface TableData {
+  name: string;
+  waiter: string;
+  subject: string;
+}

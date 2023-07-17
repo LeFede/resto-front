@@ -5,6 +5,7 @@
   background: var(--mill-brown);
   bottom: 0;
   backface-visibility: hidden;
+  z-index: 300;
 }
 
 .bar {
@@ -23,7 +24,9 @@
   /* background: red; */
   /* border: 1px solid blue; */
 }
-
+.num{
+  font-size: large;
+}
 .filters {
   transition: transform .4s ease;
   filter: drop-shadow(1px 1px 10px black);
@@ -36,11 +39,28 @@
   display: flex;
   flex-direction: column;
   transform: translateX(-150%);
+  overflow-x: scroll;
+}
+.containerbutton{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: space-around;
 }
 
-.filters button {
-  /* margin: 3rem; */
+.button{
+  height: 50px;
+  width: 50px;
+  background-color: rgba(127, 255, 212, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+}
+.button:hover{
+  filter: drop-shadow(6px 6px 4px black);
+}
+.filters button:nth-last-child(2) {
   margin-top: auto;
+  margin-bottom: 1rem;
 }
 
 .filters fieldset {
@@ -101,4 +121,31 @@
 
 .logosNav:hover{
   filter: drop-shadow(2px 2px 40px white) brightness(150%) ;
+}
+
+.titlefilter{
+  border-bottom: 1px solid #fba43a;
+}
+
+@media (width >= 700px){
+  .filters{
+    align-items: center;
+  }
+  .inputs{
+
+    width: 400px;
+    height: 20px;
+    border: 1px solid black;
+  }
+  .containerbutton{
+    width: 100%;
+    margin-top: 50px;
+  }
+  .filtercontainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
 }
