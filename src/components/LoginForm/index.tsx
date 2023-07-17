@@ -1,5 +1,8 @@
 import styles from "./LoginForm.module.css"
 import { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { setUserRol, setUserRolLogout } from "@/redux"
 // import app from "@/firebase.config"
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth"
 // import { getFirestore, doc, getDoc } from 'firebase/firestore';
@@ -11,6 +14,8 @@ export const LoginForm = () => {
     const provider = new GoogleAuthProvider()
     provider.addScope("https://www.googleapis.com/auth/contacts.readonly")
     const auth = getAuth()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [ authorizedUser, setAuthorizedUser ] = useState(false || sessionStorage.getItem("accessToken"))
     
@@ -28,7 +33,7 @@ export const LoginForm = () => {
              // @ts-ignore
             const userId = user.uid
             console.log(user);
-            fetchUser(user)
+            // fetchUser(user)
 
             if(user){
                 user.getIdToken().then((tkn)=>{
@@ -39,6 +44,8 @@ export const LoginForm = () => {
                 })
               }
               console.log(user.uid);
+              dispatch(setUserRol())
+              navigate("/admin")
               
           })
 
@@ -55,6 +62,7 @@ export const LoginForm = () => {
              // @ts-ignore
             const credential = GoogleAuthProvider.credentialFromError(error);
           });
+
     }
 
     const logoutUser = () => {
@@ -69,8 +77,11 @@ export const LoginForm = () => {
 
         })
 
+        dispatch(setUserRolLogout())
+
     }
 
+    // @ts-ignore
     const fetchUser = async(userId: any) => {
 
         const { data } = await axios.get(`http://resto-back-production-2867.up.railway.app/users/${userId}`)
@@ -190,8 +201,9 @@ export const LoginForm = () => {
                     <button>LOG IN</button>
             
                 </form>
-                
-                <button onClick={handleGoogleSignIn}>LOG IN CON GOOGLE</button>
+                <div className={styles.contenedorLoginForm}>
+                    <button onClick={handleGoogleSignIn}>LOG IN CON GOOGLE</button>
+                </div>
             </>  
             
         )}
