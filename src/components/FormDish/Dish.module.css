@@ -1,25 +1,22 @@
 .formDish {
     margin-left:auto;
     margin-right:auto;
-    width: 343px;
-    height: 560px;
+    width: 300px;
+    height: 70vh;
     padding:30px;
-    border: 1px solid rgba(0,0,0,.2);
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    background: rgba(0, 0, 0, 0.5); 
-    -moz-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
-    box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
+    background-color: #f3f3f3;
     overflow: hidden; 
+    color: #423830;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.title{
+  font-family: var(--font-3);
 }
 
 .message{
-    background: rgba(255, 255, 255, 0.4); 
   width: 276px;
   height: 90px;
   border: 1px solid rgba(255,255,255,.6);
@@ -32,7 +29,6 @@
   display:block;
   font-family: 'Source Sans Pro', sans-serif;
   font-size:18px;
-  color:#fff;
   padding-left:45px;
   padding-right:20px;
   padding-top:12px;
@@ -53,7 +49,6 @@
     display:block;
     font-family: 'Source Sans Pro', sans-serif;
     font-size:18px;
-    color:#fff;
     padding-left:45px;
     padding-right:20px;
     padding-top:12px;
@@ -61,10 +56,8 @@
     overflow:hidden;
 }
 .categories{
-    background: rgba(255, 255, 255, 0.4); 
     width: 276px;
     height: 50px;
-    border: 1px solid rgba(255,255,255,.6);
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -74,7 +67,6 @@
     display:block;
     font-family: 'Source Sans Pro', sans-serif;
     font-size:18px;
-    color:#f29c32;
     padding-left:45px;
     padding-right:20px;
     padding-top:12px;
@@ -82,30 +74,19 @@
     overflow:hidden;
 }
 .btn {
-    width: 138px;
-    height: 44px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    float:right;
-  border: 1px solid #25373700;
-  background: -webkit-gradient(linear, left top, left bottom, from(#142726), to(#91955e));
-  padding: 10.5px 21px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
   border-radius: 6px;
-  color: #e1e1e1;
+  height: 60px;
+  background-color: #423830;
+  width: 120px;
+  
 }
 
 .btn:hover {
-  border: 1px solid #253737;
-  text-shadow: #333333 0 1px 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#d5ca6b), to(#87883c));
-  color: #fff;
+  
 }
 
 .error {
   font-size: 1.3rem;
   font-weight: bold;
-  color: red;
+  color: rgb(74, 1, 1);
 }

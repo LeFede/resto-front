@@ -57,6 +57,7 @@ export const DishForm = () => {
 
   return (
     <form className={styles.formDish} onSubmit={handleSubmit}>
+      <h4 className={styles.title}>Crear Menu</h4>
       <label htmlFor='title'>Nombre</label>
       <input name="title" placeholder="Nombre" className={styles.titleform} onChange={handleOnChange} value={form.title}/>
       {
