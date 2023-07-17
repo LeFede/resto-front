@@ -1,124 +1,12 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
-import { State } from "@/types"
+import { State, Dishdata } from "@/types"
 
 
 const initialState: State = {
   cart: [
   ],
   menus: [],
-  orders: [
-      {
-        id:1,
-        items:[
-        {
-          id: 10,
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          id: 11,
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],
-      },
-    
-    
-      {
-        id:2,
-        items:[
-        {
-          id: 12,
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          id: 13,
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],
-      },
-    
-    
-      {
-        id:3,
-        items:[
-        {
-          id: 14,
-          title: "sopa fuble",
-          ingredients: [
-            "agua",
-            "caldito",
-            "fideos"
-          ],
-          price: "100",
-          categories: "sopa",
-          description: "",
-          image: "",
-          reviews: [
-            5
-          ]
-        },
-        {
-          id: 15,
-          title: "helado sopra",
-          ingredients: [
-            "agua",
-            "limon",
-            "azucar"
-          ],
-          price: "300",
-          categories: "AAAA",
-          description: "",
-          image: "",
-          reviews: [
-            1,
-          ]
-        }],},
-      ],
+  orders: [],
   currentTable: null,
   // priceFilter: 300,
   // reviewFilter: 1,
@@ -137,6 +25,44 @@ export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
   const data = await res.json()
   return data
 })
+
+export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dishdata) => {
+  const method = 'POST'
+  const headers = {
+    "Content-Type": 'application/json; charset=UTF-8'
+  }
+  const body = JSON.stringify(payload)
+
+
+  try {
+    const response = await fetch("https://resto-back-production-2867.up.railway.app/dish", {
+      method,
+      headers,
+      body
+    })
+    const data = await response.json()
+    if (!response.ok) {      
+      const error = {
+        message: data.message,
+        status: response.status
+      }
+      throw error
+    }
+    alert(`${data.title} creado con exito!`)
+    return data
+  } catch (error: any) {
+    console.log(error);
+    
+    if (error.status === 401) alert(`${error.status}: ${error.message}`)
+  }
+})
+
+
+export const fetchOrders = createAsyncThunk("orders/fetch", async () => {
+  const res = await fetch("http://resto-back-production-2867.up.railway.app/order")
+  const data = await res.json()
+  return data
+});
 
 export const restoSlice = createSlice({
   name: "resto",
@@ -205,12 +131,17 @@ export const restoSlice = createSlice({
 
     setCategoryFilter: (state: any, action: any) => {
       state.categoryFilter = action.payload
-    }
-
+    },
   }, 
   extraReducers: (builder: any) => {
     builder.addCase(fetchMenus.fulfilled, (state: any, action: any) => {
       state.menus = action.payload
+    }),
+    builder.addCase(fetchOrders.fulfilled, (state: any, action: any) => {
+      state.orders = action.payload
+    }),
+    builder.addCase(postMenu.fulfilled, (state: any, action: any) => {
+      state.menus.push(action.payload);
     })
   },
 })
@@ -224,6 +155,6 @@ export const {
   setLessThanPriceFilter,
   setMoreThanReviewFilter,
   setLessThanReviewFilter,
-  setCategoryFilter
+  setCategoryFilter,
 } = restoSlice.actions
 export default restoSlice.reducer

@@ -1,50 +1,94 @@
-import { Dishdata } from '@/types'
+import { DishDataError, Dishdata, State } from '@/types'
 import styles from './Dish.module.css'
 import { ChangeEvent, FormEvent, useState } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { postMenu } from '../../redux';
+import { validate } from '../../utils';
 
 
 export const DishForm = () => {
+    const dispatch = useDispatch();
+    const { menus } = useSelector((state: State) => state)
 
     const initialData: Dishdata = {
         title:'',
         price:0,
         description: '',
         categories: '',
-        imagen: '',
-        ingredientes: [],
+        image: '',
+        reviews: [],
+        active: true
     }
 
-    const [dataForm, setDataForm] = useState<Dishdata>(initialData);
+    const initialErrorData: DishDataError = {
+        title:'',
+        price:'',
+        description: '',
+        categories: '',
+        image: ''
+    }
+
+    const [form, setForm] = useState<Dishdata>(initialData);
+    const [errors, setErrors] = useState<DishDataError>(initialErrorData);
 
     const handleOnChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       const { name, value } = event.target;
-      setDataForm((prevState) => ({
+      setForm((prevState) => ({
         ...prevState,
         [name]: value,
       }));
+
+      setErrors(validate({...form, [name]: value}))
     };
   
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      // console.log(dataForm);
+      if (Object.keys(errors).length > 0) return;      
+      dispatch(postMenu(form))
+      clearForm()
+      console.log(menus);
     };
+
+    const clearForm = () => {
+      setForm(initialData);
+      setErrors(initialErrorData)
+    }
   
 
   return (
     <form className={styles.formDish} onSubmit={handleSubmit}>
-		<input name="title" placeholder="Nombre" className={styles.titleform} required onChange={handleOnChange}/>
-		<input name="price" placeholder="Precio" className={styles.titleform} type="number" required onChange={handleOnChange}/>
-        <input name="imagen" placeholder="Imagen" className={styles.titleform} required  onChange={handleOnChange}/>
-        <input name="ingredientes" placeholder="ingredientes" className={styles.titleform} type="text" required onChange={handleOnChange}/>
-        <textarea  name="description" placeholder="Notas" className={styles.message} onChange={handleOnChange} required></textarea>
-        <select name='categories' className={styles.categories} onChange={handleOnChange}>
-            <option value="main">main</option>
-            <option value="appetiezer">appetiezer</option>
-            <option value="dessert">dessert</option>
-            <option value="drinks">drinks</option>
-        </select>
-        <button name="submit" className={styles.btn} type="submit" value="" >Guardar</button>
+      <label htmlFor='title'>Nombre</label>
+      <input name="title" placeholder="Nombre" className={styles.titleform} onChange={handleOnChange} value={form.title}/>
+      {
+        errors.title ? <p className={styles.error}>{errors.title}</p> : ''
+      }
+      <label htmlFor='price'>Precio</label>
+      <input name="price" placeholder="Precio" className={styles.titleform} type="number" onChange={handleOnChange} value={form.price}/>
+      {
+        errors.price ? <p className={styles.error}>{errors.price}</p> : ''
+      }
+      <label htmlFor='image'>Imágen</label>
+      <input name="image" placeholder="Imagen" className={styles.titleform} onChange={handleOnChange} value={form.image}/>
+      {
+        errors.image ? <p className={styles.error}>{errors.image}</p> : ''
+      }
+      <label htmlFor='description'>Descripción</label>
+      <textarea  name="description" placeholder="Notas" className={styles.message} onChange={handleOnChange} value={form.description}></textarea>
+      {
+        errors.description ? <p className={styles.error}>{errors.description}</p> : ''
+      }
+      <label htmlFor='categories'>Categoría</label>
+      <select name='categories' className={styles.categories} onChange={handleOnChange} value={form.categories}>
+        <option>Elije una opción</option>
+        <option value="main">Plato principal</option>
+        <option value="appetizer">Entrada</option>
+        <option value="dessert">Postre</option>
+        <option value="drinks">Bebida</option>
+      </select>
+      {
+        errors.categories ? <p className={styles.error}>{errors.categories}</p> : ''
+      }
+      <button name="submit" className={styles.btn} type="submit" disabled={Object.keys(errors).length > 0} >Guardar</button>
     </form>
   )
 }

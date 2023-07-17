@@ -48,7 +48,11 @@ export const Cart = () => {
           /* @ts-ignore */
           cart.map(item => <div key={item.dish}>{item.title} x {item.quantity}</div>)
         }
-        <button onClick={handleBuy}>Pagar</button>
+        
+        {
+          cart.length ? <button onClick={handleBuy}>Pagar</button> : ''
+        }
+        
 
 
         {/* {cart.map((ord: IMenu | any) => {

@@ -21,7 +21,9 @@ export const Dishes = ({ menu }: any) => {
   )
 
   return (      
-    <div className={styles.dishes}>
+    <section className={styles.fakeback}>
+      <h2 className={styles.title}>Menu</h2>
+      <div className={styles.dishes}>
     {
       Object.entries(menu)
         .slice(page * elemsPerPage, elemsPerPage * (page + 1))
@@ -51,6 +53,7 @@ export const Dishes = ({ menu }: any) => {
         </div>
       }
     </div>
+    </section>
   )
 }
 

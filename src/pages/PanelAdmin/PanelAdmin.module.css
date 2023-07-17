@@ -1,0 +1,116 @@
+
+
+.dish {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  
+  
+  .dish:hover {
+    opacity: .4;
+    border-radius: 1rem;
+  }
+  
+  .left {
+    flex: .8;
+  }
+  
+  .right {
+    text-align: end;
+    flex: .2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .dish p {
+    font-style: italic;
+    text-transform: capitalize;
+    max-width: 80%;
+  }
+  
+  .logo{
+    height: 30px;
+    width: 30px;
+  }
+  
+  .containerBoton{
+    /* height: 40px; */
+    /* width: 100px; */
+    /* border: 0px black; */
+    position: relative;
+    z-index: 30;
+    border: none;
+    font-family: var(--font-2);
+    font-weight: 900;
+    color: var(--mill-white);
+    
+    font-size: 2rem;
+  }
+  
+  .buttons {
+    display: flex;
+  }
+  
+  .buttonLeft {
+    background: green;
+    flex: 1;
+  }
+  
+  .buttonRight {
+    background: red;
+    flex: 1;
+  }
+  
+  
+  
+  @media (width >= 768px) {
+  
+    .dish {
+      flex: 1;
+    }
+  }
+  
+
+  .container {
+    color: var(--mill-brown);
+    background: var(--mill-white);
+    padding: 1rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  
+  .container ul {
+    padding: 2rem 0;
+    flex: 1;
+  }
+  .edit{
+    height: 50px;
+    width: 50px;
+    border: 0px solid transparent;
+    background-color: transparent;
+  }
+
+  
+  @media (width >= 768px) {
+    .container {
+      /* max-width: 1280px; */
+      display: grid;
+      gap: 10rem;
+      padding: 10rem clamp(10rem, 10vw, 20rem);
+      grid-template-columns: repeat(auto-fill, minmax(Min(100%, 40rem), 1fr));
+    }
+  }
+  
+
+  .nav{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    background-color: #423830;
+    height: 30px;
+    padding: 3px;
+  }
