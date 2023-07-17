@@ -114,7 +114,7 @@
   }
 
   .menuDetailContainer {
-    width: clamp(1000px, 80%, 1280px);
+    width: clamp(1000px, 50%, 1280px);
   }
 
   .middle {
