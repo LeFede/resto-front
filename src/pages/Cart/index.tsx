@@ -3,11 +3,13 @@
 import { useSelector } from "react-redux"
 import styles from "./cart.module.css"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const sv = "http://resto-back-production-2867.up.railway.app/mpcreate-order"
 
 export const Cart = () => {
   const { cart, currentTable } = useSelector((state: any) => state)
+  const navigate = useNavigate()
 
   const createPreference = async () => {
     try {
@@ -21,7 +23,7 @@ export const Cart = () => {
         })),
         table: currentTable,
         // @ts-ignore
-        totalPrice: cart.reduce((acc, curr) => acc + curr.totalPrice, 0),
+        totalPrice: cart.reduce((acc, curr) => acc + (curr.totalPrice * curr.quantity), 0),
       }, 
       {
         headers: {
@@ -41,18 +43,21 @@ export const Cart = () => {
   }
 
   return (
-    <>
-      <h2 className={styles.title}>Pedido</h2>
+    <section className={styles.cart}>
       <div className={styles.container}>
+      <h2 className={styles.title}>Pedido</h2>
         {
           /* @ts-ignore */
-          cart.map(item => <div key={item.dish}>{item.title} x {item.quantity}</div>)
+          cart.map(item => <h6 key={item.dish}>{item.title} x {item.quantity}</h6>)
         }
         
+        {/* @ts-ignore */}
+        <h2>TOTAL: {cart.reduce((acc, curr) => acc + (curr.totalPrice * curr.quantity), 0)}</h2>
         {
           cart.length ? <button onClick={handleBuy}>Pagar</button> : ''
         }
         
+      <button onClick={() => navigate(-1)}>Cerrar</button>
 
 
         {/* {cart.map((ord: IMenu | any) => {
@@ -73,7 +78,7 @@ export const Cart = () => {
 							)
 					})} */}
       </div>
-    </>
+    </section>
   )
 }
 

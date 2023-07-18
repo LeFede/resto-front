@@ -19,6 +19,7 @@ export const Home = () => {
         </p>
       </div>
       <Button action={() => navigate("/menu")}>Ver menus</Button>
+      <Button action={() => navigate("/login")}>Admin</Button>
     </section>
   )
 }
