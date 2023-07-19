@@ -15,7 +15,7 @@ const initialState: State = {
   lessThanReviewFilter: 5,
   moreThanReviewFilter: 0,
   categoryFilter: "",
-  userRol: "admin"
+  userRol: "client"
 }
 
 export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
@@ -67,6 +67,15 @@ export const restoSlice = createSlice({
   name: "resto",
   initialState,
   reducers: {
+
+    setUserRol: (state) => {
+      state.userRol = "admin";
+    },
+
+    setUserRolLogout: (state) => {
+      state.userRol = "client"
+    },
+
     setTable: (state: any, action: any) => {
       const { payload: table } = action
       state.currentTable = table
@@ -161,5 +170,7 @@ export const {
   setLessThanReviewFilter,
   setCategoryFilter,
   resetCart,
+  setUserRol,
+  setUserRolLogout,
 } = restoSlice.actions
 export default restoSlice.reducer
