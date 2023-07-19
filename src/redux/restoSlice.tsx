@@ -3,8 +3,7 @@ import { State, Dishdata } from "@/types"
 
 
 const initialState: State = {
-  cart: [
-  ],
+  cart: JSON.parse(window.localStorage.getItem('cart') as any) ?? [],
   menus: [],
   orders: [],
   currentTable: null,
@@ -112,10 +111,11 @@ export const restoSlice = createSlice({
           ...cart[indexOfEl],
           quantity: cart[indexOfEl].quantity + 1
         }
-        console.log(cart)
+        window.localStorage.setItem('cart', JSON.stringify(state.cart))
         return
       } 
       state.cart.push(action.payload);
+      window.localStorage.setItem('cart', JSON.stringify(state.cart))
     },
 
     removeDish: (state, action) => {
@@ -131,10 +131,14 @@ export const restoSlice = createSlice({
         else 
           state.cart = cart.filter(dish => dish.dish !== action.payload.dish)
 
-        console.log(cart)
+        window.localStorage.setItem('cart', JSON.stringify(state.cart))
         return
       } 
 
+    },
+
+    resetCart: (_: any, __: any) => {
+      window.localStorage.setItem('cart', JSON.stringify([]))
     },
 
 
@@ -165,6 +169,7 @@ export const {
   setMoreThanReviewFilter,
   setLessThanReviewFilter,
   setCategoryFilter,
+  resetCart,
   setUserRol,
   setUserRolLogout,
 } = restoSlice.actions

@@ -88,3 +88,11 @@ interface TableData {
   waiter: string;
   subject: string;
 }
+interface TableUser {
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: string;
+  active:boolean;
+}
