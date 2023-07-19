@@ -1,7 +1,7 @@
 
 
 
-import { User, UserCardProps } from '@/types';
+import {  UserCardProps } from '@/types';
 import styles from './User.module.css';
 import { Link } from 'react-router-dom';
 
