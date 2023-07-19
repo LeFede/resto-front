@@ -1,17 +1,15 @@
 import { IMenu,  State } from "@/types";
 import styles from "./PanelAdmin.module.css"
-import { useDispatch, useSelector } from "react-redux";
-import { WithoutPermissions } from "@/pages/WithoutPermissions";
+import {  useSelector } from "react-redux";
 import { pen } from "@/assets";
 import { Link } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth"
-import { setUserRolLogout } from "@/redux";
+
 
 
 export const PanelAdmin= () => {
   const  menus = useSelector((state: State) => state.menus);
 
-  const dispatch = useDispatch()
+  
   
 //   const auth = getAuth()
 

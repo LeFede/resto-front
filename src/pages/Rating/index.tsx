@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Rating.module.css";
 import { useLocation } from "react-router-dom";
-import { request } from "http";
+
 
 export const Rating = () => {
   const [order, setOrder] = useState<any | null>(null);
@@ -46,7 +46,8 @@ export const Rating = () => {
         requestOption
       );
       if (response.ok) {
-        const updatedData = await response.json();
+        console.log("a");
+        
       } else {
         console.log("entro");
       }
