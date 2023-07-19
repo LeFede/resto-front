@@ -1,15 +1,17 @@
 // import { IMenu } from "@/types";
 // import DeleteSvg from "@/assets/delete.svg"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import styles from "./cart.module.css"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { removeDish, agregarPlato } from "@/redux"
 
 const sv = "http://resto-back-production-2867.up.railway.app/mpcreate-order"
 
 export const Cart = () => {
   const { cart, currentTable } = useSelector((state: any) => state)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const createPreference = async () => {
     try {
@@ -42,17 +44,56 @@ export const Cart = () => {
     window.location.replace(link)
   }
 
+  const handleAddDish = (dish: any) => {
+    const newDish = {
+      title: dish.title,
+      dish: dish.dish,
+      quantity: 1,
+      totalPrice: dish.totalPrice,
+      observation: "Lo quiero con hielo",
+    }
+    
+    dispatch(agregarPlato(newDish))
+  }
+
+  const handleRemoveDish = (dish: any) => {
+    const newDish = {
+      title: dish.title,
+      dish: dish.dish,
+      quantity: 1,
+      totalPrice: dish.totalPrice,
+      observation: "Lo quiero con hielo",
+    }
+    dispatch(removeDish(newDish))
+  }
+
   return (
     <section className={styles.cart}>
       <div className={styles.container}>
       <h2 className={styles.title}>Pedido</h2>
         {
           /* @ts-ignore */
-          cart.map(item => <h6 key={item.dish}>{item.title} x {item.quantity}</h6>)
+          cart.map(item => (
+            <div key={'cart-' + item.dish} className={styles.dish}>
+              <h6>{item.title} x {item.quantity}</h6>
+              <div className={styles.buttons}>
+                <button 
+                  className={`${styles.containerBoton} ${styles.buttonLeft}`} 
+                  onClick={() => handleAddDish(item)}
+                >+
+                </button>
+                <button 
+                  className={`${styles.containerBoton} ${styles.buttonRight}`} 
+                  onClick={() => handleRemoveDish(item)}
+                >-
+                </button>
+              </div>
+
+            </div>))
         }
         
         {/* @ts-ignore */}
-        <h2>TOTAL: {cart.reduce((acc, curr) => acc + (curr.totalPrice * curr.quantity), 0)}</h2>
+        <h2>TOTAL: ${cart.reduce((acc, curr) => acc + (curr.totalPrice * curr.quantity), 0)}</h2>
         {
           cart.length ? <button onClick={handleBuy}>Pagar</button> : ''
         }
