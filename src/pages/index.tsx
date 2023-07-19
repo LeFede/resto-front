@@ -8,5 +8,8 @@ export * from "./Cart"
 export * from "./MenuDetail"
 export * from "./WithoutPermissions"
 export * from "./PanelAdmin"
+export * from "./Rating"
+export * from "./EditDish"
+
 // export * from "./LoginPage"
 // export * from "./Orders"

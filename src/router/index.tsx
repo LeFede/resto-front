@@ -2,7 +2,7 @@ import { DishForm } from "@/components/FormDish";
 import { Table } from "@/components/FormTable";
 import { Main } from "@/layouts";
 
-import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin} from "@/pages";
+import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin, Rating, EditDish} from "@/pages";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -58,7 +58,18 @@ export const router = createBrowserRouter([
       },
       {
         path: "/admin",
-        element:<PanelAdmin/>
+        element:<PanelAdmin/>,
+        children: [
+          {
+            path: "/dishId",
+            element: <EditDish />
+          }
+        ]
+      },
+      
+      {
+        path: "/rating",
+        element:<Rating/>
       }
     ]
   },

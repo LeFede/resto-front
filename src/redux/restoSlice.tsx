@@ -7,6 +7,7 @@ const initialState: State = {
   ],
   menus: [],
   orders: [],
+  order: [],
   currentTable: null,
   // priceFilter: 300,
   // reviewFilter: 1,
@@ -18,6 +19,11 @@ const initialState: State = {
   categoryFilter: "",
   userRol: "client"
 }
+export const fetchOrders = createAsyncThunk("orders/fetch", async () => {
+  const res = await fetch("http://resto-back-production-2867.up.railway.app/order")
+  const data = await res.json()
+  return data
+});
 
 export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
   // TODO: do the fetch
@@ -58,11 +64,7 @@ export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dish
 })
 
 
-export const fetchOrders = createAsyncThunk("orders/fetch", async () => {
-  const res = await fetch("http://resto-back-production-2867.up.railway.app/order")
-  const data = await res.json()
-  return data
-});
+
 
 export const restoSlice = createSlice({
   name: "resto",
@@ -72,6 +74,7 @@ export const restoSlice = createSlice({
     setUserRol: (state) => {
       state.userRol = "admin";
     },
+    
 
     setUserRolLogout: (state) => {
       state.userRol = "client"
