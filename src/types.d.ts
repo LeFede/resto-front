@@ -22,6 +22,7 @@ export type State = {
   cart: Menu[]
   menus: IMenu[]
   orders: Order[]
+  order: Order[]
   currentTable: number | null
   // priceFilter: number
   // reviewFilter: number
