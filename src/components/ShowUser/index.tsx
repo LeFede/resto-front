@@ -5,16 +5,11 @@ import { getFirestore, collection, getDocs, doc, updateDoc } from 'firebase/fire
 import app from '../../firebase.config';
 import { useState, useEffect } from 'react';
 import UserCard from '../Users/index';
+import { User } from '@/types';
 
 const firestore = getFirestore(app);
 
-interface User {
-  id: string;
-  name: string;
-  lastName: string;
-  email: string;
-  deleted: boolean;
-}
+
 
 export const ShowCreatedUser = () => {
   const [users, setUsers] = useState<User[]>([]);

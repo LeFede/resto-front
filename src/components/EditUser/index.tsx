@@ -3,18 +3,11 @@ import styles from './Edit.module.css';
 import { useParams } from 'react-router-dom';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 import app from '../../firebase.config';
+import { User } from '@/types';
 
 const firestore = getFirestore(app);
 
-interface User {
-    id: string; // Propiedad 'id' es requerida y debe ser una cadena (string)
-    name: string;
-    lastName: string;
-    email: string;
-    password: string;
-    role: string;
-    active: boolean;
-  }
+
   
   export const EditUser = () => {
     const { id } = useParams();
