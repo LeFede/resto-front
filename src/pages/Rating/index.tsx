@@ -86,6 +86,7 @@ export const Rating = () => {
           );
         })}
       </section>
+      hola
     </section>
   );
 };

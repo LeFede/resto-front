@@ -29,14 +29,14 @@ export const PanelAdmin= () => {
 
 // }
 
-  // if(userRol !== "admin") {
+//   if(userRol !== "admin") {
 
-  //   return(
+//     return(
 
-  //     <WithoutPermissions/>
+//       <WithoutPermissions/>
       
-  //   )
-  // }
+//     )
+//   }
 
   return (
     <section>
@@ -73,5 +73,6 @@ export const PanelAdmin= () => {
       })}
     </section>
     </section>
+    
   )
 }
