@@ -81,10 +81,12 @@ export const UserForm = () => {
             <option value="admin">Admin</option>
             <option value="employee">Employee</option>
         </select>
+
         <select name="active" id="activeId" className={styles.messageInput}  onChange={handleOnChange}>
-          <option value='true'>Activo</option>
+          <option value="true">Activo</option>
           <option value="false">Desactivado</option>
         </select>
+
           <input
             id='passwordId'
             name="password"
@@ -100,7 +102,7 @@ export const UserForm = () => {
           </button>
           <Link to='/list' >
             <button name="submit" className={styles.btn} type="submit">
-              Editar
+              Ver Usuarios
             </button>
           </Link>
     </form>
