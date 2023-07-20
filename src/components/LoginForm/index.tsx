@@ -4,7 +4,9 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { setUserRol, setUserRolLogout } from "@/redux"
 // import app from "@/firebase.config"
-import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth"
+// @ts-ignore
+import  app  from "@/firebase.config"
+import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, signInWithEmailAndPassword } from "firebase/auth"
 // import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import axios from "axios"
 
@@ -16,40 +18,51 @@ export const LoginForm = () => {
     const auth = getAuth()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    let userRole: any
 
     const [ authorizedUser, setAuthorizedUser ] = useState(false || sessionStorage.getItem("accessToken"))
     
-    const handleGoogleSignIn = () => {
+    const handleGoogleSignIn = async () => {
 
-        signInWithPopup(auth, provider)
-        
-        .then((result) => {
+        try {
+            const result = await signInWithPopup(auth, provider);
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
-             // @ts-ignore
+            // @ts-ignore
             const token = credential?.accessToken;
             // The signed-in user info.
             const user = result.user;
-             // @ts-ignore
+            // @ts-ignore
             const userId = user.uid
+            const accessToken = (user as any).accessToken
             console.log(user);
             // fetchUser(user)
-
+    
             if(user){
-                user.getIdToken().then((tkn)=>{
-                  // set access token in session storage
-                  sessionStorage.setItem("accessToken", tkn);
+                const tkn = await user.getIdToken();
+                // set access token in session storage
+                sessionStorage.setItem("accessToken", tkn);
                 // @ts-ignore
-                  setAuthorizedUser(true);
+                setAuthorizedUser(true);
+    
+                    
+                //const obtenerUsuario = await fetch(`http://localhost:3000/users/${userId}`, {
+                const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}/role`, {
+                    headers:{
+                        'Authorization': `Bearer ${accessToken}`
+                    }
                 })
-              }
-              console.log(user.uid);
-              dispatch(setUserRol())
-              navigate("/admin")
-              
-          })
 
-          .catch((error) => {
+                userRole = await obtenerUsuario.json()
+                console.log(userRole)
+            }
+            
+            dispatch(setUserRol(userRole))
+            
+            userRole === "admin" ? navigate("/admin") : navigate("/")
+
+
+        } catch (error) {
             // Handle Errors here.
              // @ts-ignore
             const errorCode = error.code;
@@ -57,13 +70,56 @@ export const LoginForm = () => {
             const errorMessage = error.message;
             // The email of the user's account used.
              // @ts-ignore
-            const email = error.customData.email;
+            const email = error.customData?.email;
             // The AuthCredential type that was used.
              // @ts-ignore
-            const credential = GoogleAuthProvider.credentialFromError(error);
-          });
-
+            const credential = GoogleAuthProvider.credentialFromErro
+        }
     }
+
+    const handleLogin = async () => {
+        console.log("entre a handleLogin")
+        try {
+            const result = await signInWithEmailAndPassword(auth, login.email, login.password);
+            console.log(result)
+            // User successfully logged in
+            const user = result.user;
+            // @ts-ignore
+            const userId = user.uid
+            const accessToken = (user as any).accessToken
+            console.log(user);
+
+            if(user){
+                const tkn = await user.getIdToken();
+                // set access token in session storage
+                sessionStorage.setItem("accessToken", tkn);
+                // @ts-ignore
+                setAuthorizedUser(true);
+    
+                console.log("antes de request")
+                // const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}`, {
+                const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}/role`, {
+                        headers:{
+                            'Authorization': `Bearer ${accessToken}`
+                        },
+                    })
+                    
+                console.log(obtenerUsuario)
+                userRole = await obtenerUsuario.json()
+                console.log(userRole)
+                
+            }
+
+            dispatch(setUserRol(userRole))
+            
+            userRole === "admin" ? navigate("/admin") : navigate("/")
+
+        } catch (error) {
+            
+          console.error('Error signing in:', (error as any).message);
+          // Handle login error (show an error message, etc.)
+        }
+      };
 
     const logoutUser = () => {
 
@@ -198,10 +254,10 @@ export const LoginForm = () => {
                     <input type="text" value={login.password} name="password" onChange={handleChange} placeholder="PASSWORD"></input>
                     <div className={styles.mensajeError}> {error.password !== "" ? <p>{error.password}</p> : ""} </div>
             
-                    <button>LOG IN</button>
+                    <button type="button" onClick={handleLogin}>LOG IN</button>
             
                 </form>
-                <div className={styles.contenedorLoginForm}>
+                <div>
                     <button onClick={handleGoogleSignIn}>LOG IN CON GOOGLE</button>
                 </div>
             </>  
