@@ -61,6 +61,7 @@ export interface IMenu {
   reviews: number[]
   image: string
   description: string
+  active:boolean
 }
 
 export interface IProcessedMenu {
