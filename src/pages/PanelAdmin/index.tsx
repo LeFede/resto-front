@@ -1,43 +1,42 @@
 import { IMenu,  State } from "@/types";
 import styles from "./PanelAdmin.module.css"
-import { useDispatch, useSelector } from "react-redux";
-import { WithoutPermissions } from "@/pages/WithoutPermissions";
+import {  useSelector } from "react-redux";
 import { pen } from "@/assets";
 import { Link } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth"
-import { setUserRolLogout } from "@/redux";
+
 
 
 export const PanelAdmin= () => {
-  const { menus, userRol } = useSelector((state: State) => state);
+  const  menus = useSelector((state: State) => state.menus);
 
-  const auth = getAuth()
-  const dispatch = useDispatch()
+  
+  
+//   const auth = getAuth()
 
-  const logoutUser = () => {
+//   const logoutUser = () => {
 
-    signOut(auth).then(() => {
+//     signOut(auth).then(() => {
 
-        sessionStorage.clear()
-         // @ts-ignore
-        setAuthorizedUser(false);
+//         sessionStorage.clear()
+//          // @ts-ignore
+//         setAuthorizedUser(false);
 
-        alert('Has cerrado sesión correctamente')
+//         alert('Has cerrado sesión correctamente')
 
-    })
+//     })
 
-    dispatch(setUserRolLogout())
+//     dispatch(setUserRolLogout())
 
-}
+// }
 
-  if(userRol !== "admin") {
+//   if(userRol !== "admin") {
 
-    return(
+//     return(
 
-      <WithoutPermissions/>
+//       <WithoutPermissions/>
       
-    )
-  }
+//     )
+//   }
 
   return (
     <section>
@@ -46,7 +45,7 @@ export const PanelAdmin= () => {
             <Link to={"/dish"}><button>Crear Plato</button></Link>
             <Link to={"/menu"}><button>Asignar Mesas</button></Link>
             <Link to={"/dashboard"}><button>Ordenes</button></Link>
-            <Link onClick={logoutUser} to={"/"}><button>LogOut</button></Link>
+            {/* <Link onClick={logoutUser} to={"/"}><button>LogOut</button></Link> */}
         </nav>
 
     <section className={styles.container}>
@@ -74,5 +73,6 @@ export const PanelAdmin= () => {
       })}
     </section>
     </section>
+    
   )
 }

@@ -1,0 +1,25 @@
+.container{
+    background-color: rgba(41, 155, 117, 0.247);
+}
+.img{
+    height: 50px;
+    width: 50px;
+}
+.dishes{
+background-color: rgba(181, 223, 223, 0.664);
+display: flex;
+position: relative;
+flex-direction: column;
+align-items: center;
+gap: 15px;
+padding: 15px;
+padding-top: 70px;
+padding-bottom: 70px;
+}
+.dish{
+background-color: blue;
+width: 90vw;
+align-items: center;
+display: flex;
+flex-direction: column;
+}
