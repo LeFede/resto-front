@@ -3,7 +3,7 @@ import styles from './User.module.css';
 import { TableUser } from '@/types';
 import app from '../../firebase.config';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, collection, addDoc, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
 const firestore = getFirestore(app);
