@@ -69,8 +69,9 @@ export const restoSlice = createSlice({
   initialState,
   reducers: {
 
-    setUserRol: (state) => {
-      state.userRol = "admin";
+    setUserRol: (state: any, action: any) => {
+      const { payload } = action
+      state.userRol = payload;
     },
 
     setUserRolLogout: (state) => {
