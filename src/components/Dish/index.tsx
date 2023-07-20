@@ -21,7 +21,6 @@ export const Dish = ({ dish }: IProcessedMenu) => {
   }
 
   const handleAddDish = () => {
-    console.log(dish)
     const newDish = {
       title: dish.title,
       dish: dish._id,
@@ -29,6 +28,7 @@ export const Dish = ({ dish }: IProcessedMenu) => {
       totalPrice: dish.price,
       observation: "Lo quiero con hielo",
     }
+    
     dispatch(agregarPlato(newDish))
   }
 
@@ -51,7 +51,7 @@ export const Dish = ({ dish }: IProcessedMenu) => {
         <p>{dish.description}</p>
       </div>
       <div className={styles.right}>
-        <h6>${dish.price}</h6>
+      <h6>${dish.price}</h6>
         {
           currentTable && (
             <div className={styles.buttons}>

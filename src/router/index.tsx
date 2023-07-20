@@ -1,5 +1,8 @@
+import { EditUser } from "@/components/EditUser";
 import { DishForm } from "@/components/FormDish";
 import { Table } from "@/components/FormTable";
+import { ShowCreatedUser } from "@/components/ShowUser";
+import { UserForm } from "@/components/UserFrom";
 import { Main } from "@/layouts";
 
 import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin} from "@/pages";
@@ -25,6 +28,18 @@ export const router = createBrowserRouter([
             element: <MenuDetail />
           }
         ]
+      },
+      {
+        path: "/user",
+        element: <UserForm/>
+      },
+      {
+        path: "/list",
+        element: <ShowCreatedUser/>
+      },
+      {
+        path: "/editlist/:id",
+        element: <EditUser/>
       },
       {
         path: "table/:tableId",

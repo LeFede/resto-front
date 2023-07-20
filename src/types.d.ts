@@ -88,3 +88,25 @@ interface TableData {
   waiter: string;
   subject: string;
 }
+interface TableUser {
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: string;
+  active:boolean;
+}
+interface User {
+  id: string; 
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: string;
+  active: boolean;
+  deleted: boolean;
+}
+interface UserCardProps {
+  user: User;
+  onDelete: () => Promise<void>;
+}

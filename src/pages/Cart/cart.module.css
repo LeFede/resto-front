@@ -63,6 +63,33 @@
     padding: 2rem 0;
     flex: 1;
   }
+
+.containerBoton{
+  position: relative;
+  z-index: 30;
+  border: none;
+  font-family: var(--font-2);
+  font-weight: 900;
+  color: var(--mill-white);
+  font-size: 2rem;
+}
+
+.buttons {
+  color: white;
+  display: flex;
+}
+
+.buttonLeft {
+  background: green;
+  flex: 1;
+  height: 100%;
+}
+
+.buttonRight {
+  background: red;
+  flex: 1;
+  height: 100%;
+}
   
   
   @media (width >= 768px) {
