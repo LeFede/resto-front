@@ -1,43 +1,115 @@
 import { IMenu,  State } from "@/types";
 import styles from "./PanelAdmin.module.css"
-import { useDispatch, useSelector } from "react-redux";
-import { WithoutPermissions } from "@/pages/WithoutPermissions";
-import { pen } from "@/assets";
+import { useSelector } from "react-redux";
+import { on, off, pen } from "@/assets";
 import { Link } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth"
-import { setUserRolLogout } from "@/redux";
+import { ChangeEvent, useState } from "react";
 
 
 export const PanelAdmin= () => {
-  const { menus, userRol } = useSelector((state: State) => state);
+  const  menus = useSelector((state: State) => state.menus);
 
-  const auth = getAuth()
-  const dispatch = useDispatch()
+  const [updatedPrice, setUpdatedPrice] = useState('')
 
-  const logoutUser = () => {
+  const [idToUpdate,setIdToUpdate] = useState('')
 
-    signOut(auth).then(() => {
+  // const dispatch = useDispatch()
 
-        sessionStorage.clear()
-         // @ts-ignore
-        setAuthorizedUser(false);
+  // useEffect(()=>{
+  //   
+  // },[])
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
 
-        alert('Has cerrado sesión correctamente')
+    if(/^([0-9]\d*)?$/.test(event.target.value)){
+      setUpdatedPrice(event.target.value)
+    }
+    
+  };
 
-    })
-
-    dispatch(setUserRolLogout())
-
-}
-
-  if(userRol !== "admin") {
-
-    return(
-
-      <WithoutPermissions/>
-      
-    )
+  const handleEdit = (dishId: string )=>{
+    setIdToUpdate(dishId)
   }
+
+  const handleToggle = async(dishId: string , isActive:boolean)=>{
+    const id = dishId
+    const isDishActive = isActive
+    const fetchToggle = async( dishId:string , isActive:boolean)=>{
+      if(dishId){
+        const requestOption =  
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(
+                {
+                  "active": !isActive
+                }
+              ),
+            }
+      
+            const response = await fetch(
+              `http://resto-back-production-2867.up.railway.app/dish/toggle/${dishId}`,
+              requestOption
+            );
+            const data = await response.json()
+            return data
+      }
+    }
+    fetchToggle(id,isDishActive)
+  }
+
+  const fetchPriceUpdate = async( dishId:string , newPrice:number)=>{
+    if(dishId && newPrice){
+      const requestOption =  
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+              {
+                "price": newPrice
+              }
+            ),
+          }
+    
+          const response = await fetch(
+            `http://resto-back-production-2867.up.railway.app/dish/${dishId}`,
+            requestOption
+          );
+          const data = await response.json()
+          return data
+    }
+  }
+
+  
+//   const auth = getAuth()
+
+//   const logoutUser = () => {
+
+//     signOut(auth).then(() => {
+
+//         sessionStorage.clear()
+//          // @ts-ignore
+//         setAuthorizedUser(false);
+
+//         alert('Has cerrado sesión correctamente')
+
+//     })
+
+//     dispatch(setUserRolLogout())
+
+// }
+
+//   if(userRol !== "admin") {
+
+//     return(
+
+//       <WithoutPermissions/>
+      
+//     )
+//   }
 
   return (
     <section>
@@ -46,22 +118,34 @@ export const PanelAdmin= () => {
             <Link to={"/dish"}><button>Crear Plato</button></Link>
             <Link to={"/menu"}><button>Asignar Mesas</button></Link>
             <Link to={"/dashboard"}><button>Ordenes</button></Link>
-            <Link onClick={logoutUser} to={"/"}><button>LogOut</button></Link>
+            {/* <Link onClick={logoutUser} to={"/"}><button>LogOut</button></Link> */}
         </nav>
 
     <section className={styles.container}>
         
       {menus.map((dish: IMenu) => {
-        return (
+      
+      return (
 
             <div className={styles.dish}>
             <div className={styles.left}>
               <h6>{dish.title}</h6>
-              <p>{dish.description}</p>
+              <h6><b>{dish.active?'Activo':'Inactivo'}</b></h6>
+              <p>{dish.description}</p><br/>
+              
             </div>
-            <button className={styles.edit}>
+            <button onClick={()=>handleEdit(dish._id.toString())} className={styles.edit}>
               <img src={pen} alt="edit" />
             </button>
+            {dish.active?
+              <button onClick={()=>handleToggle(dish._id.toString(),dish.active)} className={styles.edit}>
+              <img src={on} alt="edit" />
+            </button>
+            :<button onClick={()=>handleToggle(dish._id.toString(),dish.active)} className={styles.edit}>
+            <img src={off} alt="edit" />
+          </button>
+            }
+            
             <div className={styles.right}>
               <h6>${dish.price}</h6>
             </div>
@@ -72,7 +156,15 @@ export const PanelAdmin= () => {
           </div>
         )
       })}
+
+    <div>
+      <label htmlFor="price">Precio: </label>
+      <input type="text" name="updatePrice" value={updatedPrice} onChange={handleOnChange}/>
+      <button onClick={()=>fetchPriceUpdate(idToUpdate,+updatedPrice)}>actualizar precio</button>
+    </div>
+
     </section>
     </section>
+    
   )
 }
