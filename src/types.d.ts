@@ -81,7 +81,7 @@ export interface DishDataError {
   price: string,
   description: string,
   categories: string,
-  image: string,
+  image: file,
 }
 interface TableData {
   name: string;
