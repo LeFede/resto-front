@@ -1,3 +1,4 @@
+import { EditUser } from "@/components/EditUser";
 import { DishForm } from "@/components/FormDish";
 import { Table } from "@/components/FormTable";
 import { ShowCreatedUser } from "@/components/ShowUser";
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/list",
         element: <ShowCreatedUser/>
+      },
+      {
+        path: "/editlist/:id",
+        element: <EditUser/>
       },
       {
         path: "table/:tableId",

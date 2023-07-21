@@ -11,5 +11,7 @@ export { default as reload } from "./reload.svg"
 export { default as pen } from "./pen.svg"
 export { default as cargando } from "./cargando.svg"
 export { default as entregado } from "./entregado.svg"
+export { default as off } from "./switchOff.svg"
+export { default as on } from "./switchOn.svg"
 export const bg = "https://www.themillrestaurants.com/wp-content/themes/themills/img/home-bg.jpg"
 

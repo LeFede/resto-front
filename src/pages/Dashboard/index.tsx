@@ -10,12 +10,17 @@ export const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch<any>(fetchOrders());
+    const intervalId = setInterval(
+      () => dispatch<any>(fetchOrders()), 10000
+
+    )
+    console.log('Orders fetched');
+    return () => clearInterval(intervalId);
   }, [dispatch]);
 
   const deleteOrder = async (id: string) => {
     try {
-      await fetch(`http://localhost:3000/order/delete/${id}`, {
+      await fetch(`http://resto-back-production-2867.up.railway.app/order/delete/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json; charset=utf-8" },
       });
@@ -26,7 +31,7 @@ export const Dashboard = () => {
 
   const updateOrderState = async (id: string, newState: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/order/${id}`, {
+      const response = await fetch(`http://resto-back-production-2867.up.railway.app/order/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json; charset=utf-8",

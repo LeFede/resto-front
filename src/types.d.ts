@@ -61,6 +61,7 @@ export interface IMenu {
   reviews: number[]
   image: string
   description: string
+  active:boolean
 }
 
 export interface IProcessedMenu {
@@ -82,7 +83,7 @@ export interface DishDataError {
   price: string,
   description: string,
   categories: string,
-  image: string,
+  image: file,
 }
 interface TableData {
   name: string;
@@ -96,4 +97,18 @@ interface TableUser {
   password: string;
   role: string;
   active:boolean;
+}
+interface User {
+  id: string; 
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: string;
+  active: boolean;
+  deleted: boolean;
+}
+interface UserCardProps {
+  user: User;
+  onDelete: () => Promise<void>;
 }

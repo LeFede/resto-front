@@ -1,29 +1,25 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
-import styles from './User.module.css'
+import { ChangeEvent, FormEvent, useState } from 'react';
+import styles from './User.module.css';
 import { TableUser } from '@/types';
-import  app  from '../../firebase.config';
-
+import app from '../../firebase.config';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
 const firestore = getFirestore(app);
 
-
 export const UserForm = () => {
+  const initialData: TableUser = {
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    role: '',
+    active: true,
+  };
+  const [dataForm, setDataForm] = useState<TableUser>(initialData);
 
-
-
-    const initialData: TableUser = {
-        name:'',
-        lastName: '',
-        email: '',
-        password: '',
-        role: '',
-        active: false
-      };
-      const [dataForm, setDataForm] = useState<TableUser>(initialData);
-
-  const handleOnChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement >) => {
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     setDataForm((prevState) => ({
       ...prevState,
@@ -31,13 +27,21 @@ export const UserForm = () => {
     }));
   };
 
- 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(dataForm);
     try {
-      const docRef = await addDoc(collection(firestore, 'users'), dataForm);
-      console.log('Usuario creado con ID: ', docRef.id);
+     
+      const auth = getAuth();
+      const { email, password } = dataForm;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('Usuario creado y autenticado:', userCredential.user);
+
+     
+      const usersCollectionRef = collection(firestore, 'users');
+      const docRef = await addDoc(usersCollectionRef, dataForm);
+      console.log('Usuario creado con ID:', docRef.id);
+
     } catch (error) {
       console.error('Error al crear usuario:', error);
     }
@@ -81,10 +85,13 @@ export const UserForm = () => {
             <option value="admin">Admin</option>
             <option value="employee">Employee</option>
         </select>
+
         <select name="active" id="activeId" className={styles.messageInput}  onChange={handleOnChange}>
-          <option value='true'>Activo</option>
+          <option value="">Estado</option>
+          <option value="true">Activo</option>
           <option value="false">Desactivado</option>
         </select>
+
           <input
             id='passwordId'
             name="password"
@@ -100,7 +107,7 @@ export const UserForm = () => {
           </button>
           <Link to='/list' >
             <button name="submit" className={styles.btn} type="submit">
-              Editar
+              Ver Usuarios
             </button>
           </Link>
     </form>
