@@ -1,13 +1,16 @@
 import { IMenu,  State } from "@/types";
 import styles from "./PanelAdmin.module.css"
+
 import { useSelector } from "react-redux";
 import { on, off, pen } from "@/assets";
 import { Link } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 
 
+
 export const PanelAdmin= () => {
   const  menus = useSelector((state: State) => state.menus);
+
 
   const [updatedPrice, setUpdatedPrice] = useState('')
 
