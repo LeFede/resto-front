@@ -5,7 +5,7 @@ import { ShowCreatedUser } from "@/components/ShowUser";
 import { UserForm } from "@/components/UserFrom";
 import { Main } from "@/layouts";
 
-import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin} from "@/pages";
+import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin, Rating} from "@/pages";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -59,10 +59,6 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard />,
       },
-      // {
-      //   path: "table/cart/:tableId",
-      //   element: <Cart/>,
-      // },
       {
         path: "/table",
         element: <Table/>,
@@ -73,7 +69,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/admin",
-        element:<PanelAdmin/>
+        element:<PanelAdmin/>,
+      },
+      {
+        path: "/rating",
+        element:<Rating/>
       }
     ]
   },

@@ -22,6 +22,7 @@ export type State = {
   cart: Menu[]
   menus: IMenu[]
   orders: Order[]
+  order: Order[]
   currentTable: number | null
   // priceFilter: number
   // reviewFilter: number
@@ -60,6 +61,7 @@ export interface IMenu {
   reviews: number[]
   image: string
   description: string
+  active:boolean
 }
 
 export interface IProcessedMenu {
