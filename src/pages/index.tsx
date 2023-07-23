@@ -1,5 +1,6 @@
 // export * from "./About"
 export * from "./Home"
+export * from "./Chart"
 export * from "./NotFound"
 export * from "./Menu"
 export * from "./Login"
