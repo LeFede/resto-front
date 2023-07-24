@@ -1,14 +1,28 @@
 // DishForm.tsx
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { postMenu } from '../../redux';
 import { validate } from '../../utils';
-import { DishDataError, Dishdata } from '@/types';
+import { DishDataError, Dishdata, State } from '@/types';
 import styles from './Dish.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export const DishForm = () => {
-  const dispatch = useDispatch();
-  
+
+  const { userRol } = useSelector((state: State) => state)
+  const navigate = useNavigate()
+
+  const protectedRoute = () => {
+    if (userRol !== 'admin') {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    protectedRoute()
+  }, [userRol])
+
+  const dispatch = useDispatch(); 
 
   const initialData: Dishdata = {
     title: '',

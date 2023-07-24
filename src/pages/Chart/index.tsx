@@ -4,8 +4,22 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchOrders } from "@/redux"
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts"
 import styles from "./chart.module.css"
+import { useNavigate } from "react-router-dom"
+import { State } from "@/types"
 
 export const Chart = () => {
+  const { userRol } = useSelector((state: State) => state)
+  const navigate = useNavigate()
+
+  const protectedRoute = () => {
+    if (userRol !== 'admin') {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    protectedRoute()
+  }, [userRol])
   
   const dispatch = useDispatch()
   const { orders } = useSelector((state: any) => state)
