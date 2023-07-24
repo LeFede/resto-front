@@ -6,6 +6,7 @@ import { validate } from '../../utils';
 import { DishDataError, Dishdata, State } from '@/types';
 import styles from './Dish.module.css';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const DishForm = () => {
 
@@ -78,6 +79,16 @@ export const DishForm = () => {
             ...prevState,
             image: data.url,
           }));
+          Swal.fire({
+            position: "center",
+            heightAuto: true,
+            imageUrl:data.url,
+            text: "Imagen Cargada Correctamente.",
+            width: 350,
+            imageWidth: 300,
+            imageHeight: 300,
+            imageAlt: "Error",
+          });
           setErrors(validate({ ...form, image: data.url }));
         } else {
           console.error('Error al cargar la imagen');

@@ -32,6 +32,9 @@ const initial = {
 };
 
 export const Nav = () => {
+  const menus = useSelector((state: State) => state.menus)
+  const categories = Array.from(new Set(menus.map((dish)=> dish.categories)))
+
   const navigate = useNavigate();
   const {
     cart,
@@ -247,8 +250,13 @@ export const Nav = () => {
             value={form.categoryFilter}
           >
             <option>Elije una opción</option>
-            <option value="main">Plato principal</option>
-            <option value="drink">bebidas</option>
+            {
+              categories.map((category)=>{
+                return (
+                  <option value={category}>{category==='main'?'Plato Principal':category==='drink'?'Bebidas':category==='appetizer'?'Entradas':category==='dessert'?'Postres':''}</option>
+                )
+              })
+            }
           </select>
         </fieldset>
 

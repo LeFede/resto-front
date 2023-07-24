@@ -30,7 +30,7 @@ export const Dishes = ({ menu }: any) => {
         .map(([key, value]: [key: string, value: any]) => {
         return (
           <ul key={key}>
-            <h4>{key}</h4>
+            <h4>{key==='MAIN'?'Plato Principal':key==='DESSERT'?'Postres':key==='APPETIZER'?'Entradas':key==='DRINK'?'Bebidas':''}</h4>
             { 
               value
                 .map((dish: any) => <Dish key={dish.title} dish={dish}/>) 
