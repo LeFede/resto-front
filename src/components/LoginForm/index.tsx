@@ -8,7 +8,6 @@ import { setUserRol, setUserRolLogout } from "@/redux"
 import  app  from "@/firebase.config"
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, signInWithEmailAndPassword } from "firebase/auth"
 // import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import axios from "axios"
 
 export const LoginForm = () => {
     
