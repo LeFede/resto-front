@@ -1,3 +1,13 @@
 .cardShow{
-    border: 1px solid red;
+    border: 1px solid rgb(0, 0, 0);
+    height: 120px;
+    background-color: #423830;
+    display: flex;
+    flex-direction: column;
+}
+
+.but{
+    background-color: #795c45;
+    border: 1px solid black;
+    height: 25px;;
 }

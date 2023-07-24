@@ -34,7 +34,7 @@
 
 .dish:hover {
   border-radius: 1rem;
-  box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.658);
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.288);
 }
 
 .left {
