@@ -1,6 +1,7 @@
 .dish {
+  position: relative;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
   }
   
   .dish div {
@@ -39,17 +40,17 @@
   z-index: 300;
   flex-direction: column;
 }
-  
   @media (width >= 768px) {
   
     .dish {
       flex: 1;
     }
   }
+  .cerrar{
+    height: 20px;
+    width: 50px;
+  }
   
-  
-  
-
 .container {
   background: rgba(0,0,0,.7);
   /* color: var(--mill-brown); */
@@ -57,6 +58,8 @@
   padding: 1rem;
   padding-top: 5rem;
   padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
 }
   
   .container ul {
@@ -77,10 +80,11 @@
 .buttons {
   color: white;
   display: flex;
+  flex-direction: row;
 }
 
 .buttonLeft {
-  background: green;
+  background: rgb(13, 0, 128);
   flex: 1;
   height: 100%;
 }

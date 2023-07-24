@@ -5,6 +5,7 @@ import app from '../../firebase.config';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const firestore = getFirestore(app);
 
@@ -18,7 +19,14 @@ export const UserForm = () => {
     active: true,
   };
   const [dataForm, setDataForm] = useState<TableUser>(initialData);
-
+  const handleClick = () => {
+    Swal.fire({
+      title: 'Bien',
+      text: 'Se creo el usuario',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  };
   const handleOnChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     setDataForm((prevState) => ({
@@ -49,6 +57,7 @@ export const UserForm = () => {
   return (
  
         <form id='userForm' className={styles.formTable} onSubmit={handleSubmit}>
+          <h2 className={styles.title}>Usuarios</h2>
           <input
             id='nameId'
             name="name"
@@ -102,7 +111,8 @@ export const UserForm = () => {
             required
           ></input>
           
-          <button name="submit" className={styles.btn} type="submit">
+          <div className={styles.botones}>
+          <button onClick={()=>{handleClick()}} name="submit" className={styles.btn} type="submit">
             Guardar
           </button>
           <Link to='/list' >
@@ -110,6 +120,7 @@ export const UserForm = () => {
               Ver Usuarios
             </button>
           </Link>
+          </div>
     </form>
   
   )

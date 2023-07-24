@@ -74,15 +74,17 @@ export const router = createBrowserRouter([
       {
         path: "/rating",
         element:<Rating/>
+      },
+      {
+        path: "/chart",
+        element: <Chart />
       }
+      
     ]
   },
   {
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/chart",
-    element: <Chart />
-  }
+ 
 ])

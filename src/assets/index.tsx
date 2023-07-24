@@ -13,5 +13,13 @@ export { default as cargando } from "./cargando.svg"
 export { default as entregado } from "./entregado.svg"
 export { default as off } from "./switchOff.svg"
 export { default as on } from "./switchOn.svg"
+export { default as star } from "./star.svg"
+export { default as tuerca } from "./tuerca.svg"
+
+export { default as dahs } from "./dash.svg"
+export { default as  lista} from "./lista.svg"
+export { default as  plato} from "./plato.svg"
+export { default as  user} from "./user.svg"
+export { default as  stats} from "./stats.svg"
 export const bg = "https://www.themillrestaurants.com/wp-content/themes/themills/img/home-bg.jpg"
 
