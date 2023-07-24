@@ -36,7 +36,6 @@ export const LoginForm = () => {
             const userId = user.uid
             const accessToken = (user as any).accessToken
             console.log(user);
-            // fetchUser(user)
     
             if(user){
                 const tkn = await user.getIdToken();
@@ -73,11 +72,12 @@ export const LoginForm = () => {
             const email = error.customData?.email;
             // The AuthCredential type that was used.
              // @ts-ignore
-            const credential = GoogleAuthProvider.credentialFromErro
+            const credential = GoogleAuthProvider.credentialFromError()
         }
     }
 
-    const handleLogin = async () => {
+    const handleLogin = async (e: any) => {
+        e.preventDefault();
         console.log("entre a handleLogin")
         try {
             const result = await signInWithEmailAndPassword(auth, login.email, login.password);
@@ -134,31 +134,6 @@ export const LoginForm = () => {
         })
 
         dispatch(setUserRolLogout())
-
-    }
-
-    // @ts-ignore
-    const fetchUser = async(userId: any) => {
-
-        const { data } = await axios.get(`http://resto-back-production-2867.up.railway.app/users/${userId}`)
-        return data
-        console.log(data)
-    }
-    
-    const fetchData = async({token}: any)=>{
-        const response = await axios.get('http://resto-back-production-2867.up.railway.app/',{
-            headers:{
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        console.log(response.data)
-        
-        useEffect(()=>{
-            if(token){
-             fetchData(token);
-            }
-        },[]);
 
     }
 
@@ -251,7 +226,7 @@ export const LoginForm = () => {
                     <div className={styles.mensajeError}> {error.email !== "" ? <p>{error.email}</p> : ""}</div>
             
                     <label htmlFor="password"></label>
-                    <input type="text" value={login.password} name="password" onChange={handleChange} placeholder="PASSWORD"></input>
+                    <input type="password" value={login.password} name="password" onChange={handleChange} placeholder="PASSWORD"></input>
                     <div className={styles.mensajeError}> {error.password !== "" ? <p>{error.password}</p> : ""} </div>
             
                     <button type="button" onClick={handleLogin}>LOG IN</button>
