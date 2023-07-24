@@ -8,6 +8,7 @@ import { setUserRol, setUserRolLogout } from "@/redux"
 import  app  from "@/firebase.config"
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, signInWithEmailAndPassword } from "firebase/auth"
 // import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import Swal from 'sweetalert2';
 
 export const LoginForm = () => {
     
@@ -17,13 +18,14 @@ export const LoginForm = () => {
     const auth = getAuth()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    let userRole: any
 
     const [ authorizedUser, setAuthorizedUser ] = useState(false || sessionStorage.getItem("accessToken"))
-    
+    const [ sessionUserId, setSessionUserId ] = useState(false || sessionStorage.getItem("userId"))
+
     const handleGoogleSignIn = async () => {
 
         try {
+            let userRole;
             const result = await signInWithPopup(auth, provider);
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -40,22 +42,37 @@ export const LoginForm = () => {
                 const tkn = await user.getIdToken();
                 // set access token in session storage
                 sessionStorage.setItem("accessToken", tkn);
+                // set access token in session storage
+                sessionStorage.setItem("userId", userId);
                 // @ts-ignore
                 setAuthorizedUser(true);
-    
+                // @ts-ignore
+                setSessionUserId(true);
                     
                 //const obtenerUsuario = await fetch(`http://localhost:3000/users/${userId}`, {
-                const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}/role`, {
+                const response = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}/role`, {
                     headers:{
                         'Authorization': `Bearer ${accessToken}`
                     }
                 })
 
-                userRole = await obtenerUsuario.json()
-                // console.log(userRole)
+                if (!response.ok) {
+                    if (response.status === 401) userRole = 'client';
+                } else {
+                    userRole = await response.json()
+                    console.log("🚀 ~ file: index.tsx:60 ~ userRole:", userRole)
+                }
+
+                
             }
             
             dispatch(setUserRol(userRole))
+
+            if (!['employee', 'admin'].includes(userRole)){
+                sessionStorage.setItem('isClient', 'true')
+            } else {
+                sessionStorage.setItem('isClient', 'false')
+            }
             
             userRole === "admin" ? navigate("/admin") : navigate("/")
 
@@ -79,6 +96,7 @@ export const LoginForm = () => {
         e.preventDefault();
         // console.log("entre a handleLogin")
         try {
+            let userRole;
             const result = await signInWithEmailAndPassword(auth, login.email, login.password);
             console.log(result)
             // User successfully logged in
@@ -92,8 +110,12 @@ export const LoginForm = () => {
                 const tkn = await user.getIdToken();
                 // set access token in session storage
                 sessionStorage.setItem("accessToken", tkn);
+                // set userId in session storage
+                sessionStorage.setItem("userId", userId);
                 // @ts-ignore
                 setAuthorizedUser(true);
+                // @ts-ignore
+                setSessionUserId(true);
     
                 // console.log("antes de request")
                 // const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}`, {
@@ -110,12 +132,22 @@ export const LoginForm = () => {
             }
 
             dispatch(setUserRol(userRole))
+            if (!['employee', 'admin'].includes(userRole)){
+                sessionStorage.setItem('isClient', 'true')
+            } else {
+                sessionStorage.setItem('isClient', 'false')
+            }
             
             userRole === "admin" ? navigate("/admin") : navigate("/")
 
         } catch (error) {
-            
-          console.error('Error signing in:', (error as any).message);
+            Swal.fire({
+                title: 'Mal',
+                text: 'Usuario o contraseña equivocada',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+            });
+            // console.error('Error signing in:', (error as any).message);
           // Handle login error (show an error message, etc.)
         }
       };
@@ -127,8 +159,15 @@ export const LoginForm = () => {
             sessionStorage.clear()
              // @ts-ignore
             setAuthorizedUser(false);
+             // @ts-ignore
+            setSessionUserId(false);
 
-            alert('Has cerrado sesión correctamente')
+            Swal.fire({
+                title: 'Bien',
+                text: 'Has cerrado sesión correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+            });
 
         })
 
@@ -197,11 +236,23 @@ export const LoginForm = () => {
         setError(errorValidate)
     
     }
+
+    const protectRoute = async () => {
+        if (authorizedUser && sessionStorage.getItem('isClient') === 'false') {
+            const response = await fetch(`http://resto-back-production-2867.up.railway.app/users/${sessionUserId}/role`, {
+                headers:{
+                    'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+                }
+            })
+            const role = await response.json()
+            dispatch(setUserRol(role))
+        }
+    }
     
     useEffect(() => {
     
-        validaciones()   
-    
+        validaciones()
+        protectRoute()
     }, [login])
 
     return (
@@ -209,9 +260,11 @@ export const LoginForm = () => {
         <div>
 
             {authorizedUser ? (
+                // TODO: darle estilo a este bloque <p> y <button>
+                // TODO: poner un boton de volver y otro boton de ir a carrito o algo y darle estilos
 
                 <>
-                    <p>Usuario autorizado</p>
+                    <p>Usuario autorizado como cliente</p>
                     <button onClick={logoutUser}>CERRAR SESION</button>
                     
                 </>
