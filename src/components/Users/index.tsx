@@ -13,12 +13,20 @@ const UserCard = ({ user, onDelete }: UserCardProps) => {
       <p>Name: {user.name}</p>
       <p>Last Name: {user.lastName}</p>
       <p>Email: {user.email}</p>
+      <div>
+      {user.role ? (
+        <p>Role: {user.role}</p>
+      ) : (
+        <p>Role: cliente</p>
+      )}
+    </div>
+      <div>
+      <button className={styles.but} onClick={onDelete}>Eliminar</button>
 
-      <button onClick={onDelete}>Eliminar</button>
-
-      <Link to={`/editlist/${user.id}`}>
-        <button>Editar</button>
-      </Link>
+<Link to={`/editlist/${user.id}`}>
+  <button className={styles.but}>Editar</button>
+</Link>
+      </div>
     </div>
   );
 };
