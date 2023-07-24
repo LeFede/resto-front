@@ -5,10 +5,26 @@ import { useEffect } from "react";
 import { fetchOrders, setUserRolLogout } from "../../redux/index";
 import {  cargando, checkB, entregado } from "@/assets";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+
 import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { State } from "@/types";
 
 export const Dashboard = () => {
+
+  const { userRol } = useSelector((state: State) => state)
+  
+
+  const protectedRoute = () => {
+    if (userRol !=='admin'&& userRol !== 'employee') {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    protectedRoute()
+  }, [userRol]);
+
   const { orders } = useSelector((state: any) => state);
   const auth = getAuth();
   const dispatch = useDispatch();
@@ -24,7 +40,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     const intervalId = setInterval(
-      () => dispatch<any>(fetchOrders()), 10000
+      () => dispatch<any>(fetchOrders()), 5000
 
     )
     console.log('Orders fetched');
@@ -62,10 +78,6 @@ export const Dashboard = () => {
     }
   };
 
-  // if (userRol !== "admin") {
-  //   return <WithoutPermissions />;
-  // }
-
   const activeOrders = orders.filter((order: any) => order.active);
 
   const handleLogout = () => {
@@ -82,6 +94,10 @@ export const Dashboard = () => {
 
       dispatch(setUserRolLogout())
       navigate('/');
+  }
+
+  if (orders.length===0) {
+    return <h1>Loading...</h1>;
   }
 
   return (

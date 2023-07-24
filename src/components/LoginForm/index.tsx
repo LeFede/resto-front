@@ -34,7 +34,7 @@ export const LoginForm = () => {
             // @ts-ignore
             const userId = user.uid
             const accessToken = (user as any).accessToken
-            console.log(user);
+            // console.log(user);
     
             if(user){
                 const tkn = await user.getIdToken();
@@ -52,7 +52,7 @@ export const LoginForm = () => {
                 })
 
                 userRole = await obtenerUsuario.json()
-                console.log(userRole)
+                // console.log(userRole)
             }
             
             dispatch(setUserRol(userRole))
@@ -77,7 +77,7 @@ export const LoginForm = () => {
 
     const handleLogin = async (e: any) => {
         e.preventDefault();
-        console.log("entre a handleLogin")
+        // console.log("entre a handleLogin")
         try {
             const result = await signInWithEmailAndPassword(auth, login.email, login.password);
             console.log(result)
@@ -86,7 +86,7 @@ export const LoginForm = () => {
             // @ts-ignore
             const userId = user.uid
             const accessToken = (user as any).accessToken
-            console.log(user);
+            // console.log(user);
 
             if(user){
                 const tkn = await user.getIdToken();
@@ -95,7 +95,7 @@ export const LoginForm = () => {
                 // @ts-ignore
                 setAuthorizedUser(true);
     
-                console.log("antes de request")
+                // console.log("antes de request")
                 // const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}`, {
                 const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}/role`, {
                         headers:{
@@ -103,9 +103,9 @@ export const LoginForm = () => {
                         },
                     })
                     
-                console.log(obtenerUsuario)
+                // console.log(obtenerUsuario)
                 userRole = await obtenerUsuario.json()
-                console.log(userRole)
+                // console.log(userRole)
                 
             }
 

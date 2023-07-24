@@ -1,15 +1,30 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styles from './User.module.css';
-import { TableUser } from '@/types';
+import { State, TableUser } from '@/types';
 import app from '../../firebase.config';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
 
 const firestore = getFirestore(app);
 
 export const UserForm = () => {
+
+  const { userRol } = useSelector((state: State) => state)
+  const navigate = useNavigate()
+
+  const protectedRoute = () => {
+    if (userRol !== 'admin') {
+      navigate('/')
+    } 
+  }
+
+  useEffect(() => {
+    protectedRoute()
+  }, [userRol])
+  
   const initialData: TableUser = {
     name: '',
     lastName: '',

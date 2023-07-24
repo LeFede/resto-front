@@ -4,12 +4,30 @@ import styles from "./PanelAdmin.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { on, off, pen, plato, lista, user, dahs, stats } from "@/assets";
 import { Link, useNavigate } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import { signOut, getAuth } from "firebase/auth"
 import { setUserRolLogout } from "../../redux";
 
 export const PanelAdmin = () => {
+  const [updatedPrice, setUpdatedPrice] = useState("");
+  const [idToUpdate, setIdToUpdate] = useState("");
+  const auth = getAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { userRol } = useSelector((state: State) => state)
+  
+  const protectedRoute = () => {
+    if (userRol === 'client' || userRol ==='employee') {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    protectedRoute()
+  }, [userRol])
+
   const menus = useSelector((state: State) => state.menus);
   const handleClick = () => {
     Swal.fire({
@@ -19,11 +37,6 @@ export const PanelAdmin = () => {
       confirmButtonText: 'Aceptar',
     });
   };
-  const [updatedPrice, setUpdatedPrice] = useState("");
-  const [idToUpdate, setIdToUpdate] = useState("");
-  const auth = getAuth();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
  
   const handleOnChange = (
@@ -108,8 +121,7 @@ export const PanelAdmin = () => {
     signOut(auth).then(() => {
 
         sessionStorage.clear()
-          // @ts-ignore
-        
+                 
         Swal.fire({
           title: 'Bien',
           text: 'Has cerrado sesión correctamente',
