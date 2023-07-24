@@ -1,11 +1,13 @@
 import { IMenu, State } from "@/types";
 import styles from "./PanelAdmin.module.css";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { on, off, pen, plato, lista, user, dahs, stats } from "@/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import Swal from 'sweetalert2';
+import { signOut, getAuth } from "firebase/auth"
+import { setUserRolLogout } from "../../redux";
 
 export const PanelAdmin = () => {
   const menus = useSelector((state: State) => state.menus);
@@ -18,8 +20,10 @@ export const PanelAdmin = () => {
     });
   };
   const [updatedPrice, setUpdatedPrice] = useState("");
-
   const [idToUpdate, setIdToUpdate] = useState("");
+  const auth = getAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
  
   const handleOnChange = (
@@ -99,6 +103,26 @@ export const PanelAdmin = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
+
+  const logoutUser = () => {
+    signOut(auth).then(() => {
+
+        sessionStorage.clear()
+          // @ts-ignore
+        
+        Swal.fire({
+          title: 'Bien',
+          text: 'Has cerrado sesión correctamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+
+    })
+
+    dispatch(setUserRolLogout())
+    navigate('/');
+  }
+
   return (
     <section>
       <nav className={styles.nav}>
@@ -127,6 +151,9 @@ export const PanelAdmin = () => {
             <img src={stats} alt="stats" className={styles.img}/>
           </button>
         </Link>
+        <button className={styles.butt} onClick={logoutUser}>
+          Cerrar sesion
+        </button>
         {/* <Link onClick={logoutUser} to={"/"}><button>LogOut</button></Link>  */}
       </nav>
 

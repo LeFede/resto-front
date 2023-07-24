@@ -2,13 +2,17 @@ import styles from "./Dashboard.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-import { fetchOrders } from "../../redux/index";
+import { fetchOrders, setUserRolLogout } from "../../redux/index";
 import {  cargando, checkB, entregado } from "@/assets";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 
 export const Dashboard = () => {
   const { orders } = useSelector((state: any) => state);
+  const auth = getAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleClick = () => {
     Swal.fire({
       title: 'Bien',
@@ -64,8 +68,25 @@ export const Dashboard = () => {
 
   const activeOrders = orders.filter((order: any) => order.active);
 
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      sessionStorage.clear()
+      
+      Swal.fire({
+        title: 'Bien',
+        text: 'Has cerrado sesión correctamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
+    })
+
+      dispatch(setUserRolLogout())
+      navigate('/');
+  }
+
   return (
     <section className={styles.fakeback}>
+      <button onClick={handleLogout}>Cerrar sesión</button>
       <h2 className={styles.title}>Ordenes</h2>
       <div className={styles.dashboard}>
       
