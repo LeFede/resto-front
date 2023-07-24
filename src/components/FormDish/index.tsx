@@ -101,8 +101,6 @@ export const DishForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(form)
-    console.log(errors)
     if (Object.keys(errors).length > 0) return;
 
     dispatch<any>(postMenu(form));
@@ -135,7 +133,7 @@ export const DishForm = () => {
         <option value='main'>Plato principal</option>
         <option value='appetizer'>Entrada</option>
         <option value='dessert'>Postre</option>
-        <option value='drinks'>Bebida</option>
+        <option value='drink'>Bebida</option>
       </select>
       {errors.categories ? <p className={styles.error}>{errors.categories}</p> : ''}
       <button name='submit' className={styles.btn} type='submit' disabled={Object.keys(errors).length > 0}>

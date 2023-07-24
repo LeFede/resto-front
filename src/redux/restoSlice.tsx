@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
 import { State, Dishdata } from "@/types"
+import Swal from 'sweetalert2';
 
 
 const initialState: State = {
@@ -53,12 +54,32 @@ export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dish
       }
       throw error
     }
-    alert(`${data.title} creado con exito!`)
+    Swal.fire({
+      title: 'Bien',
+      text: `Platillo creado con exito!`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+    console.log("🚀 ~ file: restoSlice.tsx:64 ~ constpostMenu:any=createAsyncThunk ~ data:", data)
     return data
   } catch (error: any) {
     console.log(error);
     
-    if (error.status === 401) alert(`${error.status}: ${error.message}`)
+    if (error.status === 401) {
+      Swal.fire({
+        title: 'Mal',
+        text: `${error.status}: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+    } else {
+      Swal.fire({
+        title: 'Mal',
+        text: `Error al crear platillo`,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+    }
   }
 })
 
