@@ -5,7 +5,7 @@ import { ShowCreatedUser } from "@/components/ShowUser";
 import { UserForm } from "@/components/UserFrom";
 import { Main } from "@/layouts";
 
-import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin, Rating} from "@/pages";
+import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin, Rating, Chart } from "@/pages";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -74,11 +74,17 @@ export const router = createBrowserRouter([
       {
         path: "/rating",
         element:<Rating/>
+      },
+      {
+        path: "/chart",
+        element: <Chart />
       }
+      
     ]
   },
   {
     path: "/login",
     element: <Login />,
-  }
+  },
+ 
 ])

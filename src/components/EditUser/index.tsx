@@ -71,8 +71,8 @@ const firestore = getFirestore(app);
   
   
   return (
-    <div>
-      <h2>Edit User</h2>
+    <div className={styles.container}>
+      <h2 className={styles.tit}>Edit User</h2>
       <form className={styles.editForm} onSubmit={handleSubmit}>
         <input
           id='nameId'

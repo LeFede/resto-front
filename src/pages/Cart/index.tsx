@@ -98,7 +98,7 @@ export const Cart = () => {
           cart.length ? <button onClick={handleBuy}>Pagar</button> : ''
         }
         
-      <button onClick={() => navigate(-1)}>Cerrar</button>
+      <button className={styles.cerrar} onClick={() => navigate(-1)}>Cerrar</button>
 
 
         {/* {cart.map((ord: IMenu | any) => {

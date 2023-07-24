@@ -1,30 +1,35 @@
 .formTable {
-    margin-left:auto;
-    margin-right:auto;
-    width: 343px;
-    height: 560px;
+    
+    width: 350px;
+    min-height: 560px;
     padding:30px;
-    border: 1px solid rgba(0,0,0,.2);
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    background: rgba(0, 0, 0, 0.5); 
-    -moz-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
-    box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
-    overflow: hidden; 
+    background: #f3f3f3;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    place-items: center;
+    gap: 10px;
+    margin:auto;
+    overflow: hidden;
 }
+.botones{
 
-
-
+}
+.title{
+    color: #080000;
+    font-family: var(--font-3);
+}
+.messageInput:focus{
+    border: 2px solid red;
+}
 .messageInput{
-    background: rgba(255, 255, 255, 0.768); 
+    
+    background: #a39a9a; 
     width: 276px;
     height: 50px;
-    border: 1px solid rgba(255,255,255,.6);
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -39,9 +44,12 @@
     padding-right:20px;
     padding-top:12px;
     margin-bottom:20px;
+    border: 1px solid black;
     overflow:hidden;
 }
-
+.btn:hover{
+    background-color: #e1e1e1;
+}
 
 .btn {
 	  width: 110px;
@@ -51,7 +59,7 @@
 	  border-radius: 4px;
 	  float:right;
     border: 1px solid #25373700;
-    background: -webkit-gradient(linear, left top, left bottom, from(#142726), to(#91955e));
+    background: #423830;
     padding: 10.5px 21px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -63,7 +71,7 @@
 .btn:hover {
     border: 1px solid #253737;
     text-shadow: #333333 0 1px 0;
-    background: -webkit-gradient(linear, left top, left bottom, from(#d5ca6b), to(#87883c));
+   background-color: #aaaaaa;
     color: #fff;
  }
 

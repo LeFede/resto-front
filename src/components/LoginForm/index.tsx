@@ -8,7 +8,6 @@ import { setUserRol, setUserRolLogout } from "@/redux"
 import  app  from "@/firebase.config"
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, signInWithEmailAndPassword } from "firebase/auth"
 // import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import axios from "axios"
 
 export const LoginForm = () => {
     
@@ -35,8 +34,7 @@ export const LoginForm = () => {
             // @ts-ignore
             const userId = user.uid
             const accessToken = (user as any).accessToken
-            console.log(user);
-            // fetchUser(user)
+            // console.log(user);
     
             if(user){
                 const tkn = await user.getIdToken();
@@ -54,7 +52,7 @@ export const LoginForm = () => {
                 })
 
                 userRole = await obtenerUsuario.json()
-                console.log(userRole)
+                // console.log(userRole)
             }
             
             dispatch(setUserRol(userRole))
@@ -73,12 +71,13 @@ export const LoginForm = () => {
             const email = error.customData?.email;
             // The AuthCredential type that was used.
              // @ts-ignore
-            const credential = GoogleAuthProvider.credentialFromErro
+            const credential = GoogleAuthProvider.credentialFromError()
         }
     }
 
-    const handleLogin = async () => {
-        console.log("entre a handleLogin")
+    const handleLogin = async (e: any) => {
+        e.preventDefault();
+        // console.log("entre a handleLogin")
         try {
             const result = await signInWithEmailAndPassword(auth, login.email, login.password);
             console.log(result)
@@ -87,7 +86,7 @@ export const LoginForm = () => {
             // @ts-ignore
             const userId = user.uid
             const accessToken = (user as any).accessToken
-            console.log(user);
+            // console.log(user);
 
             if(user){
                 const tkn = await user.getIdToken();
@@ -96,7 +95,7 @@ export const LoginForm = () => {
                 // @ts-ignore
                 setAuthorizedUser(true);
     
-                console.log("antes de request")
+                // console.log("antes de request")
                 // const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}`, {
                 const obtenerUsuario = await fetch(`http://resto-back-production-2867.up.railway.app/users/${userId}/role`, {
                         headers:{
@@ -104,9 +103,9 @@ export const LoginForm = () => {
                         },
                     })
                     
-                console.log(obtenerUsuario)
+                // console.log(obtenerUsuario)
                 userRole = await obtenerUsuario.json()
-                console.log(userRole)
+                // console.log(userRole)
                 
             }
 
@@ -134,31 +133,6 @@ export const LoginForm = () => {
         })
 
         dispatch(setUserRolLogout())
-
-    }
-
-    // @ts-ignore
-    const fetchUser = async(userId: any) => {
-
-        const { data } = await axios.get(`http://resto-back-production-2867.up.railway.app/users/${userId}`)
-        return data
-        console.log(data)
-    }
-    
-    const fetchData = async({token}: any)=>{
-        const response = await axios.get('http://resto-back-production-2867.up.railway.app/',{
-            headers:{
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        console.log(response.data)
-        
-        useEffect(()=>{
-            if(token){
-             fetchData(token);
-            }
-        },[]);
 
     }
 
@@ -251,7 +225,7 @@ export const LoginForm = () => {
                     <div className={styles.mensajeError}> {error.email !== "" ? <p>{error.email}</p> : ""}</div>
             
                     <label htmlFor="password"></label>
-                    <input type="text" value={login.password} name="password" onChange={handleChange} placeholder="PASSWORD"></input>
+                    <input type="password" value={login.password} name="password" onChange={handleChange} placeholder="PASSWORD"></input>
                     <div className={styles.mensajeError}> {error.password !== "" ? <p>{error.password}</p> : ""} </div>
             
                     <button type="button" onClick={handleLogin}>LOG IN</button>
