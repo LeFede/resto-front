@@ -78,7 +78,15 @@ export const Dashboard = () => {
     }
   };
 
-  const activeOrders = orders.filter((order: any) => order.active);
+  const activeOrders = orders
+    .filter((order: any) => order.active)
+    .filter((order: any) => {
+      if (order.state === 'init') return false;
+      if (order.state === 'cancelled') return false;
+      return true;
+    })
+
+  // init, cancelado, no activado
 
   const handleLogout = () => {
     signOut(auth).then(() => {
