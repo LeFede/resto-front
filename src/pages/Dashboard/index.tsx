@@ -1,13 +1,22 @@
 import styles from "./Dashboard.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { WithoutPermissions } from "@/pages/WithoutPermissions";
+
 import { fetchOrders } from "../../redux/index";
 import {  cargando, checkB, entregado } from "@/assets";
+import Swal from "sweetalert2";
 
 export const Dashboard = () => {
-  const { orders, userRol } = useSelector((state: any) => state);
+  const { orders } = useSelector((state: any) => state);
   const dispatch = useDispatch();
+  const handleClick = () => {
+    Swal.fire({
+      title: 'Bien',
+      text: 'Se actualizo el estado de la orden',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  };
 
   useEffect(() => {
     const intervalId = setInterval(
@@ -49,9 +58,9 @@ export const Dashboard = () => {
     }
   };
 
-  if (userRol !== "admin") {
-    return <WithoutPermissions />;
-  }
+  // if (userRol !== "admin") {
+  //   return <WithoutPermissions />;
+  // }
 
   const activeOrders = orders.filter((order: any) => order.active);
 
@@ -70,16 +79,16 @@ export const Dashboard = () => {
           {order.state !== "delivered" && (
             <>
               <button className={styles.boton}
-                onClick={() => updateOrderState(order._id, "in progress")}
+                onClick={() => {updateOrderState(order._id, "in progress"); handleClick()}}
               >
                 <img className={styles.img} src={cargando} alt="" />
               </button>
               <button  className={styles.boton}
-               onClick={() => updateOrderState(order._id, "ready")}>
+               onClick={() => {updateOrderState(order._id, "ready"); handleClick()}}>
                 <img className={styles.img} src={checkB} alt="Listo" />
               </button>
               <button className={styles.boton}
-              onClick={() => updateOrderState(order._id, "delivered")}>
+              onClick={() => {updateOrderState(order._id, "delivered"); handleClick()}}>
                 <img className={styles.img} src={entregado} alt="entregado" />
               </button>
             </>

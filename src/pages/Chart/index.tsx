@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchOrders } from "@/redux"
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts"
-
+import styles from "./chart.module.css"
 
 export const Chart = () => {
   
@@ -30,9 +30,12 @@ export const Chart = () => {
   }, [])
 
   return (
-    <div>
-
-      <LineChart width={600} height={300} data={
+    <div className={styles.container}>
+      <h1 className={styles.title}>Ventas</h1>
+      <div className={styles.con}>
+      <div>
+      <h5> ultima semana</h5>
+      <LineChart  className={styles.stat} width={300} height={300} data={
         filtered.reduce((prev, curr) => {
 
           // if (prev.includes(e => e.name === curr.name)) console.log('includes')
@@ -52,44 +55,48 @@ export const Chart = () => {
         [
         ])
       }>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
+        <Line type="monotone" dataKey="uv" stroke="#fc0"  />
+        <CartesianGrid stroke="white" />
         <XAxis dataKey="name" />
         <YAxis />
       </LineChart>
+      </div>
+<div>
+<h5>ultimos 6 meses</h5>
 
+<LineChart  className={styles.stat} width={300} height={300} data={
+  filtered.reduce((prev, curr) => {
 
-      <LineChart width={600} height={300} data={
-        filtered.reduce((prev, curr) => {
+    // if (prev.includes(e => e.name === curr.name)) console.log('includes')
+    const exists = prev.findIndex(e => e.name === curr.month)
+    if (exists >= 0) return prev.map((e, i) => {
+      if (i === exists) return {name: e.name, uv: e.uv + curr.earn}
+      return e
+    }) 
 
-          // if (prev.includes(e => e.name === curr.name)) console.log('includes')
-          const exists = prev.findIndex(e => e.name === curr.month)
-          if (exists >= 0) return prev.map((e, i) => {
-            if (i === exists) return {name: e.name, uv: e.uv + curr.earn}
-            return e
-          }) 
+    console.log(prev)
 
-          console.log(prev)
+    return [
+      ...prev, 
+      {name: curr.month - 5, uv: 0},
+      {name: curr.month - 4, uv: 0},
+      {name: curr.month - 3, uv: 0},
+      {name: curr.month - 2, uv: 0},
+      {name: curr.month - 1, uv: 0},
+      {name: curr.month, uv: 300},
+    ]
+  }, 
+  [
+  ])
+}>
+  <Line type="monotone" dataKey="uv" stroke="#fc0" />
+  <CartesianGrid stroke="white" />
+  <XAxis dataKey="name" />
+  <YAxis />
+</LineChart>
 
-          return [
-            ...prev, 
-            {name: curr.month - 5, uv: 0},
-            {name: curr.month - 4, uv: 0},
-            {name: curr.month - 3, uv: 0},
-            {name: curr.month - 2, uv: 0},
-            {name: curr.month - 1, uv: 0},
-            {name: curr.month, uv: 300},
-          ]
-        }, 
-        [
-        ])
-      }>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="name" />
-        <YAxis />
-      </LineChart>
-
+</div>
+      </div>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 import styles from "./Nav.module.css";
-import { homeSvg, filtersSvg, cartSvg, reload, check } from "@/assets";
+import { homeSvg, filtersSvg, cartSvg, reload, check, tuerca } from "@/assets";
 import { State } from "@/types";
 import {
   setLessThanPriceFilter,
@@ -107,7 +107,7 @@ export const Nav = () => {
   const validValue = {
     lessThanPriceFilter: (value: number) => {
       // console.log(value, form.moreThanPriceFilter)
-      if (value < 0) return ''
+      if (value < 0) return "";
       if (value < +form.moreThanPriceFilter) {
         // alert("El tope maximo no puede ser menor que el minimo")
         return form.moreThanPriceFilter;
@@ -115,7 +115,7 @@ export const Nav = () => {
       return value;
     },
     moreThanPriceFilter: (value: number) => {
-      if (value < 0) return ''
+      if (value < 0) return "";
       if (value > +form.lessThanPriceFilter) {
         // alert("El tope minimo no puede ser menor que e  maximo")
         return form.lessThanPriceFilter;
@@ -147,20 +147,42 @@ export const Nav = () => {
     e.preventDefault();
   };
 
-  const goHome = () => navigate('/')
-  const goCart = () => navigate(`/table/${currentTable}/cart`)
+  const goHome = () => navigate("/");
+  const goCart = () => navigate(`/table/${currentTable}/cart`);
+  const goAdmin = () => navigate("/admin");
 
   return (
     <nav className={styles.nav}>
       <ul className={styles.bar}>
-        <li onClick={goHome}>
-          <img className={styles.logosNav} src={homeSvg} alt="Home" />
+        <li>
+          <img
+            onClick={goHome}
+            className={styles.logosNav}
+            src={homeSvg}
+            alt="Home"
+          />
         </li>
-        <li onClick={handleShowFilters}>
-          <img className={styles.logosNav} src={filtersSvg} alt="Filter" />
+        <li>
+          <img
+            onClick={goAdmin}
+            className={styles.logosNav}
+            src={tuerca}
+            alt="admin"
+          />
+        </li>
+        <li>
+          <img
+            onClick={handleShowFilters}
+            className={styles.logosNav}
+            src={filtersSvg}
+            alt="Filter"
+          />
         </li>
         {currentTable && (
-          <li className={`${cart.length ? styles.showNumber : ""}`} data-a={cart.reduce((acc, curr) => acc + curr.quantity, 0)}>
+          <li
+            className={`${cart.length ? styles.showNumber : ""}`}
+            data-a={cart.reduce((acc, curr) => acc + curr.quantity, 0)}
+          >
             <img
               onClick={goCart}
               className={styles.logosNav}
@@ -170,105 +192,104 @@ export const Nav = () => {
           </li>
         )}
       </ul>
+      
+        <form
+          className={`${styles.filters} ${
+            showFilters ? styles.showFilters : ""
+          }`}
+          onSubmit={handleSubmit}
+        >
+          <h3 className={styles.titlefilter}>Busqueda y filtros</h3>
+          <fieldset>
+            <h6>Buscar por nombre</h6>
+            <input
+              className={styles.inputs}
+              type="text"
+              id="searchFilter"
+              name="searchFilter"
+              onBlur={onBlur}
+              onChange={setFilters}
+              value={form.searchFilter}
+            />
+            <h6>Buscar por categoria</h6>
 
-      <form
-        className={`${styles.filters} ${showFilters ? styles.showFilters : ""}`}
-        onSubmit={handleSubmit}
-      >
-        <h3 className={styles.titlefilter}>Busqueda y filtros</h3>
-        <fieldset>
-          <h6>Buscar por nombre</h6>
-          <input
-          className={styles.inputs}
-            type="text"
-            id="searchFilter"
-            name="searchFilter"
-            onBlur={onBlur}
-            onChange={setFilters}
-            value={form.searchFilter}
-          />
-          <h6>Buscar por categoria</h6>
-         
-          <select 
-          className={styles.inputs}
-          typeof=""
-          id="categoryFilter"
-          name="categoryFilter"
-          onBlur={onBlur}
-          onChange={setFilters}
-          value={form.categoryFilter}>
-        <option>Elije una opción</option>
-        <option value="main">Plato principal</option>
-        <option value="drink">bebidas</option>
-      </select>
-          
-        </fieldset>
+            <select
+              className={styles.inputs}
+              typeof=""
+              id="categoryFilter"
+              name="categoryFilter"
+              onBlur={onBlur}
+              onChange={setFilters}
+              value={form.categoryFilter}
+            >
+              <option>Elije una opción</option>
+              <option value="main">Plato principal</option>
+              <option value="drink">bebidas</option>
+            </select>
+          </fieldset>
 
-        <fieldset>
-          <h6>Filtrar por precio</h6>
+          <fieldset>
+            <h6>Filtrar por precio</h6>
 
-          <label htmlFor="lessThanPriceFilter">Precio máximo:</label>
-          <input
-          
-            type="range"
-            id="lessThanPriceFilter"
-            name="lessThanPriceFilter"
-            min="0"
-            max="30000"
-            step="1"
-            value={form.lessThanPriceFilter}
-            onChange={setFilters}
-          />
-          <span className={styles.num}>{form.lessThanPriceFilter}</span>
-          <br />
-          <label htmlFor="moreThanPriceFilter">Precio mínimo:</label>
-          <input
-            type="range"
-            id="moreThanPriceFilter"
-            name="moreThanPriceFilter"
-            min="0"
-            max="10000"
-            step="1"
-            value={form.moreThanPriceFilter}
-            onChange={setFilters}
-          />
-          <span className={styles.num}>{form.moreThanPriceFilter}</span>
-        </fieldset>
+            <label htmlFor="lessThanPriceFilter">Precio máximo:</label>
+            <input
+              type="range"
+              id="lessThanPriceFilter"
+              name="lessThanPriceFilter"
+              min="0"
+              max="30000"
+              step="1"
+              value={form.lessThanPriceFilter}
+              onChange={setFilters}
+            />
+            <span className={styles.num}>{form.lessThanPriceFilter}</span>
+            <br />
+            <label htmlFor="moreThanPriceFilter">Precio mínimo:</label>
+            <input
+              type="range"
+              id="moreThanPriceFilter"
+              name="moreThanPriceFilter"
+              min="0"
+              max="10000"
+              step="1"
+              value={form.moreThanPriceFilter}
+              onChange={setFilters}
+            />
+            <span className={styles.num}>{form.moreThanPriceFilter}</span>
+          </fieldset>
 
+          <fieldset className={styles.filtercontainer}>
+            <h6>Reviews</h6>
+            <label htmlFor="review-gt">Min </label>
+            <input
+              type="number"
+              id="review-gt"
+              name="moreThanReviewFilter"
+              onBlur={onBlur}
+              onChange={setFilters}
+              value={form.moreThanReviewFilter}
+            /> <br />
+            <label htmlFor="review-lt"> Max</label>
+            <input
+              type="number"
+              id="review-lt"
+              name="lessThanReviewFilter"
+              onBlur={onBlur}
+              onChange={setFilters}
+              value={form.lessThanReviewFilter}
+            />
+          </fieldset>
 
-       <fieldset className={styles.filtercontainer} >
-          <h6>Reviews</h6>
-          <label htmlFor="review-gt">Min </label>
-          <input
-            type="number"
-            id="review-gt"
-            name="moreThanReviewFilter"
-            onBlur={onBlur}
-            onChange={setFilters}
-            value={form.moreThanReviewFilter}
-          />
-          <label htmlFor="review-lt"> Max</label>
-          <input
-            type="number"
-            id="review-lt"
-            name="lessThanReviewFilter"
-            onBlur={onBlur}
-            onChange={setFilters}
-            value={form.lessThanReviewFilter}
-          />
-        </fieldset>
-
-
-        <div className={styles.containerbutton}>
-          <button className={styles.button} onClick={resetFilter}>
-            <img src={reload} alt="" />
-          </button>
-          <button className={styles.button} onClick={handleCloseFilters}>
-            <img src={check} alt="" />
-          </button>
-        </div>
-      </form>
-
+          <div className={styles.containerbutton}>
+            <button className={styles.button} onClick={resetFilter}>
+              <img src={reload} alt="" />
+            </button>
+            <button className={styles.button} onClick={handleCloseFilters}>
+              <img src={check} alt="" />
+            </button>
+          </div>
+        </form>
+      
       <div
         className={`${styles.background} ${showBg ? styles.fadein : ""}`}
       ></div>
