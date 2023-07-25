@@ -263,11 +263,11 @@ export const LoginForm = () => {
                 // TODO: darle estilo a este bloque <p> y <button>
                 // TODO: poner un boton de volver y otro boton de ir a carrito o algo y darle estilos
 
-                <>
+                <div className={styles.logout}>
                     <p>Usuario autorizado como cliente</p>
                     <button onClick={logoutUser}>CERRAR SESION</button>
                     
-                </>
+                </div>
             ): (
 
             <>
@@ -285,7 +285,7 @@ export const LoginForm = () => {
             
                 </form>
                 <div>
-                    <button onClick={handleGoogleSignIn}>LOG IN CON GOOGLE</button>
+                    <button className={styles.loginGoogle} onClick={handleGoogleSignIn}>LOG IN CON GOOGLE</button>
                 </div>
             </>  
             

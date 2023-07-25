@@ -108,21 +108,39 @@ button-alert{
 
 
 .filters {
+  width: 25rem;
   transition: transform .4s ease;
-  filter: drop-shadow(1px 1px 10px black);
   border-radius: 1rem;
   padding: 2rem;
   inset: 10%;
   position: fixed;
   background: var(--mill-brown);
   z-index: 100;
+  transform: translateX(-150%);
+  height: 20rem;
+  color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
-  transform: translateX(-150%);
-  overflow-x: scroll;
-  height: 150px;
-  color: rgb(255, 255, 255);
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1.3rem;
 }
+
+.filters button {
+
+  width: 60%;
+  padding: 5px;
+  background: transparent;
+  border: solid 2px;
+  border-color: white;
+  color: white;
+}
+
+.filters button:hover {
+
+  background-color: var(--mill-orange);
+}
+
 .container ul {
   padding: 2rem 0;
   flex: 1;
