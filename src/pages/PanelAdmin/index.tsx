@@ -226,8 +226,8 @@ export const PanelAdmin = () => {
                 }`}
                 onSubmit={handleSubmit}
               >
-                <div>
-                  <br />
+                
+                  
                   <label htmlFor="price"><h6>Precio:</h6> </label>
                   
                   <input
@@ -235,12 +235,13 @@ export const PanelAdmin = () => {
                     name="updatePrice"
                     value={updatedPrice}
                     onChange={handleOnChange}
-                  /> <br />
+                  />
                   <button
-                    onClick={() => {fetchPriceUpdate(idToUpdate, +updatedPrice); handleCloseFilters(); handleClick();}}
+                    onClick={() => {fetchPriceUpdate(idToUpdate, + updatedPrice); handleCloseFilters(); handleClick();}}
                   >
-                    Actualizar Precio
-                  </button><br />
+                    ACTUALIZAR PRECIO
+                  </button>
+
                   <button
                     className={styles.button}
                     onClick={() => {
@@ -249,9 +250,11 @@ export const PanelAdmin = () => {
                       
                     }}
                   >
-                    Cerrar
+
+                    CERRAR
+
                   </button>
-                </div>
+                
               </form>
             </div>
           );
