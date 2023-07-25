@@ -95,7 +95,7 @@ export const Cart = () => {
         {/* @ts-ignore */}
         <h2>TOTAL: ${cart.reduce((acc, curr) => acc + (curr.totalPrice * curr.quantity), 0)}</h2>
         {
-          cart.length ? <button onClick={handleBuy}>Pagar</button> : ''
+          cart.length ? <button className={styles.buttonPagar} onClick={handleBuy}>Pagar</button> : ''
         }
         
       <button className={styles.cerrar} onClick={() => navigate(-1)}>Cerrar</button>
