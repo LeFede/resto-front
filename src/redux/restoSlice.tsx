@@ -20,14 +20,22 @@ const initialState: State = {
   userRol: "client"
 }
 export const fetchOrders = createAsyncThunk("orders/fetch", async () => {
-  const res = await fetch("http://resto-back-production-2867.up.railway.app/order")
+  const res = await fetch("http://resto-back-production-2867.up.railway.app/order", {
+    headers: {
+      'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+    }
+  })
   const data = await res.json()
   return data
 });
 
 export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
   // TODO: do the fetch
-  const res = await fetch("https://resto-back-production-2867.up.railway.app/dish")
+  const res = await fetch("https://resto-back-production-2867.up.railway.app/dish", {
+    headers: {
+      'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+    }
+  })
   const data = await res.json()
   return data
 })
@@ -35,7 +43,8 @@ export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
 export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dishdata) => {
   const method = 'POST'
   const headers = {
-    "Content-Type": 'application/json; charset=UTF-8'
+    "Content-Type": 'application/json; charset=UTF-8',
+    'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
   }
   const body = JSON.stringify(payload)
 
@@ -60,7 +69,6 @@ export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dish
       icon: 'success',
       confirmButtonText: 'Aceptar',
     });
-    console.log("🚀 ~ file: restoSlice.tsx:64 ~ constpostMenu:any=createAsyncThunk ~ data:", data)
     return data
   } catch (error: any) {
     console.log(error);

@@ -51,7 +51,10 @@ export const Dashboard = () => {
     try {
       await fetch(`http://resto-back-production-2867.up.railway.app/order/delete/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json; charset=utf-8" },
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+        },
       });
     } catch (error) {
       console.error(error);
@@ -64,6 +67,7 @@ export const Dashboard = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
+          'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
         },
         body: JSON.stringify({ state: newState }),
       });
