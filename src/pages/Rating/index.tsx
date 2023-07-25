@@ -3,18 +3,22 @@ import styles from "./Rating.module.css";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { star } from "@/assets";
+import { useDispatch } from "react-redux";
+import { fetchMenus } from "../../redux";
 export const Rating = () => {
+  const dispatch = useDispatch();
   const [order, setOrder] = useState<any | null>(null);
   const currentUrl = useLocation();
   const params = new URLSearchParams(currentUrl.search);
   const id: string | null = params.get("orderId");
-  const handleClick = () => {
+  const handleClick = async () => {
     Swal.fire({
       title: "Bien",
       text: "Gracias por su voto",
       icon: "success",
       confirmButtonText: "Aceptar",
     });
+    await dispatch<any>(fetchMenus());
   };
   const fetchOrder = async (id: string | null) => {
     if (!id) {
