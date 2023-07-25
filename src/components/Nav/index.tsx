@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
@@ -34,7 +34,7 @@ const initial = {
 export const Nav = () => {
   const menus = useSelector((state: State) => state.menus)
   const categories = Array.from(new Set(menus.map((dish)=> dish.categories)))
-
+  const location = useLocation()
   const navigate = useNavigate();
   const {
     cart,
@@ -159,7 +159,9 @@ export const Nav = () => {
   };
 
   const goHome = () => navigate("/");
-  const goCart = () => navigate(`/table/${currentTable}/cart`);
+  const goCart = () => {
+    location.pathname.includes('/cart')? null:navigate(`/table/${currentTable}/cart`);
+  };
   const goAdmin = () => navigate("/admin");
   const goDash = () => navigate("/dashboard");
   const { userRol } = useSelector((state: State) => state);
