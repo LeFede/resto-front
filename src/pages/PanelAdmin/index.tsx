@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import { signOut, getAuth } from "firebase/auth"
-import { setUserRolLogout } from "../../redux";
+import { fetchMenus, setUserRolLogout } from "../../redux";
 
 export const PanelAdmin = () => {
   const [updatedPrice, setUpdatedPrice] = useState("");
@@ -29,6 +29,7 @@ export const PanelAdmin = () => {
   }, [userRol])
 
   const menus = useSelector((state: State) => state.menus);
+
   const handleClick = () => {
     Swal.fire({
       title: 'Bien',
@@ -36,8 +37,9 @@ export const PanelAdmin = () => {
       icon: 'success',
       confirmButtonText: 'Aceptar',
     });
+    dispatch<any>(fetchMenus())
+   
   };
-
  
   const handleOnChange = (
     event: ChangeEvent<
@@ -56,6 +58,7 @@ export const PanelAdmin = () => {
   const handleToggle = async (dishId: string, isActive: boolean) => {
     const id = dishId;
     const isDishActive = isActive;
+
     const fetchToggle = async (dishId: string, isActive: boolean) => {
       if (dishId) {
         const requestOption = {
@@ -76,11 +79,13 @@ export const PanelAdmin = () => {
         return data;
       }
     };
-    fetchToggle(id, isDishActive);
+    fetchToggle(id, isDishActive)
+    dispatch<any>(fetchMenus())
   };
 
   const [_, setShowBg] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+
   const fetchPriceUpdate = async (dishId: string, newPrice: number) => {
     if (dishId && newPrice) {
       const requestOption = {
@@ -112,7 +117,15 @@ export const PanelAdmin = () => {
   const handleCloseFilters = () => {
     setShowFilters(false);
     setShowBg(false);
+    Swal.fire({
+      title: 'Bien',
+      text: 'Su orden se actualizo',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+    dispatch<any>(fetchMenus())
   };
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
@@ -199,8 +212,8 @@ export const PanelAdmin = () => {
                 </button>
               ) : (
                 <button
-                  onClick={() => {
-                    handleToggle(dish._id.toString(), dish.active);
+                  onClick={async() => {
+                    await handleToggle(dish._id.toString(), dish.active);
                     handleClick();
                   }}
                   className={styles.edit}
@@ -230,14 +243,14 @@ export const PanelAdmin = () => {
                     onChange={handleOnChange}
                   /> <br />
                   <button
-                    onClick={() => fetchPriceUpdate(idToUpdate, +updatedPrice)}
+                    onClick={() => {fetchPriceUpdate(idToUpdate, +updatedPrice); handleCloseFilters();}}
                   >
                     actualizar precio
                   </button><br />
                   <button
                     className={styles.button}
                     onClick={() => {
-                      handleCloseFilters();
+                      
                       handleClick();
                     }}
                   >
