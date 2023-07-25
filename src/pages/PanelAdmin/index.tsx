@@ -30,14 +30,14 @@ export const PanelAdmin = () => {
 
   const menus = useSelector((state: State) => state.menus);
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    await dispatch<any>(fetchMenus())
     Swal.fire({
       title: 'Bien',
       text: 'Su orden se actualizo',
       icon: 'success',
       confirmButtonText: 'Aceptar',
     });
-    dispatch<any>(fetchMenus())
    
   };
  
@@ -80,7 +80,7 @@ export const PanelAdmin = () => {
       }
     };
     fetchToggle(id, isDishActive)
-    dispatch<any>(fetchMenus())
+    await dispatch<any>(fetchMenus())
   };
 
   const [_, setShowBg] = useState(false);
@@ -117,13 +117,7 @@ export const PanelAdmin = () => {
   const handleCloseFilters = () => {
     setShowFilters(false);
     setShowBg(false);
-    Swal.fire({
-      title: 'Bien',
-      text: 'Su orden se actualizo',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-    });
-    dispatch<any>(fetchMenus())
+    setUpdatedPrice('0');
   };
 
   const handleSubmit = (e: any) => {
@@ -243,18 +237,22 @@ export const PanelAdmin = () => {
                     onChange={handleOnChange}
                   />
                   <button
-                    onClick={() => {fetchPriceUpdate(idToUpdate, + updatedPrice); handleCloseFilters();}}
+                    onClick={() => {fetchPriceUpdate(idToUpdate, + updatedPrice); handleCloseFilters(); handleClick();}}
                   >
                     ACTUALIZAR PRECIO
                   </button>
+
                   <button
                     className={styles.button}
                     onClick={() => {
                       
-                      handleClick();
+                      handleCloseFilters();
+                      
                     }}
                   >
+
                     CERRAR
+
                   </button>
                 
               </form>
