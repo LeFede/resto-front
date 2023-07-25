@@ -2,7 +2,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { postMenu } from '../../redux';
-import { validate } from '../../utils';
+import { validateDishForm } from '../../utils';
 import { DishDataError, Dishdata, State } from '@/types';
 import styles from './Dish.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -53,7 +53,7 @@ export const DishForm = () => {
       [name]: value,
     }));
 
-    setErrors(validate({ ...form, [name]: value }));
+    setErrors(validateDishForm({ ...form, [name]: value }));
   };
 
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +89,7 @@ export const DishForm = () => {
             imageHeight: 300,
             imageAlt: "Error",
           });
-          setErrors(validate({ ...form, image: data.url }));
+          setErrors(validateDishForm({ ...form, image: data.url }));
         } else {
           console.error('Error al cargar la imagen');
         }
