@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom"
 import { setUserRol, setUserRolLogout } from "@/redux"
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, signInWithEmailAndPassword } from "firebase/auth"
 import Swal from 'sweetalert2';
+import { validateLoginForm } from "../../utils"
+
+const loginInitialState = {
+    email: "",
+    password: ""
+}
 
 export const LoginForm = () => {
     const provider = new GoogleAuthProvider()
@@ -12,11 +18,11 @@ export const LoginForm = () => {
     const auth = getAuth()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
     const [ authorizedUser, setAuthorizedUser ] = useState<any>(false || sessionStorage.getItem("accessToken"))
+    const [ error, setError ] = useState(loginInitialState)   
+    const [ login, setLogin ] = useState(loginInitialState)
 
     const handleGoogleSignIn = async () => {
-
         try {
             let userRole;
             const result = await signInWithPopup(auth, provider);
@@ -103,7 +109,6 @@ export const LoginForm = () => {
       };
 
     const logoutUser = () => {
-
         signOut(auth).then(() => {
             sessionStorage.clear()
             setAuthorizedUser(false);
@@ -118,53 +123,14 @@ export const LoginForm = () => {
         dispatch(setUserRolLogout())
     }
 
-    const [ error, setError ] = useState({
-        email: "",
-        password: ""
-    })   
-    
-    const [ login, setLogin ] = useState({
-        email: "",
-        password: ""
-    })
     
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLogin({
             ...login,
             [event.target.name]: event.target.value
         })
-        validaciones()
+        setError(validateLoginForm({ ...login, [event.target.name]: event.target.value }));
     }
-    
-    const validaciones = () => {
-        const errorValidate = {
-            email: "",
-            password: ""
-        }
-    
-        if(login.email.length === 0 ){
-            errorValidate.email = "Debe ingresar un email"
-        }
-    
-        if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(login.email)) {
-            errorValidate.email = "el email no es valido"
-        }
-    
-        if(login.email.length > 35) {
-            errorValidate.email = "el email no puede sobrepasar 35 caracteres"
-        }
-    
-        if(!/.*\d+.*/.test(login.password)) {
-            errorValidate.password = "la contraseña debe contener al menos un número"
-        }
-    
-        if(login.password.length < 6 || login.password.length > 10) {
-            errorValidate.password = "la contraseña debe tener entre 6 y 10 caracteres"
-        }
-
-        setError(errorValidate)
-    }
-
     const protectRoute = async () => {
         if (authorizedUser && sessionStorage.getItem('isClient') === 'false') {
             const response = await fetch(`http://resto-back-production-2867.up.railway.app/users/${sessionStorage.getItem('userId')}/role`, {
@@ -178,7 +144,6 @@ export const LoginForm = () => {
     }
     
     useEffect(() => {
-        validaciones()
         protectRoute()
     }, [login])
 
