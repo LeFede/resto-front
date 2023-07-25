@@ -29,22 +29,19 @@ export const Dashboard = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleClick = () => {
+  const handleClick = async () => {
     Swal.fire({
       title: 'Bien',
       text: 'Se actualizo el estado de la orden',
       icon: 'success',
       confirmButtonText: 'Aceptar',
     });
+    await dispatch<any>(fetchOrders())
   };
 
   useEffect(() => {
-    const intervalId = setInterval(
-      () => dispatch<any>(fetchOrders()), 5000
-
-    )
+    dispatch<any>(fetchOrders())
     console.log('Orders fetched');
-    return () => clearInterval(intervalId);
   }, [dispatch]);
 
   const deleteOrder = async (id: string) => {
@@ -144,7 +141,10 @@ export const Dashboard = () => {
           )}
 
           {order.state === "delivered" && (
-            <button onClick={() => deleteOrder(order._id)}>BORRAR</button>
+            <button onClick={() => {
+              deleteOrder(order._id);
+              handleClick();
+            }}>BORRAR</button>
           )}
 
           </div>
