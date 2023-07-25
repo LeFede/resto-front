@@ -1,5 +1,14 @@
 .cardShow{
-    width: 400px;
- 
-    border: 1px solid white;
+    width: 350px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: none;
+    height: 90vh;
+    overflow-x: hidden
+}
+
+.tit{
+    font-family: var(--font-3);
 }

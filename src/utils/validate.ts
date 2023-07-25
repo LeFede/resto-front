@@ -36,7 +36,7 @@ export const validate = ({ title, price, description, categories, image }: Dishd
     errors.categories = 'Debe seleccionar una categoría'
   }
 
-  if (!['main', 'appetizer', 'dessert', 'drinks'].includes(categories)) {
+  if (!['main', 'appetizer', 'dessert', 'drink'].includes(categories)) {
     errors.categories = 'La selección debe ser Plato principal, Entrada, Postre o Bebida'
   }
   

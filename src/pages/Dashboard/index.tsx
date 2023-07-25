@@ -1,17 +1,46 @@
 import styles from "./Dashboard.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { WithoutPermissions } from "@/pages/WithoutPermissions";
-import { fetchOrders } from "../../redux/index";
+
+import { fetchOrders, setUserRolLogout } from "../../redux/index";
 import {  cargando, checkB, entregado } from "@/assets";
+import Swal from "sweetalert2";
+
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { State } from "@/types";
 
 export const Dashboard = () => {
-  const { orders, userRol } = useSelector((state: any) => state);
+
+  const { userRol } = useSelector((state: State) => state)
+  
+
+  const protectedRoute = () => {
+    if (userRol !=='admin'&& userRol !== 'employee') {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    protectedRoute()
+  }, [userRol]);
+
+  const { orders } = useSelector((state: any) => state);
+  const auth = getAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    Swal.fire({
+      title: 'Bien',
+      text: 'Se actualizo el estado de la orden',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  };
 
   useEffect(() => {
     const intervalId = setInterval(
-      () => dispatch<any>(fetchOrders()), 10000
+      () => dispatch<any>(fetchOrders()), 5000
 
     )
     console.log('Orders fetched');
@@ -22,7 +51,10 @@ export const Dashboard = () => {
     try {
       await fetch(`http://resto-back-production-2867.up.railway.app/order/delete/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json; charset=utf-8" },
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+        },
       });
     } catch (error) {
       console.error(error);
@@ -35,6 +67,7 @@ export const Dashboard = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
+          'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
         },
         body: JSON.stringify({ state: newState }),
       });
@@ -49,14 +82,39 @@ export const Dashboard = () => {
     }
   };
 
-  if (userRol !== "admin") {
-    return <WithoutPermissions />;
+  const activeOrders = orders
+    .filter((order: any) => order.active)
+    .filter((order: any) => {
+      if (order.state === 'init') return false;
+      if (order.state === 'cancelled') return false;
+      return true;
+    })
+
+  // init, cancelado, no activado
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      sessionStorage.clear()
+      
+      Swal.fire({
+        title: 'Bien',
+        text: 'Has cerrado sesión correctamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
+    })
+
+      dispatch(setUserRolLogout())
+      navigate('/');
   }
 
-  const activeOrders = orders.filter((order: any) => order.active);
+  if (orders.length===0) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <section className={styles.fakeback}>
+      <button onClick={handleLogout}>Cerrar sesión</button>
       <h2 className={styles.title}>Ordenes</h2>
       <div className={styles.dashboard}>
       
@@ -70,16 +128,16 @@ export const Dashboard = () => {
           {order.state !== "delivered" && (
             <>
               <button className={styles.boton}
-                onClick={() => updateOrderState(order._id, "in progress")}
+                onClick={() => {updateOrderState(order._id, "in progress"); handleClick()}}
               >
                 <img className={styles.img} src={cargando} alt="" />
               </button>
               <button  className={styles.boton}
-               onClick={() => updateOrderState(order._id, "ready")}>
+               onClick={() => {updateOrderState(order._id, "ready"); handleClick()}}>
                 <img className={styles.img} src={checkB} alt="Listo" />
               </button>
               <button className={styles.boton}
-              onClick={() => updateOrderState(order._id, "delivered")}>
+              onClick={() => {updateOrderState(order._id, "delivered"); handleClick()}}>
                 <img className={styles.img} src={entregado} alt="entregado" />
               </button>
             </>

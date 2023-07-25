@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
 import { State, Dishdata } from "@/types"
+import Swal from 'sweetalert2';
 
 
 const initialState: State = {
@@ -19,14 +20,22 @@ const initialState: State = {
   userRol: "client"
 }
 export const fetchOrders = createAsyncThunk("orders/fetch", async () => {
-  const res = await fetch("http://resto-back-production-2867.up.railway.app/order")
+  const res = await fetch("http://resto-back-production-2867.up.railway.app/order", {
+    headers: {
+      'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+    }
+  })
   const data = await res.json()
   return data
 });
 
 export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
   // TODO: do the fetch
-  const res = await fetch("https://resto-back-production-2867.up.railway.app/dish")
+  const res = await fetch("https://resto-back-production-2867.up.railway.app/dish", {
+    headers: {
+      'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
+    }
+  })
   const data = await res.json()
   return data
 })
@@ -34,7 +43,8 @@ export const fetchMenus = createAsyncThunk("menus/fetch", async () => {
 export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dishdata) => {
   const method = 'POST'
   const headers = {
-    "Content-Type": 'application/json; charset=UTF-8'
+    "Content-Type": 'application/json; charset=UTF-8',
+    'Authorization': `Bearer ${sessionStorage.getItem('accessToken')}`
   }
   const body = JSON.stringify(payload)
 
@@ -53,12 +63,31 @@ export const postMenu: any = createAsyncThunk("menus/post", async (payload: Dish
       }
       throw error
     }
-    alert(`${data.title} creado con exito!`)
+    Swal.fire({
+      title: 'Bien',
+      text: `Platillo creado con exito!`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
     return data
   } catch (error: any) {
     console.log(error);
     
-    if (error.status === 401) alert(`${error.status}: ${error.message}`)
+    if (error.status === 401) {
+      Swal.fire({
+        title: 'Mal',
+        text: `${error.status}: ${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+    } else {
+      Swal.fire({
+        title: 'Mal',
+        text: `Error al crear platillo`,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+    }
   }
 })
 

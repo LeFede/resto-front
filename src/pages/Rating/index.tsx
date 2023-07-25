@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import styles from "./Rating.module.css";
 import { useLocation } from "react-router-dom";
-
-
+import Swal from "sweetalert2";
+import { star } from "@/assets";
 export const Rating = () => {
   const [order, setOrder] = useState<any | null>(null);
   const currentUrl = useLocation();
   const params = new URLSearchParams(currentUrl.search);
   const id: string | null = params.get("orderId");
-
+  const handleClick = () => {
+    Swal.fire({
+      title: "Bien",
+      text: "Gracias por su voto",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    });
+  };
   const fetchOrder = async (id: string | null) => {
     if (!id) {
       return;
@@ -25,29 +32,25 @@ export const Rating = () => {
   const updateDishReviews = async (dishId: string, newReview: number) => {
     try {
       console.log(dishId);
-      const indexOfDish = order.item.findIndex((x:any)=>{
+      const indexOfDish = order.item.findIndex((x: any) => {
         return x.dish._id === dishId;
-      })
-      order.item[indexOfDish].dish.reviews.push(newReview)
-      const requestOption =  
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(
-            {
-              "reviews": order.item[indexOfDish].dish.reviews
-            }
-          ),
-        }
+      });
+      order.item[indexOfDish].dish.reviews.push(newReview);
+      const requestOption = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          reviews: order.item[indexOfDish].dish.reviews,
+        }),
+      };
       const response = await fetch(
         `http://resto-back-production-2867.up.railway.app/dish/${dishId}`,
         requestOption
       );
       if (response.ok) {
         console.log("a");
-        
       } else {
         console.log("entro");
       }
@@ -61,32 +64,69 @@ export const Rating = () => {
   }
   return (
     <section className={styles.container}>
-      <h2>pedido de la mesa {order.table}</h2>
+      <h2 className={styles.title}>pedido de la mesa {order.table}</h2>
       <h6>precio total = {order.totalPrice}</h6>
       <section className={styles.dishes}>
         {order.item.map((x: any) => {
           const reviews = x.dish.reviews;
-          const sum = reviews.reduce((acc: number, review: number) => acc + review, 0);
-          const average = Math.round((sum / reviews.length)*100 )/100 ;
+          const sum = reviews.reduce(
+            (acc: number, review: number) => acc + review,
+            0
+          );
+          const average = Math.round((sum / reviews.length) * 100) / 100;
 
           return (
             <div className={styles.dish}>
-              {x.dish.title}
-              {x.dish.price}
+              <h4>{x.dish.title}</h4>
+              <h6>precio :{x.dish.price}$</h6>
               <p>Average Rating: {average}</p>
               <img src={x.dish.image} alt="" />
               <section>
-                <button onClick={() => updateDishReviews(x.dish._id, 1)}>1</button>
-                <button onClick={() => updateDishReviews(x.dish._id, 2)}>2</button>
-                <button onClick={() => updateDishReviews(x.dish._id, 3)}>3</button>
-                <button onClick={() => updateDishReviews(x.dish._id, 4)}>4</button>
-                <button onClick={() => updateDishReviews(x.dish._id, 5)}>5</button>
+                <button
+                  onClick={() => {
+                    updateDishReviews(x.dish._id, 1);
+                    handleClick();
+                  }}
+                >
+                  <img className={styles.star} src={star} alt="" />
+                </button>
+                <button
+                  onClick={() => {
+                    updateDishReviews(x.dish._id, 2);
+                    handleClick();
+                  }}
+                >
+                  <img className={styles.star} src={star} alt="" />
+                </button>
+                <button
+                  onClick={() => {
+                    updateDishReviews(x.dish._id, 3);
+                    handleClick();
+                  }}
+                >
+                  <img className={styles.star} src={star} alt="" />
+                </button>
+                <button
+                  onClick={() => {
+                    updateDishReviews(x.dish._id, 4);
+                    handleClick();
+                  }}
+                >
+                  <img className={styles.star} src={star} alt="" />
+                </button>
+                <button
+                  onClick={() => {
+                    updateDishReviews(x.dish._id, 5);
+                    handleClick();
+                  }}
+                >
+                  <img className={styles.star} src={star} alt="" />
+                </button>
               </section>
             </div>
           );
         })}
       </section>
-      hola
     </section>
   );
 };

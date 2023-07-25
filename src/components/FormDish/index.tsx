@@ -1,14 +1,29 @@
 // DishForm.tsx
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { postMenu } from '../../redux';
 import { validate } from '../../utils';
-import { DishDataError, Dishdata } from '@/types';
+import { DishDataError, Dishdata, State } from '@/types';
 import styles from './Dish.module.css';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const DishForm = () => {
-  const dispatch = useDispatch();
-  
+
+  const { userRol } = useSelector((state: State) => state)
+  const navigate = useNavigate()
+
+  const protectedRoute = () => {
+    if (userRol !== 'admin') {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    protectedRoute()
+  }, [userRol])
+
+  const dispatch = useDispatch(); 
 
   const initialData: Dishdata = {
     title: '',
@@ -64,6 +79,16 @@ export const DishForm = () => {
             ...prevState,
             image: data.url,
           }));
+          Swal.fire({
+            position: "center",
+            heightAuto: true,
+            imageUrl:data.url,
+            text: "Imagen Cargada Correctamente.",
+            width: 350,
+            imageWidth: 300,
+            imageHeight: 300,
+            imageAlt: "Error",
+          });
           setErrors(validate({ ...form, image: data.url }));
         } else {
           console.error('Error al cargar la imagen');
@@ -76,8 +101,6 @@ export const DishForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(form)
-    console.log(errors)
     if (Object.keys(errors).length > 0) return;
 
     dispatch<any>(postMenu(form));
@@ -110,7 +133,7 @@ export const DishForm = () => {
         <option value='main'>Plato principal</option>
         <option value='appetizer'>Entrada</option>
         <option value='dessert'>Postre</option>
-        <option value='drinks'>Bebida</option>
+        <option value='drink'>Bebida</option>
       </select>
       {errors.categories ? <p className={styles.error}>{errors.categories}</p> : ''}
       <button name='submit' className={styles.btn} type='submit' disabled={Object.keys(errors).length > 0}>
