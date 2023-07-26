@@ -3,7 +3,7 @@
 
 import {  UserCardProps } from '@/types';
 import styles from './User.module.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 
