@@ -14,7 +14,6 @@ export const Dashboard = () => {
 
   const { userRol } = useSelector((state: State) => state)
   
-
   const protectedRoute = () => {
     if (userRol !=='admin'&& userRol !== 'employee') {
       navigate('/')
@@ -159,8 +158,8 @@ export const Dashboard = () => {
           
           <ul>
             {order.item.map((item: any) => (
-              <li className={styles.table} key={item.dish._id}>
-                <h3>{item.dish.title}</h3>
+              <li className={styles.table} key={item._id}>
+                <h3>{item.title}</h3>
                 <p>Quantity: {item.quantity}</p>
                 {item.observation && <p>Observation: {item.observation}</p>}
               </li>
