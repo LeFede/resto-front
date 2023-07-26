@@ -4,6 +4,8 @@ import { Dish } from "@/components"
 import { fetchMenus } from "../../redux";
 import { useDispatch } from "react-redux";
 
+
+
 const elemsPerPage = 4
 // TODO change type && separate code
 export const Dishes = ({ menu }: any) => {
@@ -37,7 +39,7 @@ export const Dishes = ({ menu }: any) => {
             <h4>{key==='MAIN'?'Plato Principal':key==='DESSERT'?'Postres':key==='APPETIZER'?'Entradas':key==='DRINK'?'Bebidas':''}</h4>
             { 
               value
-                .map((dish: any) => <Dish key={dish.title} dish={dish}/>) 
+                .map((dish: any) => dish.active?<Dish key={dish.title} dish={dish}/>:null) 
             }
           </ul>
         )
