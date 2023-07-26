@@ -1,12 +1,10 @@
-.cardShow{
-    width: 350px;
-    margin: auto;
+.cardShowUser{
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    overflow-y: none;
-    height: 90vh;
-    overflow-x: hidden
+  flex-wrap: wrap;
+  /* justify-content: center;  */
+ 
+  flex-direction: row;
 }
 
 .tit{
