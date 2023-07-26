@@ -2,13 +2,22 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { postMenu } from '../../redux';
-import { validate } from '../../utils';
+import { validateDishForm } from '../../utils';
 import { DishDataError, Dishdata, State } from '@/types';
 import styles from './Dish.module.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 export const DishForm = () => {
+  
+  const handleClick = async () => {
+    Swal.fire({
+      title: 'Bien',
+      text: 'Se creo el menu',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  };
 
   const { userRol } = useSelector((state: State) => state)
   const navigate = useNavigate()
@@ -53,7 +62,7 @@ export const DishForm = () => {
       [name]: value,
     }));
 
-    setErrors(validate({ ...form, [name]: value }));
+    setErrors(validateDishForm({ ...form, [name]: value }));
   };
 
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +98,7 @@ export const DishForm = () => {
             imageHeight: 300,
             imageAlt: "Error",
           });
-          setErrors(validate({ ...form, image: data.url }));
+          setErrors(validateDishForm({ ...form, image: data.url }));
         } else {
           console.error('Error al cargar la imagen');
         }
@@ -136,7 +145,7 @@ export const DishForm = () => {
         <option value='drink'>Bebida</option>
       </select>
       {errors.categories ? <p className={styles.error}>{errors.categories}</p> : ''}
-      <button name='submit' className={styles.btn} type='submit' disabled={Object.keys(errors).length > 0}>
+      <button name='submit' className={styles.btn} type='submit'  onClick={()=>{handleClick()}}>
         Guardar
       </button>
     </form>

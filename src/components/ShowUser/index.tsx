@@ -73,9 +73,11 @@ export const ShowCreatedUser = () => {
   };
 
   return (
+
     <div>
       <div className={styles.cardShow}>
         <h2 className={styles.tit}>Usuarios</h2>
+
         {users.map((user) => (
           <UserCard
             key={user.id}

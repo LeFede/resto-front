@@ -1,14 +1,20 @@
-.cardShow{
-    width: 350px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    overflow-y: none;
-    height: 90vh;
-    overflow-x: hidden
+.cardShowUser{
+  min-height: 100vh;
+  width: 90vw;
+
+  display: grid;
+  grid-template-columns: 
+  repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+  gap: 30px;
 }
 
 .tit{
     font-family: var(--font-3);
+}
+.container{
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+
 }
