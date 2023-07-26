@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
 import app from '../../firebase.config';
 import { User } from '@/types';
+import Swal from 'sweetalert2';
 
 const firestore = getFirestore(app);
 
@@ -13,6 +14,17 @@ const firestore = getFirestore(app);
     const { id } = useParams();
     const [user, setUser] = useState<User | undefined>(undefined);
   
+    const handleClick = async () => {
+      
+      Swal.fire({
+        title: 'Bien',
+        text: 'Su Usuario se actualizo',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
+    };
+
+
     useEffect(() => {
       const fetchUser = async () => {
         try {
@@ -72,8 +84,9 @@ const firestore = getFirestore(app);
   
   return (
     <div className={styles.container}>
-      <h2 className={styles.tit}>Edit User</h2>
+      
       <form className={styles.editForm} onSubmit={handleSubmit}>
+      <h2 className={styles.tit}>Edit User</h2>
         <input
           id='nameId'
           name="name"
@@ -126,7 +139,7 @@ const firestore = getFirestore(app);
           required
         ></input>
 
-        <button name="submit" className={styles.btn} type="submit">
+        <button name="submit" className={styles.btn} type="submit" onClick={()=>{handleClick()}}>
           Guardar cambios
         </button>
       </form>

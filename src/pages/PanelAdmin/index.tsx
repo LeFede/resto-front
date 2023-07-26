@@ -2,7 +2,7 @@ import { IMenu, State } from "@/types";
 import styles from "./PanelAdmin.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { on, off, pen, plato, lista, user, dahs, stats } from "@/assets";
+import { on, off, pen, plato, lista, user, dahs, stats, sesion } from "@/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
@@ -171,7 +171,7 @@ export const PanelAdmin = () => {
           </button>
         </Link>
         <button className={styles.butt} onClick={logoutUser}>
-          Cerrar sesion
+          <img src={sesion} alt="log out" className={styles.img}/>
         </button>
         {/* <Link onClick={logoutUser} to={"/"}><button>LogOut</button></Link>  */}
       </nav>

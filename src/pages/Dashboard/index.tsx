@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 import { fetchOrders, setUserRolLogout } from "../../redux/index";
-import {  cargando, checkB, entregado } from "@/assets";
+import {  cargando, checkB, entregado, sesionB } from "@/assets";
 import Swal from "sweetalert2";
 
 import { getAuth, signOut } from "firebase/auth";
@@ -111,13 +111,21 @@ export const Dashboard = () => {
 
   return (
     <section className={styles.fakeback}>
-      <button onClick={handleLogout}>Cerrar sesión</button>
+
+
+  
+<button onClick={handleLogout}  className={styles.iimg}>
+        <img className={styles.iimg} src={sesionB} alt="log out" />
+      </button>
+
+
+
       <h2 className={styles.title}>Ordenes</h2>
+
       <div className={styles.dashboard}>
       
       {activeOrders.map((order: any) => (
         <div className={styles.orden} key={order._id}>
-          {/* <h1>{order._id}</h1> */}
           <h2>Table: {order.table}</h2>
           <h2>Status: {order.state}</h2>
 
