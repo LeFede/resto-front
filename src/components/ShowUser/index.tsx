@@ -61,10 +61,10 @@ export const ShowCreatedUser = () => {
   };
 
   return (
-    <div>
-     
-      <div className={styles.cardShow}>
+  
+     <div>
       <h2 className={styles.tit} >Usuarios</h2>
+      <div  className={styles.cardShowUser}>
         {users.map((user) => (
           <UserCard key={user.id} user={user} onDelete={() => handleSoftDelete(user.id)} />
         ))}
