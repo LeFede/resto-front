@@ -9,6 +9,15 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 export const DishForm = () => {
+  
+  const handleClick = async () => {
+    Swal.fire({
+      title: 'Bien',
+      text: 'Se creo el menu',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  };
 
   const { userRol } = useSelector((state: State) => state)
   const navigate = useNavigate()
@@ -136,7 +145,7 @@ export const DishForm = () => {
         <option value='drink'>Bebida</option>
       </select>
       {errors.categories ? <p className={styles.error}>{errors.categories}</p> : ''}
-      <button name='submit' className={styles.btn} type='submit' disabled={Object.keys(errors).length > 0}>
+      <button name='submit' className={styles.btn} type='submit'  onClick={()=>{handleClick()}}>
         Guardar
       </button>
     </form>

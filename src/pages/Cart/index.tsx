@@ -94,30 +94,17 @@ export const Cart = () => {
         
         {/* @ts-ignore */}
         <h2>TOTAL: ${cart.reduce((acc, curr) => acc + (curr.totalPrice * curr.quantity), 0)}</h2>
-        {
+       
+       <div className={styles.a}>
+       {
           cart.length ? <button className={styles.buttonPagar} onClick={handleBuy}>Pagar</button> : ''
         }
         
       <button className={styles.cerrar} onClick={() => navigate(-1)}>Cerrar</button>
+       </div>
 
 
-        {/* {cart.map((ord: IMenu | any) => {
-							return (
-
-									<div className={styles.dish}>
-											<div>
-													<h5>{ord.title}</h5>
-													<br />
-													<p>{ord.ingredients.join(', ')}</p>
-													<button className={styles.containerBoton}>
-															<img className={styles.logoDelete} src={DeleteSvg} alt="Filter" />
-													</button>
-													<p>{ord.price}$</p>
-											</div>
-											<br />
-									</div>
-							)
-					})} */}
+     
       </div>
     </section>
   )

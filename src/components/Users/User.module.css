@@ -1,67 +1,34 @@
 .cardShow{
-    /* border: 1px solid rgb(0, 0, 0);
-    width: 500px;
-    height: 150px;
-    background-color: #423830;
-   
-    */
-    width: 380px;
-  height: 150px;
-  margin: 20px;
-  border-radius: 20px;
-  padding: 5px;
-  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-  background-image: linear-gradient(144deg,#ffa0404d, #f3d6425e 50%,#eb990075);
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.but{
-  background: linear-gradient(to right,#77530a,#ffd277,#77530a,#77530a,#ffd277,#77530a);
-  background-size: 250%;
-  border-radius: 10px;
-  background-position: left;
-  color: #000000;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition-duration: 1s;
-  overflow: hidden;
-    border: 1px solid black;
-    height: 25px;
-    width: 80px;
-    margin-left: 5px;
-    margin: 5px;
-  font-size: 18px;
-
-}
-
-
-.but::before {
-  position: absolute;
-
-  color: #ffd277;
+  background-color: #423830;
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 97%;
-  height: 90%;
-  border-radius: 8px;
-  transition-duration: 1s;
-  background-color: rgba(0, 0, 0, 0.842);
-  background-size: 200%;
+  gap: 8px;
 }
-
-.but:hover {
+.cardShow:hover{
+  border: 1px solid white;
+}
+.butons{
+  display: flex;
+  gap: 15px;
+}
+.but{
+  height: 3rem;
+  width: 6rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  
+}
+.but:hover{
+  background-color: #423830;
   background-position: right;
-  transition-duration: 1s;
+  transition-duration: 0.3s;
+  border: 1px solid white;
+  color: aliceblue;
 }
 
-.but:hover::before {
-  background-position: right;
-  transition-duration: 1s;
-}
-
-.but:active {
-  transform: scale(0.95);
-} 

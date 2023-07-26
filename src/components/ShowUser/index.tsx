@@ -62,7 +62,7 @@ export const ShowCreatedUser = () => {
 
   return (
   
-     <div>
+     <div className={styles.container}>
       <h2 className={styles.tit} >Usuarios</h2>
       <div  className={styles.cardShowUser}>
         {users.map((user) => (

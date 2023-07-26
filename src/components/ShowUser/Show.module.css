@@ -1,12 +1,20 @@
 .cardShowUser{
-    height: 100vh;
-    display: flex;
-  flex-wrap: wrap;
-  /* justify-content: center;  */
- 
-  flex-direction: row;
+  min-height: 100vh;
+  width: 90vw;
+
+  display: grid;
+  grid-template-columns: 
+  repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+  gap: 30px;
 }
 
 .tit{
     font-family: var(--font-3);
+}
+.container{
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+
 }
