@@ -3,7 +3,7 @@ import styles from "./Dishes.module.css"
 import { Dish } from "@/components"
 import { fetchMenus } from "../../redux";
 import { useDispatch } from "react-redux";
-import { IMenu } from "@/types";
+
 
 
 const elemsPerPage = 4
