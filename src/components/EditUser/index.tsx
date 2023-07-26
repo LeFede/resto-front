@@ -25,6 +25,16 @@ export const EditUser = () => {
   const [roleError, setRoleError] = useState<string>("");
   const [, setIsFormSubmitted] = useState(false);
 
+      const handleClick = async () => {
+      
+      Swal.fire({
+        title: 'Bien',
+        text: 'Su Usuario se actualizo',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
+    };
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -34,15 +44,7 @@ export const EditUser = () => {
 //     const { id } = useParams();
 //     const [user, setUser] = useState<User | undefined>(undefined);
   
-//     const handleClick = async () => {
-      
-//       Swal.fire({
-//         title: 'Bien',
-//         text: 'Su Usuario se actualizo',
-//         icon: 'success',
-//         confirmButtonText: 'Aceptar',
-//       });
-//     };
+
 
 
 //     useEffect(() => {
