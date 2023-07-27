@@ -1,13 +1,25 @@
-import { EditUser } from "@/components/EditUser";
-import { DishForm } from "@/components/FormDish";
-import { Table } from "@/components/FormTable";
-import { ShowCreatedUser } from "@/components/ShowUser";
-import { UserForm } from "@/components/UserFrom";
-import { Main } from "@/layouts";
+import { EditUser } from "@/components/EditUser"
+import { DishForm } from "@/components/FormDish"
+import { Table } from "@/components/FormTable"
+import { ShowCreatedUser } from "@/components/ShowUser"
+import { UserForm } from "@/components/UserFrom"
+import { Main } from "@/layouts"
 
-import { Home, Login, Menu, NotFound, Dashboard, MenuDetail, Cart , PanelAdmin, Rating, Chart } from "@/pages";
+import {
+  About,
+  Cart,
+  Chart,
+  Dashboard,
+  Home,
+  Login,
+  Menu,
+  MenuDetail,
+  NotFound,
+  PanelAdmin,
+  Rating,
+} from "@/pages"
 
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom"
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +29,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "menu",
@@ -25,21 +37,21 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ":menuId",
-            element: <MenuDetail />
-          }
-        ]
+            element: <MenuDetail />,
+          },
+        ],
       },
       {
         path: "/user",
-        element: <UserForm/>
+        element: <UserForm />,
       },
       {
         path: "/list",
-        element: <ShowCreatedUser/>
+        element: <ShowCreatedUser />,
       },
       {
         path: "/editlist/:id",
-        element: <EditUser/>
+        element: <EditUser />,
       },
       {
         path: "table/:tableId",
@@ -47,13 +59,13 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "cart",
-            element: <Cart />
+            element: <Cart />,
           },
           {
             path: ":menuId",
-            element: <MenuDetail />
-          }
-        ]
+            element: <MenuDetail />,
+          },
+        ],
       },
       {
         path: "/dashboard",
@@ -61,30 +73,32 @@ export const router = createBrowserRouter([
       },
       {
         path: "/table",
-        element: <Table/>,
+        element: <Table />,
       },
       {
         path: "/dish",
-        element:<DishForm/>
+        element: <DishForm />,
       },
       {
         path: "/admin",
-        element:<PanelAdmin/>,
+        element: <PanelAdmin />,
       },
       {
         path: "/rating",
-        element:<Rating/>
+        element: <Rating />,
       },
       {
         path: "/chart",
-        element: <Chart />
-      }
-      
-    ]
+        element: <Chart />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+    ],
   },
   {
     path: "/login",
     element: <Login />,
   },
- 
 ])

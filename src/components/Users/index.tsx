@@ -1,11 +1,6 @@
-
-
-
-import {  UserCardProps } from '@/types';
-import styles from './User.module.css';
-import { Link } from 'react-router-dom';
-
-
+import { UserCardProps } from "@/types";
+import styles from "./User.module.css";
+import { NavLink } from "react-router-dom";
 
 const UserCard = ({ user, onDelete }: UserCardProps) => {
   return (
@@ -13,19 +8,16 @@ const UserCard = ({ user, onDelete }: UserCardProps) => {
       <p>Name: {user.name}</p>
       <p>Last Name: {user.lastName}</p>
       <p>Email: {user.email}</p>
-      <div>
-      {user.role ? (
-        <p>Role: {user.role}</p>
-      ) : (
-        <p>Role: cliente</p>
-      )}
-    </div>
-      <div>
-      <button className={styles.but} onClick={onDelete}>Eliminar</button>
+      <div>{user.role ? <p>Role: {user.role}</p> : <p>Role: cliente</p>}</div>
 
-<Link to={`/editlist/${user.id}`}>
-  <button className={styles.but}>Editar</button>
-</Link>
+      <div className={styles.butons}>
+        <button className={styles.but} onClick={onDelete}>
+          Eliminar
+        </button>
+
+        <NavLink to={`/editlist/${user.id}`}>
+          <button className={styles.but}>Editar</button>
+        </NavLink>
       </div>
     </div>
   );

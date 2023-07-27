@@ -1,9 +1,12 @@
 import styles from "./Home.module.css"
 import { millLogo } from "@/assets"
 import { Button } from "@/components"
+import { State } from "@/types"
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 export const Home = () => {
+  const { userRol } = useSelector((state: State) => state)
 
   const navigate = useNavigate()
 
@@ -19,7 +22,8 @@ export const Home = () => {
         </p>
       </div>
       <Button action={() => navigate("/menu")}>Ver menus</Button>
-      <Button action={() => navigate("/login")}>Admin</Button>
+      {userRol !== 'employee' ? <Button action={() => navigate("/login")}>Admin</Button> :null}
+      
     </section>
   )
 }

@@ -85,6 +85,12 @@ export interface DishDataError {
   categories: string,
   image: file,
 }
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
 interface TableData {
   name: string;
   waiter: string;

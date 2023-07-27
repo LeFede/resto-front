@@ -2,12 +2,12 @@ import { IMenu, State } from "@/types";
 import styles from "./PanelAdmin.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { on, off, pen, plato, lista, user, dahs, stats } from "@/assets";
+import { on, off, pen, plato, lista, user, dahs, stats, sesion } from "@/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import { signOut, getAuth } from "firebase/auth"
-import { setUserRolLogout } from "../../redux";
+import { fetchMenus, setUserRolLogout } from "../../redux";
 
 export const PanelAdmin = () => {
   const [updatedPrice, setUpdatedPrice] = useState("");
@@ -29,15 +29,17 @@ export const PanelAdmin = () => {
   }, [userRol])
 
   const menus = useSelector((state: State) => state.menus);
-  const handleClick = () => {
+
+  const handleClick = async () => {
+    await dispatch<any>(fetchMenus())
     Swal.fire({
       title: 'Bien',
       text: 'Su orden se actualizo',
       icon: 'success',
       confirmButtonText: 'Aceptar',
     });
+   
   };
-
  
   const handleOnChange = (
     event: ChangeEvent<
@@ -56,6 +58,7 @@ export const PanelAdmin = () => {
   const handleToggle = async (dishId: string, isActive: boolean) => {
     const id = dishId;
     const isDishActive = isActive;
+
     const fetchToggle = async (dishId: string, isActive: boolean) => {
       if (dishId) {
         const requestOption = {
@@ -76,11 +79,13 @@ export const PanelAdmin = () => {
         return data;
       }
     };
-    fetchToggle(id, isDishActive);
+    fetchToggle(id, isDishActive)
+    await dispatch<any>(fetchMenus())
   };
 
   const [_, setShowBg] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+
   const fetchPriceUpdate = async (dishId: string, newPrice: number) => {
     if (dishId && newPrice) {
       const requestOption = {
@@ -112,7 +117,9 @@ export const PanelAdmin = () => {
   const handleCloseFilters = () => {
     setShowFilters(false);
     setShowBg(false);
+    setUpdatedPrice('0');
   };
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
@@ -164,7 +171,7 @@ export const PanelAdmin = () => {
           </button>
         </Link>
         <button className={styles.butt} onClick={logoutUser}>
-          Cerrar sesion
+          <img src={sesion} alt="log out" className={styles.img}/>
         </button>
         {/* <Link onClick={logoutUser} to={"/"}><button>LogOut</button></Link>  */}
       </nav>
@@ -199,8 +206,8 @@ export const PanelAdmin = () => {
                 </button>
               ) : (
                 <button
-                  onClick={() => {
-                    handleToggle(dish._id.toString(), dish.active);
+                  onClick={async() => {
+                    await handleToggle(dish._id.toString(), dish.active);
                     handleClick();
                   }}
                   className={styles.edit}
@@ -219,8 +226,8 @@ export const PanelAdmin = () => {
                 }`}
                 onSubmit={handleSubmit}
               >
-                <div>
-                  <br />
+                
+                  
                   <label htmlFor="price"><h6>Precio:</h6> </label>
                   
                   <input
@@ -228,22 +235,26 @@ export const PanelAdmin = () => {
                     name="updatePrice"
                     value={updatedPrice}
                     onChange={handleOnChange}
-                  /> <br />
+                  />
                   <button
-                    onClick={() => fetchPriceUpdate(idToUpdate, +updatedPrice)}
+                    onClick={() => {fetchPriceUpdate(idToUpdate, + updatedPrice); handleCloseFilters(); handleClick();}}
                   >
-                    actualizar precio
-                  </button><br />
+                    ACTUALIZAR PRECIO
+                  </button>
+
                   <button
                     className={styles.button}
                     onClick={() => {
+                      
                       handleCloseFilters();
-                      handleClick();
+                      
                     }}
                   >
-                    cerrar
+
+                    CERRAR
+
                   </button>
-                </div>
+                
               </form>
             </div>
           );

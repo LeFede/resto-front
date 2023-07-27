@@ -32,7 +32,6 @@ export const MenuDetail = () => {
             <p>{detail.description}</p>
           </div>
           <div className={styles.other}>
-            <h6>NO SE</h6>
           </div>
         </div>
         <Button action={() => navigate(-1)}>Cerrar</Button>

@@ -10,6 +10,6 @@ export * from "./MenuDetail"
 export * from "./WithoutPermissions"
 export * from "./PanelAdmin"
 export * from "./Rating"
-
+export * from "./About"
 // export * from "./LoginPage"
 // export * from "./Orders"
