@@ -157,7 +157,7 @@ export const LoginForm = () => {
 
                 <div className={styles.logout}>
                     <p>Usuario autorizado como cliente</p>
-                    <button onClick={logoutUser}>CERRAR SESION</button>
+                    <button onClick={logoutUser}>CERRAR SESIÓN</button>
                     
                 </div>
             ): (
@@ -165,12 +165,12 @@ export const LoginForm = () => {
             <>
                 <form className={styles.contenedorLoginForm}>
 
-                    <label htmlFor="email"></label>
+                    <label htmlFor="email">Email</label>
                     <input type="text" value={login.email} name="email" onChange={handleChange} placeholder="EMAIL"></input>
                     <div className={styles.mensajeError}> {error.email !== "" ? <p>{error.email}</p> : ""}</div>
             
-                    <label htmlFor="password"></label>
-                    <input type="password" value={login.password} name="password" onChange={handleChange} placeholder="PASSWORD"></input>
+                    <label htmlFor="password">Contraseña</label>
+                    <input type="password" value={login.password} name="password" onChange={handleChange} placeholder="CONTRASEÑA"></input>
                     <div className={styles.mensajeError}> {error.password !== "" ? <p>{error.password}</p> : ""} </div>
             
                     <button type="button" onClick={handleLogin}>LOG IN</button>
