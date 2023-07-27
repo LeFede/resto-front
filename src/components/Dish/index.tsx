@@ -24,9 +24,11 @@ export const Dish = ({ dish }: IProcessedMenu) => {
     const newDish = {
       title: dish.title,
       dish: dish._id,
+      _id: dish._id,
       quantity: 1,
       totalPrice: dish.price,
-      observation: "Lo quiero con hielo",
+      // @ts-ignore
+      observation: dish.observation,
     }
     
     dispatch(agregarPlato(newDish))
@@ -36,9 +38,11 @@ export const Dish = ({ dish }: IProcessedMenu) => {
     const newDish = {
       title: dish.title,
       dish: dish._id,
+      _id: dish._id,
       quantity: 1,
       totalPrice: dish.price,
-      observation: "Lo quiero con hielo",
+      // @ts-ignore
+      observation: dish.observation,
     }
     dispatch(removeDish(newDish))
   }
