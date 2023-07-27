@@ -171,6 +171,7 @@ export const LoginForm = () => {
             
                     <label htmlFor="password">Contraseña</label>
                     <input type="password" value={login.password} name="password" onChange={handleChange} placeholder="CONTRASEÑA"></input>
+
                     <div className={styles.mensajeError}> {error.password !== "" ? <p>{error.password}</p> : ""} </div>
             
                     <button type="button" onClick={handleLogin}>LOG IN</button>
