@@ -12,6 +12,12 @@ import {
   validatePassword,
   validateRole,
 } from "../UserFrom/validationUserForm";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  updateEmail,
+  updatePassword,
+} from "firebase/auth";
 
 const firestore = getFirestore(app);
 
@@ -25,67 +31,17 @@ export const EditUser = () => {
   const [roleError, setRoleError] = useState<string>("");
   const [, setIsFormSubmitted] = useState(false);
 
-      const handleClick = async () => {
-      
-      Swal.fire({
-        title: 'Bien',
-        text: 'Su Usuario se actualizo',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-      });
-    };
-
+  const handleClick = async () => {
+    Swal.fire({
+      title: "Bien",
+      text: "Su Usuario se actualizo",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    });
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
-
-  
-//   export const EditUser = () => {
-//     const { id } = useParams();
-//     const [user, setUser] = useState<User | undefined>(undefined);
-  
-
-
-
-//     useEffect(() => {
-//       const fetchUser = async () => {
-//         try {
-//           if (id) {
-//             const userRef = doc(firestore, 'users', id);
-//             const userSnapshot = await getDoc(userRef);
-//             if (userSnapshot.exists()) {
-//               const userFromSnapshot: User = {
-//                 ...userSnapshot.data() as User,
-//                 id: userSnapshot.id,
-//               };
-//               setUser(userFromSnapshot);
-//             } else {
-//               console.log('El usuario no existe');
-//             }
-//           }
-//         } catch (error) {
-//           console.error('Error al obtener el usuario:', error);
-//         }
-//       };
-//       fetchUser();
-//     }, [id]);
-  
-//     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-//       const { name, value } = event.target;
-//       setUser((prevUser) => {
-//         if (prevUser) {
-//           return {
-//             ...prevUser,
-//             [name]: name === 'active' ? value === 'true' : value,
-//           };
-//         }
-//         return prevUser;
-//       });
-//     };
-  
-//     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-//       event.preventDefault();
-
       try {
         if (id) {
           const userRef = doc(firestore, "users", id);
@@ -177,19 +133,69 @@ export const EditUser = () => {
     try {
       if (user && user.id) {
         const userRef = doc(firestore, "users", user.id);
-        await updateDoc(userRef, {
-          ...user,
-        });
-        console.log("Usuario actualizado con ID:", user.id);
+        const userSnapshot = await getDoc(userRef);
 
-        Swal.fire({
-          title: "Usuario editado exitosamente",
-          icon: "success",
-          confirmButtonText: "Aceptar",
-        });
+        if (userSnapshot.exists()) {
+          const userToUpdate: User = {
+            ...(userSnapshot.data() as User),
+            id: userSnapshot.id,
+          };
 
-        // Marcar el formulario como enviado exitosamente
-        setIsFormSubmitted(true);
+          // Actualizar el correo y contraseña del usuario en Firebase Authentication
+          const auth = getAuth();
+
+          try {
+            // Buscar al usuario por su dirección de correo electrónico
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              userToUpdate.email,
+              user.password
+            );
+
+            if (userCredential.user) {
+              // Si el correo ha sido modificado, actualizarlo en Firebase Authentication
+              if (userToUpdate.email !== user.email) {
+                await updateEmail(userCredential.user, user.email);
+                console.log("Correo actualizado en Firebase Authentication");
+              }
+
+              // Si la contraseña ha sido modificada, actualizarla en Firebase Authentication
+              if (user.password) {
+                await updatePassword(userCredential.user, user.password);
+                console.log(
+                  "Contraseña actualizada en Firebase Authentication"
+                );
+              }
+            } else {
+              console.log(
+                "Error al autenticar al usuario para actualizar las credenciales"
+              );
+            }
+          } catch (error) {
+            console.error(
+              "Error al actualizar las credenciales del usuario:",
+              error
+            );
+            throw new Error("Error al actualizar las credenciales del usuario");
+          }
+
+          // Actualizar los datos en Firestore
+          await updateDoc(userRef, {
+            ...user,
+          });
+          console.log("Usuario actualizado con ID:", userToUpdate.id);
+
+          Swal.fire({
+            title: "Usuario editado exitosamente",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+          });
+
+          // Marcar el formulario como enviado exitosamente
+          setIsFormSubmitted(true);
+        } else {
+          console.log("El usuario no existe en Firestore");
+        }
       }
     } catch (error) {
       console.error("Error al actualizar usuario:", error);
@@ -202,9 +208,8 @@ export const EditUser = () => {
 
   return (
     <div className={styles.container}>
-      
       <form className={styles.editForm} onSubmit={handleSubmit}>
-      <h2 className={styles.tit}>Edit User</h2>
+        <h2 className={styles.tit}>Edit User</h2>
         <input
           id="nameId"
           name="name"
@@ -277,7 +282,14 @@ export const EditUser = () => {
         />
         <span className={styles.error}>{passwordError}</span>
 
-        <button name="submit" className={styles.btn} type="submit" onClick={()=>{handleClick()}}>
+        <button
+          name="submit"
+          className={styles.btn}
+          type="submit"
+          onClick={() => {
+            handleClick();
+          }}
+        >
           Guardar cambios
         </button>
       </form>
