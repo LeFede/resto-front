@@ -11,6 +11,7 @@ import {
   check,
   tuerca,
   dahs,
+  about,
 } from "@/assets";
 import { State } from "@/types";
 import {
@@ -32,9 +33,9 @@ const initial = {
 };
 
 export const Nav = () => {
-  const menus = useSelector((state: State) => state.menus)
-  const categories = Array.from(new Set(menus.map((dish)=> dish.categories)))
-  const location = useLocation()
+  const menus = useSelector((state: State) => state.menus);
+  const categories = Array.from(new Set(menus.map((dish) => dish.categories)));
+  const location = useLocation();
   const navigate = useNavigate();
   const {
     cart,
@@ -157,16 +158,16 @@ export const Nav = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
-
+  const goAbout = () => navigate("/about");
   const goHome = () => navigate("/");
   const goCart = () => {
-    location.pathname.includes('/cart')? null:navigate(`/table/${currentTable}/cart`);
+    location.pathname.includes("/cart")
+      ? null
+      : navigate(`/table/${currentTable}/cart`);
   };
   const goAdmin = () => navigate("/admin");
   const goDash = () => navigate("/dashboard");
   const { userRol } = useSelector((state: State) => state);
-
-  
 
   return (
     <nav className={styles.nav}>
@@ -183,13 +184,13 @@ export const Nav = () => {
         ) : null}
         {userRol === "admin" ? (
           <li>
-          <img
-            onClick={goAdmin}
-            className={styles.logosNav}
-            src={tuerca}
-            alt="admin"
-          />
-        </li>
+            <img
+              onClick={goAdmin}
+              className={styles.logosNav}
+              src={tuerca}
+              alt="admin"
+            />
+          </li>
         ) : null}
 
         <li>
@@ -200,7 +201,7 @@ export const Nav = () => {
             alt="Home"
           />
         </li>
-       
+
         <li>
           <img
             onClick={handleShowFilters}
@@ -222,6 +223,15 @@ export const Nav = () => {
             />
           </li>
         )}
+
+        <li>
+          <img
+            onClick={goAbout}
+            className={styles.logosNav}
+            src={about}
+            alt="Filter"
+          />
+        </li>
       </ul>
 
       <form
@@ -252,13 +262,21 @@ export const Nav = () => {
             value={form.categoryFilter}
           >
             <option>Elije una opción</option>
-            {
-              categories.map((category)=>{
-                return (
-                  <option value={category}>{category==='main'?'Plato Principal':category==='drink'?'Bebidas':category==='appetizer'?'Entradas':category==='dessert'?'Postres':''}</option>
-                )
-              })
-            }
+            {categories.map((category) => {
+              return (
+                <option value={category}>
+                  {category === "main"
+                    ? "Plato Principal"
+                    : category === "drink"
+                    ? "Bebidas"
+                    : category === "appetizer"
+                    ? "Entradas"
+                    : category === "dessert"
+                    ? "Postres"
+                    : ""}
+                </option>
+              );
+            })}
           </select>
         </fieldset>
 

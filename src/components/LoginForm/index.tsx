@@ -165,11 +165,11 @@ export const LoginForm = () => {
             <>
                 <form className={styles.contenedorLoginForm}>
 
-                    <label htmlFor="email"></label>
+                    <label htmlFor="email">email</label>
                     <input type="text" value={login.email} name="email" onChange={handleChange} placeholder="EMAIL"></input>
                     <div className={styles.mensajeError}> {error.email !== "" ? <p>{error.email}</p> : ""}</div>
             
-                    <label htmlFor="password"></label>
+                    <label htmlFor="password">password</label>
                     <input type="password" value={login.password} name="password" onChange={handleChange} placeholder="PASSWORD"></input>
                     <div className={styles.mensajeError}> {error.password !== "" ? <p>{error.password}</p> : ""} </div>
             
