@@ -12,15 +12,7 @@ export const Rating = () => {
   const currentUrl = useLocation()
   const params = new URLSearchParams(currentUrl.search)
   const id: string | null = params.get("orderId")
-  const handleClick = async () => {
-    Swal.fire({
-      title: "Bien",
-      text: "Gracias por su voto",
-      icon: "success",
-      confirmButtonText: "Aceptar",
-    })
-    await dispatch<any>(fetchMenus())
-  }
+  
   const fetchOrder = async (id: string | null) => {
     if (!id) {
       return
@@ -69,6 +61,25 @@ export const Rating = () => {
   if (order === null) {
     return <h1>Loading...</h1>
   }
+ 
+  const handleClick = async () => {
+    Swal.fire({
+      title: "Bien",
+      text: "Gracias por su voto",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    })
+    await dispatch<any>(fetchMenus())
+  }
+
+  
+
+
+
+
+
+
+  
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>pedido de la mesa {order.table}</h2>
@@ -87,7 +98,7 @@ export const Rating = () => {
               <h4>{x.dish.title}</h4>
               <h6>precio :{x.dish.price}$</h6>
               <p>Average Rating: {average}</p>
-              <img src={x.dish.image} alt="" />
+              <img className={styles.foto} src={x.dish.image} alt="" />
               <section>
                 <button
                   onClick={() => {

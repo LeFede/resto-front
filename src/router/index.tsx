@@ -6,6 +6,7 @@ import { UserForm } from "@/components/UserFrom"
 import { Main } from "@/layouts"
 
 import {
+  About,
   Cart,
   Chart,
   Dashboard,
@@ -89,6 +90,10 @@ export const router = createBrowserRouter([
       {
         path: "/chart",
         element: <Chart />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
     ],
   },
