@@ -178,7 +178,7 @@ export const restoSlice = createSlice({
       }
     },
 
-    resetCart: (_: any, __: any) => {
+    resetCart: (_: any) => {
       window.localStorage.setItem("cart", JSON.stringify([]))
     },
 

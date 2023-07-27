@@ -24,8 +24,8 @@ export const Rating = () => {
     return data
   }
   useEffect(() => {
-    dispatch(resetCart)
     fetchOrder(id).then((data) => setOrder(data))
+    dispatch(resetCart())
   }, [])
 
   const updateDishReviews = async (dishId: string, newReview: number) => {
