@@ -11,7 +11,7 @@ export const About = () => {
 
         <div className={styles.carta}>
           <img className={styles.foto} src={juanjo} alt="" />
-          <h3 className={styles.name}>Juan Jose Montilla</h3>
+          <h3 className={styles.name}>Juan</h3>
           <div>
             <a className={styles.img} href="https://github.com/Juanjo740" target="_blank">
                 <img className={styles.img} src={git} alt="github" />
@@ -25,7 +25,7 @@ export const About = () => {
 
         <div className={styles.carta}>
           <img className={styles.foto} src={ire} alt="" />
-          <h3 className={styles.name}>Ire</h3>
+          <h3 className={styles.name}>Iremar</h3>
           <div>
             <a className={styles.img} href="https://github.com/Ildik0-0" target="_blank">
                 <img className={styles.img} src={git} alt="github" />
@@ -41,7 +41,7 @@ export const About = () => {
 
         <div className={styles.carta}>
           <img className={styles.foto} src={nico} alt="" />
-          <h3 className={styles.name}>nico</h3>
+          <h3 className={styles.name}>Nicolas</h3>
           <div>
             <a className={styles.img} href="https://github.com/NGSalvo" target="_blank">
                 <img className={styles.img} src={git} alt="github" />
@@ -56,7 +56,7 @@ export const About = () => {
 
         <div className={styles.carta}>
           <img className={styles.foto} src={gina} alt="" />
-          <h3 className={styles.name}>gina</h3>
+          <h3 className={styles.name}>Gina</h3>
           <div>
             <a className={styles.img} href="https://github.com/GinaLoaizaH" target="_blank">
                 <img className={styles.img} src={git} alt="github" />
@@ -68,8 +68,8 @@ export const About = () => {
         </div>
 
         <div className={styles.carta}>
-          <img className={styles.foto} src={carlos} alt="" />
-          <h3 className={styles.name}>carlos</h3>
+          <img className={styles.fotos} src={carlos} alt="" />
+          <h3 className={styles.name}>Carlos</h3>
           <div>
             <a className={styles.img} href="https://github.com/CERP27" target="_blank">
                 <img className={styles.img} src={git} alt="github" />
@@ -84,7 +84,7 @@ export const About = () => {
 
         <div className={styles.carta}>
           <img className={styles.foto} src={fede} alt="" />
-          <h3 className={styles.name}>lefe</h3>
+          <h3 className={styles.name}>Federico</h3>
           <div>
             <a className={styles.img} href="https://github.com/LeFede" target="_blank">
                 <img className={styles.img} src={git} alt="github" />
@@ -100,7 +100,7 @@ export const About = () => {
 
         <div className={styles.carta}>
           <img className={styles.foto} src={tobias} alt="" />
-          <h3 className={styles.name}>yo</h3>
+          <h3 className={styles.name}>Tobias</h3>
           <div>
             <a className={styles.img} href="https://github.com/crtobias" target="_blank">
                 <img className={styles.img} src={git} alt="github" />
@@ -115,7 +115,7 @@ export const About = () => {
 
         <div className={styles.carta}>
           <img className={styles.foto} src={gian} alt="" />
-          <h3 className={styles.name}>gian</h3>
+          <h3 className={styles.name}>Gian</h3>
           <div>
             <a className={styles.img} href="https://github.com/GianGrav" target="_blank">
                 <img className={styles.img} src={git} alt="github" />

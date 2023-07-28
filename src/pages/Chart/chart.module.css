@@ -1,37 +1,36 @@
 .stat {
-  background-color: rgba(0, 0, 0, 0.507);
-  margin: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
+  background-color: #423830;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 
+}
+.aaaa{
+  text-align: center;
+}
 .stat svg {
   padding: 1rem;
 }
 
 .container {
-  background-color: rgba(0, 0, 0, 0.11);
-  display: flex;
-  flex-direction: column;
+text-align: center;
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 
+  repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+  gap: 30px;
   align-items: center;
-  gap: 25px;
+  place-items: center;
+  margin-bottom: 60px;
 }
 
 .title {
   font-family: var(--font-3);
 }
 
-.con {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.con div {
-  flex-direction: column;
-}
-
-@media (min-width: 850px) {
-  /* .con {
-    flex-direction: row;
-  } */
-}

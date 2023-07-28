@@ -48,14 +48,16 @@ export const Chart = () => {
   )
 
   return (
+   <div className={styles.aaaa}>
+     <h5 className={styles.title}>Ultimo mes</h5>
     <div className={styles.container}>
-      <h1 className={styles.title}>Ganancias</h1>
+      
       <div className={styles.con}>
         <div>
           <h5>Ultimo mes</h5>
           <LineChart
             className={styles.stat}
-            width={800}
+            width={350}
             height={300}
             data={filtered.reduce((prev, curr) => {
               // if (prev.includes(e => e.name === curr.name)) console.log('includes')
@@ -83,7 +85,7 @@ export const Chart = () => {
 
           <LineChart
             className={styles.stat}
-            width={800}
+            width={350}
             height={300}
             data={filtered.reduce((prev, curr) => {
               // if (prev.includes(e => e.name === curr.name)) console.log('includes')
@@ -114,5 +116,6 @@ export const Chart = () => {
         </div>
       </div>
     </div>
+   </div>
   )
 }
