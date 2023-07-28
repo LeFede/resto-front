@@ -63,7 +63,13 @@ pointer-events: none;
   align-items: center;
   min-height: 500px;
   overflow: scroll;
+
 }
+
+.filters::-webkit-scrollbar{
+  color: transparent;
+}
+
 .containerbutton{
   bottom: 0;
   left: 0;

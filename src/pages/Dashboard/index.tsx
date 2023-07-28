@@ -108,6 +108,10 @@ export const Dashboard = () => {
     return <h1>Loading...</h1>;
   }
 
+
+
+
+
   return (
     <section className={styles.fakeback}>
 
@@ -119,8 +123,8 @@ export const Dashboard = () => {
 
 
 
+      
       <h2 className={styles.title}>Ordenes</h2>
-
       <div className={styles.dashboard}>
       
       {activeOrders.map((order: any) => (
@@ -159,7 +163,8 @@ export const Dashboard = () => {
           <ul>
             {order.item.map((item: any) => (
               <li className={styles.table} key={item._id}>
-                <h3>{item.title}</h3>
+               
+                <h3>{item.dish.title}</h3>
                 <p>Quantity: {item.quantity}</p>
                 {item.observation && <p>Observation: {item.observation}</p>}
               </li>
